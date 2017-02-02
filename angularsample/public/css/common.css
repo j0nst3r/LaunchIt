@@ -1,0 +1,176 @@
+
+* {margin:0;padding:0;}
+
+ul li {
+	list-style-type:none;
+}
+
+.main-wrapper {
+	width:75%;
+	margin:0 auto;
+	margin-top:1%;
+	overflow:auto;
+}
+.main-wrapper .menu {
+	min-height:100%;
+	width:15%;
+	float:left;
+	
+}
+
+.messageDiv{
+	opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+	text-align: center;
+	padding: 2.5%;
+	font-family: Lato;
+	color: black;
+	font-size: 20px;
+}
+
+.main-wrapper .menu .icon-list {
+	background:#ccc;
+	height:50px;
+	margin-top:5px;
+	overflow:hidden;
+}
+
+#dir {
+	height:431px;
+	width: 200px;
+	margin-top:5px;
+	overflow: auto;
+}
+
+.menu a {
+	background:#aba9ad;
+	font-weight:bold;
+	display:block;
+	color:#fff;
+	text-decoration:none;
+	outline:none;
+	padding:14px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.menu a:hover {
+	color:#0CF;
+}
+
+#all-msg,#new-msg,#unread-msg {
+	display:none;
+	float:left;
+	width:75%;
+	margin-left:2%;
+	
+}
+
+.message {
+	border:1px solid #9ca1b3;
+	height:120px;
+	margin:10px 10px 20px 10px;
+}
+.message .left-head{
+	width:120px;
+	height:100%;
+	float:left;
+}
+.left-head img{
+	margin:10px;
+	width:100px;
+	height:100px;
+}
+.message .msg-info{
+	height:100%;
+	float:left;
+	width:80%;
+	padding-left:3%;
+}
+.msg-info .info {
+	height:30%;
+	padding-top:20px;
+}
+.info .nickname {
+	float:left;
+}
+.info .time {
+	margin-left:20px;
+	float:left;
+}
+.msg-info .content {
+	padding-top:30px;
+}
+
+.mydialog {
+	padding:5px 5px;
+	border:2px solid #9ca1b3;
+	height:350px;
+	overflow:auto;
+}
+
+.mydialog .item {
+	text-align:left;
+	word-break:break-all;
+　　word-wrap:break-word;
+}
+
+.mydialog .item span {
+	color:#0CF;
+}
+
+/*
+.mydialog .item:nth-child(2n) {
+	text-align:right;
+}
+*/
+
+.enter {
+	margin-top:10px;
+	padding:5px 0px;
+}
+
+.enter textarea {
+	width:100%;
+	box-sizing:border-box;
+	resize:none;
+	height:100px;
+}
+
+.enter .subb {
+	padding-top:3px;
+	text-align:right;
+}
+
+.enter button {
+	border:none;
+	border-radius:5px;
+	padding:5px 20px;
+	background:#0CF;
+	color:white;
+	cursor:pointer;
+}
+
+.menu .inputs {
+	position:relative;
+}
+
+.menu .inputs input {
+	width:200px;
+	height:25px;
+	box-sizing:border-box;
+}
+
+.menu .inputs button {
+	width:20px;
+	height:20px;
+	background:url(../images/mysearch.png) no-repeat;
+	border:none;
+	outline:none;
+	position:absolute;
+	top:3px;
+	right:5px;
+	cursor:pointer;
+}
+
+
+

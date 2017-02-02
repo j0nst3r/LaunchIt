@@ -1,0 +1,350 @@
+<head>
+	<title>Profile</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/profile.css"> <!-- custom styles -->
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+</head>
+
+
+
+<!-- <div class="jumbotron text-center"> -->
+<div class="container fade-in one" style="margin-top: 20px; margin-bottom: 20px; width: 80%">
+	<div class="row panel">
+		<div class="col-md-4 bg_blur img-circle" ng-style="{'background-image':'url('+imgURL+')'}">
+		</div>
+        <div class="col-md-8  col-xs-12">
+           <div class="header">
+                <h1>{{user.name}}</h1>
+                <h4>{{user.jobTitle}}</h4>
+                <span>Working with {{user.company}}</span>
+                <div class="row">
+				    <div id="editButton"><a data-toggle="modal" data-target="#myModalImage" class="btn btn-default" ng-click="profileImageClick()">
+				        <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+				    </a></div>
+                </div>
+           </div>
+        </div>
+    </div>    	
+	<div class="row nav">    
+        <!-- <div class="col-md-4"></div> -->
+        <div class="col-md-12 col-xs-12" style="margin: 0px;padding: 0px;">
+            <div class="col-md-3 col-xs-3 well" ng-click="addButton()"><i class="fa fa-plus fa-lg"></i></div>
+            <div class="col-md-3 col-xs-3 well" ng-click="addButton()"><i class="fa fa-forumbee fa-lg"></i></div>
+            <div class="col-md-3 col-xs-3 well"><i class="fa fa-weixin fa-lg"></i></div>
+            <div class="col-md-3 col-xs-3 well"><i class="fa fa-envelope-o fa-lg"></i></div>
+        </div>
+    </div>
+</div>
+ 
+<div class="row fade-in two">
+	<div class="container" style="width: 70%">
+		<div class="jumbotron">
+	    <div id="editButton"><a data-toggle="modal" data-target="#myModal" class="btn btn-default" ng-click="summaryClick()">
+	        <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+	    </a></div>
+			<h2 style="color: #0868A0; text-shadow: 0.5px 0.7px black;">Summary</h2>
+			<p id="textArea" ng-repeat='x in user.summary'>{{x}}</p> 
+		</div>
+	</div>
+</div>
+
+
+<div class="row fade-in three">
+	<div class="container" style="width: 70%">
+		<div class="jumbotron">
+	    <div id="editButton"><a data-toggle="modal" data-target="#myModalEDU" class="btn btn-default" ng-click="eduClick()">
+	        <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+	    </a></div>
+			<h2  style="color: #0868A0; text-shadow: 0.5px 0.7px black;"><i class="fa fa-graduation-cap" aria-hidden="true" style="padding-right: 10px;"></i>Education</h2> 
+			<div ng-repeat='x in user.education'>
+				<div class="row">
+					<div class="col-md-12">
+						<h2 style="font-weight: bold;" class="pull-left">{{x.schoolName}}</h2>
+					</div>
+					<div class="col-md-12">
+						<h4>{{x.graduationDate}}</h4> 
+						<h4>{{x.description}}</h4> 
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="row fade-in three" >
+	<div class="container" style="width: 70%">
+		<div class="jumbotron">
+			<h2 style="color: #0868A0; text-shadow: 0.5px 0.7px black;"><i class="fa fa-briefcase" aria-hidden="true" style="padding-right: 10px;"></i>Experience</h2> 
+		    <div id="editButton"><a data-toggle="modal" data-target="#myModalEXP" class="btn btn-default" ng-click="expClick()">
+	        <span><i class="fa fa-pencil" aria-hidden="true"></i></span></a></div>
+			<div ng-repeat='x in user.experience'>
+				<div class="row">
+					<div class="col-md-12">
+						<h2 style="font-weight: bold;" class="pull-left">{{x.company}}</h2>
+					</div>
+					<div class="col-md-12">
+						<h4>{{x.jobTitle}}</h4> 
+						<h4>{{x.responsibility}}</h4> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row fade-in three" >
+	<div class="container" style="width: 70%; padding-bottom: 10px;">
+		<div class="jumbotron">
+
+			<h2 style="color: #0868A0; text-shadow: 0.5px 0.7px black;"><i class="fa fa-wrench" aria-hidden="true" style="padding-right: 10px;"></i>Skills</h2> 
+		    <div id="editButton"><a data-toggle="modal" data-target="#myModalSkills" class="btn btn-default" ng-click="skillsClick()"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></a></div>
+
+			<div class="container" ng-repeat='x in user.skills'>
+				<div class="row"> 
+					<h3>inline</h3>
+			    	<span class="col-sm-3">{{x.skillName}}</span>
+			    	<div class="progress" class="col-sm-9">
+						<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" ng-style="myStyle(x)">
+			    			{{x.skillLevel}}%
+						</div>
+			   		</div>
+			  	</div>  
+			</div>
+<!-- 		    <div class="row" ng-repeat='x in user.skills'>
+
+		    	<div class="col-md-1">
+		    		<h4>+{{x.endorsementLevel}}</h4>
+		    	</div>	
+		    	<div class="col-md-5">
+		  		    <h4>{{x.skillName}}</h4>
+		    	</div>
+		    	<div class="col-md-2">
+		    		<h4>{{x.skillLevel}}</h4>
+		    	</div>	    	
+		    </div> -->
+
+		</div>
+	</div>
+</div>
+
+<!-- Profile Header modal -->
+<div class="modal fade" id="myModalImage" role="dialog">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	             <h4 class="modal-title">Edit {{modalHeader}}</h4>
+
+	        </div>
+	        <div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+			            <form method="post" enctype="multipart/form-data" action="{{'/api/uploadProfileImage/' + user._id }}" name="myForm">
+				            <!--<div>Crop Image and Upload</div>
+					        <button ngf-select ng-model="picFile" accept="image/*">
+					            Select Picture
+					        </button>
+					        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
+					             class="cropArea">
+					            <img-crop image="picFile  | ngfDataUrl"                 
+									result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+					            </img-crop>
+					        </div>
+					        <div>
+					            <img ng-src="{{croppedDataUrl}}" />
+					        </div>
+							<input type="submit" value="Upload image"/>   
+					        <span class="progress" ng-show="progress >= 0">
+					        	<div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+					        </span>
+					        <span ng-show="result">Upload Successful</span>
+					        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>-->
+							<div class="bg_blur img-circle" ng-style="{'background-image':'url('+imgURL+')'}" style="display: block; margin: 0 auto;">
+							</div>
+							<div>&nbsp</div>
+							<input type="file" name="file">
+							<input type="submit" name="upload">
+						</form>
+					</div>
+					<div class="col-md-5">
+						<div class="row">
+				    		<label for="email">Name:</label>
+			    			<input ng-model="editBody[0].name" type="text" class="form-control">
+						</div>
+						<div class="row">
+					    	<label for="email">Company:</label>
+				    		<input ng-model="editBody[0].company" type="text" class="form-control">
+						</div>
+						<div class="row">
+				    		<label for="email">Job Title:</label>
+			    			<input ng-model="editBody[0].jobTitle" type="text" class="form-control">
+						</div>
+					</div>
+				</div>
+
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+	        </div>
+	    </div>
+	    <!-- /.modal-content -->
+	</div>
+</div>
+
+<!-- Summary modal -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	             <h4 class="modal-title">Edit {{modalHeader}}</h4>
+
+	        </div>
+	        <div class="modal-body">
+	        	<textarea class="form-control" rows="5" type="text" ng-model="editBody"></textarea>
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+	        </div>
+	    </div>
+	    <!-- /.modal-content -->
+	</div>
+</div>
+
+
+<!-- Education modal -->
+<div class="modal fade" id="myModalEDU" role="dialog">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title">Edit {{modalHeader}}</h4>
+	        </div>
+	        <div class="modal-body">
+				<div ng-repeat='edu in editBody track by $index'>
+					<div class="row">
+						<div class="col-md-1">
+						<a href="#">
+							<i class="fa fa-minus-square fa-2x" aria-hidden="true" style="color: red;" ng-click='minusClick($index)'></i>
+						</a>
+						</div>
+						<div class="col-md-11">
+					    	<label for="email">School Name:</label>
+				    		<input ng-model="edu.schoolName" type="text" class="form-control">
+						</div>
+						<div class="col-md-6">
+						    <label for="email">Graduation Date:</label>
+						    <input ng-model="edu.graduationDate" type="text" class="form-control">
+						</div>
+						<div class="col-md-6">
+						    <label for="email">Description:</label>
+						    <input ng-model="edu.description" type="text" class="form-control">
+						</div>
+					</div>
+					<div><h2>&nbsp</h2></div>
+				</div>
+	        </div>
+	        <div class="modal-footer">
+				<a href="#">
+	    			<i class="fa fa-plus-square fa-2x pull-left" aria-hidden="true" style="color: green;" ng-click='plusClick($index)'></i>
+	    		</a>
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+	        </div>
+	    </div>
+	    <!-- /.modal-content -->
+	</div>
+</div>
+
+<!-- Experience modal -->
+<div class="modal fade" id="myModalEXP" role="dialog">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title">Edit {{modalHeader}}</h4>
+	        </div>
+	        <div class="modal-body">
+				<div ng-repeat='exp in editBody track by $index'>
+					<div class="row">
+						<div class="col-md-1">
+						<a href="#">
+							<i class="fa fa-minus-square fa-2x" aria-hidden="true" style="color: red;" ng-click='minusClick($index)'></i>
+						</a>
+						</div>
+						<div class="col-md-11">
+					    	<label for="email">Company:</label>
+				    		<input ng-model="exp.company" type="text" class="form-control">
+						</div>
+						<div class="col-md-6">
+						    <label for="email">Job Title:</label>
+						    <input ng-model="exp.jobTitle" type="text" class="form-control">
+						</div>
+						<div class="col-md-6">
+						    <label for="email">Responsibilities:</label>
+						    <input ng-model="exp.responsibility" type="text" class="form-control">
+						</div>
+					</div>
+					<div><h2>&nbsp</h2></div>
+				</div>
+	        </div>
+	        <div class="modal-footer">
+				<a href="#">
+	    			<i class="fa fa-plus-square fa-2x pull-left" aria-hidden="true" style="color: green;" ng-click='plusClick($index)'></i>
+	    		</a>
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+	        </div>
+	    </div>
+	    <!-- /.modal-content -->
+	</div>
+</div>
+
+<!-- Education modal -->
+<div class="modal fade" id="myModalSkills" role="dialog">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button href="#" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title">Edit {{modalHeader}}</h4>
+	        </div>
+	        <div class="modal-body">
+				<div ng-repeat='skill in editBody track by $index'>
+					<div class="row">
+						<div class="col-md-1">
+						<a href="#">
+							<i class="fa fa-minus-square fa-2x" aria-hidden="true" style="color: red;" ng-click='minusClick($index)'></i>
+						</a>
+						</div>
+						<div class="col-md-6">
+					    	<label for="email">Skill Name:</label>
+				    		<input ng-model="skill.skillName" type="text" class="form-control">
+						</div>
+						<div class="col-md-5">
+						    <label for="email">Skill Level:</label>
+						    <input ng-model="skill.skillLevel" type="text" class="form-control">
+						</div>
+					</div>
+					<div><h2>&nbsp</h2></div>
+				</div>
+	        </div>
+	        <div class="modal-footer">
+				<a href="#">
+	    			<i class="fa fa-plus-square fa-2x pull-left" aria-hidden="true" style="color: green;" ng-click='plusClick($index)'></i>
+	    		</a>
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">Save changes</button>
+	        </div>
+	    </div>
+	    <!-- /.modal-content -->
+	</div>
+</div>

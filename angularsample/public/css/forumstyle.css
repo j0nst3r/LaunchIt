@@ -1,0 +1,64 @@
+.commentNumber { margin-top: 2em; margin-left: 13em; }
+.calendar-text { margin-top: .02em; }
+hr{
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color: #EEEEEE;
+}
+/*border around divs*/
+.media {
+    border-radius: 10px;
+}
+/*forum picture*/
+.media-object {
+    width: 150px;
+    height: 150px;
+    margin: 30px;
+}
+/*forum name*/
+.media-heading > a {
+    text-decoration: none;
+    color: black;
+}
+.media-heading {
+    padding-top: 30px;
+    font-size: 25px;
+    color: black;
+}
+
+.media-body{
+     font-family: Arial, Gadget, sans-serif;
+
+}
+/*forum description*/
+.media-body > p {
+   
+    font-size: 20px;
+}
+.media-left > p {
+
+    font-size: 15px;
+}
+/*featured style*/
+.featured{
+    background-color: #0868A0;
+    color: white;
+    box-shadow: 3px 3px 5px #888888;
+}
+
+.textcolor{
+	color:white;
+}
+/*glyphicon style*/
+.glyphicon {
+    padding-right: 10px;
+}
+/*forums style*/
+.forums {
+    background-color: #42BBEB;
+    box-shadow: 3px 3px 5px #888888;
+}
+.btn {
+    float: left;
+}

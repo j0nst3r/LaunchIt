@@ -1,0 +1,118 @@
+<link rel="stylesheet" type="text/css" href="css/Connection.css">
+<div class="jumbotron text-center">
+
+<!-- Connection page tab main-->
+<div class="container  ">
+	  <ul class="nav nav-pills">
+    		 <li class="active"><a data-toggle="pill" href="#connections">Connections</a></li>
+    		 <li><a data-toggle="pill" href="#requests">Requests</a></li>
+      </ul>
+</div>
+  
+
+<!-- Connection tab-->
+	<div class="tab-content ">
+	<div id="connections" class="tab-pane fade in active">
+   
+   
+<!--Connections-->
+<h2 align = "center">Connections <span class="label label-info"">{{pendingConnect.length}}</span></h2>
+
+
+<!-- Search box-->
+ <br />
+    <div class = "row ">
+  			<div class="col-sm-4">
+    			<div class="input-group">
+     				 <input type="text"  ng-model="search[searchBy]" class="form-control" placeholder="Search Connections">
+     			       <div class="input-group-btn">
+      	 			  <button type="button" class="btn btn-default" title="Search"><span class="glyphicon glyphicon-search"></span></button>
+        		 </div><!--row-->
+       		   </div><!--col-sm-4-->
+           </div><!--inputgroup-->
+    </div><!--input group button-->
+    
+ <br />
+
+<!-- Connection main-->
+<div class = "row ">
+<div class = "col-md-2" ng-repeat="connection in connectionResult  | filter:search as pendingConnect">
+      <div class="boxed" align = "center">
+          <br />
+     	  <br />
+          		<img ng-src="{{'http://localhost:8080/api/userImage/' + connection._id}}" class="img-circle" alt="Cinque Terre" width = 100px height = 100px >
+          <br />
+         		<p1><a href="#" ng-click="visitProfile(connection)"><b>{{connection.name}}</b></a></p1>
+          <br />
+          		 <p2>{{connection.jobTitle}}</p2> 
+          <br />
+                 <p2>{{connection.company}}</p2> 
+  
+    
+<!-- Dropdown manu-->         
+	<div class="dropdown" >
+  				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Connected <span class="glyphicon glyphicon-ok"></span>
+  					<span class="caret"></span></button>
+  				      <ul class="dropdown-menu" role="menu">
+    		    		 <li><a ng-href="#" ng-click="removeConnection(connection)"><span class="glyphicon glyphicon-trash"></span> Disconnect</a></li>
+  		              </ul>
+	  </div> <!--dropdown-->
+      <br /> 
+ 
+
+      </div><!--boxed-->    
+    </div><!--col-md-2-->   
+  </div><!--row-->
+</div> 
+
+<!--connections ends here-->
+
+
+
+
+
+
+<!-- Requests Tab-->
+<div id="requests" class ="tab-pane fade">
+  
+		<h2 align="center">Connection Requests <span class="label label-info"">{{connectList.length}}</span></h2>
+		  <br />
+<!--Connection Request bubbles utilizing Bootstrap-->
+
+
+
+<!-- Requests main-->
+<div class = "row ">
+      	<div class = "col-md-2" ng-repeat="connection in queryResult| filter:req as connectList">
+     		 <div class="boxed" align = "center">
+     		  <br />
+                <img ng-src="{{'http://localhost:8080/api/userImage/' + connection._id}}" class="img-circle" alt="Cinque Terre" width = 100px height = 100px >
+	      	      
+		  <br/>
+         		 <p1><a href="#" ng-click="visitProfile(connection)"><b>{{connection.name}}</b></a></p1>
+          <br />
+         		 <p2>{{connection.jobTitle}}</p2>
+          <br /> 
+        		 <p2>{{connection.company}}</p2> 
+          <br />
+          
+<!-- Requests buttons-->                   
+           	 <button type="button" class="btn btn-primary btn-xs" ng-click="approveConnection(connection)">Accept </button>
+           	 <button type="button" class="btn btn-primary btn-xs" ng-click="declineConnection(connection)">Deny</button>
+               <br />
+            <br />
+		</div><!--boxed-->
+      </div><!--colmd2-->
+   </div><!--row-->
+</div>
+
+
+<!--request ends here-->
+
+
+
+
+</div> <!-- tab content ends here-->
+
+</div><!--jumbo-->
+

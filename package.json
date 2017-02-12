@@ -1,0 +1,17 @@
+{
+  "name": "f17cmpe165",
+  "version": "1.0.0",
+  "description": "Pinterest Clone",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j0nst3r/f17cmpe165.git"
+  },
+  "bugs": {
+    "url": "https://github.com/j0nst3r/f17cmpe165/issues"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "mongoose": "^4.8.2"
+  }
+}

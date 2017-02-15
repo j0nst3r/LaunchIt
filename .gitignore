@@ -1,2 +1,5 @@
 #Node_Modules
 node_modules/
+
+#Angular_Libs
+public/libs/

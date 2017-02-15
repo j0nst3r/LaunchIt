@@ -1,1 +1,0 @@
-Non-Angular resources go here!

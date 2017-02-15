@@ -1,1 +1,0 @@
-Angular Specific Views, Services, Controlelrs, etc. go under this app folder.

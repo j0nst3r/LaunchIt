@@ -11,7 +11,8 @@ var LaunchSchema = new Schema({
     comments : [String],
     website : String,
     description : String,
-    vote : Boolean
+    voteYay : Number,
+    voteNay : Number
 });
 // define our Launch model
 // module.exports allows us to pass this to other files when it is called

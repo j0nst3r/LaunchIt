@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 //Defines our launchpad schema
 var launchpadSchema = new Schema({
-    launches : [],
+    launches : [{launch_id: ObjectId}],
     description : String
 });
 // define our launchpad model

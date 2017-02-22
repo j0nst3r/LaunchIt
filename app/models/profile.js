@@ -4,8 +4,10 @@ var Schema = mongoose.Schema;
 
 //Defines our profile schema
 var profileSchema = new Schema({
-    email: String, //used to reference actual user tied to this email
-    launchpads: [], //if this doesn't work, try {type : Array, "default" : []} as it is more descriptive
+    username: String,
+    firstName: String,
+    lastName: String,
+    launchpads: [{launchpad_id: ObjectId}], //if this doesn't work, try {type : Array, "default" : []} as it is more descriptive
     description: String
 });
 // define our profile model

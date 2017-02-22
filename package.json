@@ -11,8 +11,7 @@
     "url": "https://github.com/j0nst3r/f17cmpe165/issues"
   },
   "dependencies": {
-"body-parser": "~1.4.2",
-"body-parser": "~1.4.2",
+    "body-parser": "~1.4.2",
     "busboy": "^0.2.13",
     "connect-busboy": "0.0.2",
     "debug": "^2.3.3",

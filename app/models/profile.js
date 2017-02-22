@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 //Defines our profile schema
 var profileSchema = new Schema({
+    user_id: ObjectId, //alternatively, to make it more NoSQL-like we can have the whole profile be a sub-doc of user
     username: String,
     firstName: String,
     lastName: String,

@@ -10,6 +10,9 @@
   "bugs": {
     "url": "https://github.com/j0nst3r/f17cmpe165/issues"
   },
+  "scripts": {
+    "start": "PORT=80 nodemon ./server.js"
+  },
   "dependencies": {
     "body-parser": "~1.4.2",
     "busboy": "^0.2.13",

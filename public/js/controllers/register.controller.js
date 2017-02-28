@@ -36,12 +36,49 @@ router.post('/', function (req, res) {
 
 
 
+
 //===========================================
 //LOGIN RELATED SERVICES.....
 //===========================================
 
 
+router.post('/login', function(req, res) {
+	//find User
+	User.findOne({
+		username: req.body.username
+	}).select('name username password').exec(function(err, user) {
+		if (err) throw err;
+		if (!user) {
+			res.json({
+			success: false,
+			message: 'Authentication failed. User not found.'
+			});
+		} else if (user) {
+			// check if password matches
+			var validPassword = user.comparePassword(req.body.password);
+			if (!validPassword) {
+				res.json({
+					success: false,
+					message: 'Authentication failed. Wrong password.'
+				});
+			} else {
+				var token = jwt.sign({
+					name: user.name,
+					username: user.username
+				}, superSecret, {
+					expiresInMinutes: 2880 // expires 2 days
+				});
 
+				res.json({
+					success: true,
+					message: 'Enjoy your token!',
+					token: token
+				});
+			}
+		}
+
+	});
+});
 
 
 

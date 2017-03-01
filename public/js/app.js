@@ -1,1 +1,1 @@
-angular.module('LaunchIt', ['ngRoute', 'appRoutes', 'MainCtrl', 'NerdCtrl', 'NerdService', 'GeekCtrl', 'GeekService', 'RegistrationCtrl']);
+angular.module('LaunchIt', ['ngRoute', 'appRoutes', 'MainCtrl', 'NerdCtrl', 'NerdService', 'GeekCtrl', 'GeekService', 'RegistrationCtrl', 'LoginCtrl']);

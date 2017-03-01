@@ -17,6 +17,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/geek.html',
 			controller: 'GeekController'	
 		})
+
+		.when('/login',{
+			templateUrl: 'views/login.html',
+			controller: 'LoginController as controller'
+		})
 		
 		.when('/registration', {
 			templateUrl: 'views/registration.html',

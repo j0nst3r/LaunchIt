@@ -4,10 +4,9 @@
 	<meta charset="UTF-8">
 	<base href="/">
 
-	<title>Starter Node and Angular</title>
+	<title>Launchit</title>
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
 
 	<!-- JS -->
@@ -29,15 +28,20 @@
 <body ng-app="LaunchIt" ng-controller="NerdController">
 <div class="container">
 	
-	<!-- HEADER -->
-	<nav class="navbar navbar-inverse">
+	<!-- HEADER/Navigation bar; code reference from w3schools.com -->
+	<nav class="navbar">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+			<a class="navbar-brand" href="/">Launchit!</a>
 		</div>
-		<ul class="nav navbar-nav">
-			<li><a href="/nerds">Nerds</a></li>
-			<li><a href="/geeks">Geeks</a></li>
-			<li><a href="/registration">Register</a></li>
+		<ul class="topnav" id="thetopnav">
+			<li><input type="text" name="search" placeholder="Search.." id="search"></li>
+			<li><a href="#">Notifications</a></li>
+			<li><a href="#">Profile</a></li>
+			<li><a href="#">Account</a></li>
+			<li><a href="#">Launches</a></li>
+			<li class="icon">
+    			<a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+  			</li>
 		</ul>
 	</nav>
 

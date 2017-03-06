@@ -10,4 +10,12 @@ var userSchema = new Schema({
 });
 // define our user model, used for login purposes
 // module.exports allows us to pass this to other files when it is called
+
+UserSchema.methods.comparePassword = function(password) {
+    var user = this;
+    
+    return bcrypt.compareSync(password, user.password);
+};
+
+
 module.exports = mongoose.model('User', userSchema);

@@ -7,7 +7,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/home.html',
 			controller: 'MainController'
 		})
-		
+
+		.when('/login',{
+			templateUrl: 'views/login.html',
+			controller: 'LoginController as controller'
+		})
+  
 		.when('/registration', {
 			templateUrl: 'views/registration.html',
 			controller: 'RegistrationController'	

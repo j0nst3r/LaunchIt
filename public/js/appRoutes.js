@@ -10,7 +10,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		.when('/login',{
 			templateUrl: 'views/login.html',
-			controller: 'LoginController as controller'
+			controller: 'LoginController'
 		})
   
 		.when('/registration', {

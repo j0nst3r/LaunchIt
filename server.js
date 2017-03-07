@@ -34,7 +34,14 @@ app.post("/login", function (req, res) {
 });
 
 // routes ==================================================
-require('./app/routes')(app); // pass our application into our routes
+
+	// server routes ===========================================================
+	// handle things like api calls
+	// authentication routes
+	app.use('/api/*', require('./app/ApiController'));
+	
+	//front end routes
+	require('./app/routes')(app); // pass our application into our routes
 
 // start app ===============================================
 app.listen(port);	

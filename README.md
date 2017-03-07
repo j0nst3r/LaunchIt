@@ -1,4 +1,6 @@
-# Cmpe165 Project 
+[![Build Status](http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com:8080/buildStatus/icon?job=LaunchIt)](http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com:8080/job/LaunchIt/)
+
+# Cmpe165 Project
 
 ## Installation
 1. Download or clone the repository(pick your poison, use software or commandline)

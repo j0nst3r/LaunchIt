@@ -6,12 +6,11 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 
 // configuration ===========================================
-	
-// config files
-var dbConfig = require('./config/db');
+config = require('./config/property.js');
 
 var port = process.env.PORT || 8080; // set our port
-var db = mongoose.connect(dbConfig.url).connection;
+var db = mongoose.connect(config.dbUrl).connection;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("Database connection ready"); // connect to our mongoDB database (commented out after you enter in your own credentials)
@@ -35,6 +34,7 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 	
 	//front end routes
 	require('./app/routes')(app); // pass our application into our routes
+	
 
 // start app ===============================================
 app.listen(port);	

@@ -3,11 +3,74 @@ var service = {};
 service.resultSet = []; 
 service.connection = new Array(); //save connection socket
 
+service.validateEmail = validateEmail;
+service.createAccount = createAccount;
+service.createProfile = createProfile;
+
+module.exports = service;
+
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+
+var userSchema = require('../models/user.js');
+var user = mongoose.model('Users', userSchema);
+
+var profileSchema = require('../models/profile.js');
+var profile = mongoose.model('Profiles', profileSchema);
+
+
+
+//===========================================
+//ACCOUNT RELATED SERVICES.....
+//===========================================
+function createAccount(accountInfo){
+	var newUser = new user({
+		email : accountInfo.email,
+		password : accountInfo.password
+	});
+	
+	newUser.save(function(err, result){
+		if(err) return console.error(err);
+		return console.log(result);
+	});
+	
+	return user.findOne({email: accountInfo.email},function(err, result){
+		if(err) return console.error(err);
+		return result;
+	});
+}
+
+function validateEmail(userEmail){
+	console.log("IN validateEmail : " + userEmail);
+	return user.findOne(userEmail, function(err, result){
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+
+
+//===========================================
+//PROFILE RELATED SERVICES...................
+//===========================================
+function createProfile(reqData, userId){
+	console.log("IN createProfile service: "  + reqData + "," + userId);
+		var newProfile = new profile({
+				_id : userId,
+				displayName : reqData.displayName,
+				firstName : reqData.firstName,
+				lastName : reqData.lastName
+			});
+	return newProfile.save(function (err, result) {
+		if (err) return console.error(err);
+		return console.log(result);			
+	});
+}
+
+
 /*
 //account related service
 service.checkLoginCredential = checkLoginCredential;
-service.createAccount = createAccount;
-service.validateEmail = validateEmail;
 service.getAccount = getAccount;
 service.checkSecurityAnswer = checkSecurityAnswer;
 service.resetPassword = resetPassword;
@@ -40,7 +103,6 @@ service.getAllUsers = getAllUsers;
 service.getUsersByName = getUsersByName;
 */
 
-module.exports = service;
 
 
 
@@ -93,14 +155,6 @@ save the object into db
 
 
 
-var mongoose = require('mongoose');
-var db = mongoose.connection;
-
-var userSchema = require('../models/User.js');
-var user = mongoose.model('Users', userSchema);
-
-var profileSchema = require('../models/Profile.js');
-var profile = mongoose.model('Profiles', profileSchema);
 
 var forumSchema = require('../models/Forum.js');
 var forum = mongoose.model('Forums', forumSchema);
@@ -112,27 +166,6 @@ var message = mongoose.model('Message', messageSchema);
 //===========================================
 //ACCOUNT RELATED SERVICES.....
 //===========================================
-function createAccount(accountInfo){
-	//var user = mongoose.model('Users', userSchema);
-	var newUser = new user({
-		email : accountInfo.email,
-		password : accountInfo.password,
-		premium : accountInfo.premium,
-		sQuestion : accountInfo.sQuestion,
-		sAnswer : accountInfo.sAnswer,
-		birthday : accountInfo.birthday
-	});
-	
-	newUser.save(function(err, result){
-		if(err) return console.error(err);
-		return console.log(result);
-	});
-	
-	return user.findOne({email: accountInfo.email},function(err, result){
-		if(err) return console.error(err);
-		return result;
-	});
-}
 
 function checkLoginCredential(loginInfo){
 	var data = JSON.stringify(loginInfo);

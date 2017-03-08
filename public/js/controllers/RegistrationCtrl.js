@@ -1,12 +1,13 @@
-angular.module('RegistrationCtrl', []).controller('RegistrationController', function($scope, $rootScope, $location) {
+angular.module('RegistrationCtrl', [])
+
+.controller('RegistrationController', function($scope, $rootScope, $location, dataService) {
+	
+	$scope.emailCheckerResult = '';
+	$scope.emailFailed = true;
 	
 	$scope.createUserAccount = function(user){
-		/*var newUser = user;
-		newUser.name = user.firstName + " " + user.lastName;
-		newUser.sQuestion = user.sQuestion.question; 
-		delete newUser.firstName;
-		delete newUser.lastName;
-		
+		var newUser = user;
+		newUser.displayName = user.firstName + " " + user.lastName;
 		dataService.createAccount(newUser).then(function(body){
 			console.log(JSON.stringify(body.data));
 			if(body.data.message !== undefined && body.data.message === "OK"){
@@ -15,15 +16,14 @@ angular.module('RegistrationCtrl', []).controller('RegistrationController', func
 				
 			}
 		})
+		
 		console.log(newUser);
-		*/
 	};
 	
 	$scope.validatePasswordConfirmation = function(pass, passConf){
 		return (pass.$viewValue !== passConf.$viewValue);
 	};
 	
-	/*
 	$scope.resetChecker = function(){
 		$scope.emailCheckerResult = '';
 		$scope.emailFailed = true;
@@ -47,5 +47,5 @@ angular.module('RegistrationCtrl', []).controller('RegistrationController', func
 				}
 			});
 		}
-	}*/
+	}
 });

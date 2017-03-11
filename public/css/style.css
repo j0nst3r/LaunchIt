@@ -60,14 +60,14 @@ body {
 }
 #launchGrid {
 	position: relative;
-	column-width: 320px;
+	column-width: 500px;
 	column-gap: 15px;
   width: 90%;
 	max-width: 1100px;
 	margin: 50px auto;
 }
 .editLaunchBtn{
-	position:absolute;
+	position:relative;
 	bottom: 0;
 	right: 0;
 }

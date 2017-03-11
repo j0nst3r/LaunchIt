@@ -1,6 +1,12 @@
-<ul>
-	<li ng-repeat="launch in $ctrl.launches">
-		<h1>{{launch.name}}</h1>
-		<p>{{launch.description}}</p>
-	</li>
-</ul>
+<h1>CHECK OUT ALL THE PRETTY PICTURES</h1>
+
+<h3 ng-if="$ctrl.isPrivate">This is the private board</h3>
+
+<!-- A pretty picture thingy with magical buttons -->
+<figure ng-repeat="launch in $ctrl.launches">
+	<img ng-src="{{launch.image}}" />
+	<figcaption>{{launch.caption}}</figcaption>
+	<span>{{launch.yays}}</span>
+	<input type="button" value="^" title="I LIEK DIS" ng-click="launch.yay()"></input>
+	<input type="button" value="v" title="I H8 DIS" ng-click="launch.nay()"></input>
+</figure>

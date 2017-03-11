@@ -58,6 +58,19 @@ body {
 	max-width: 1100px;
 	margin: 50px auto;
 }
+#launchGrid {
+	position: relative;
+	column-width: 500px;
+	column-gap: 15px;
+  width: 90%;
+	max-width: 1100px;
+	margin: 50px auto;
+}
+.editLaunchBtn{
+	position:relative;
+	bottom: 0;
+	right: 0;
+}
 
 div#columns figure {
 	background: #fefefe;

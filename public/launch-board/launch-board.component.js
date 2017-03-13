@@ -9,12 +9,12 @@ angular.
 			isPrivate: '@'
 		},
 
-		controller: ['$location', function (location) {
+		controller: function () {
 			this.launches = [
 				new Launch("https://images-na.ssl-images-amazon.com/images/I/31S%2BCZ82ofL._SY300_.jpg", "A duck"),
 				new Launch("http://www.saintpetersblog.com/wp-content/uploads/2014/08/rubber-duck.jpg", "Another duck")
 			]
-		}]
+		}
 	})
 
 function Launch(image, description) {	// TODO Grab these from DB

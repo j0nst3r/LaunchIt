@@ -14,8 +14,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
   
 		.when('/registration', {
-			templateUrl: 'views/registration.html',
-			controller: 'RegistrationController'	
+			template: '<registrationform></registrationform>'
 		})
 		
 		.when('/notification', {

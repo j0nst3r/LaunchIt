@@ -1,17 +1,18 @@
 <div class="jumbotron text-center">
     <h1>Login Page</h1>
 
-    <div>
-
-        <form>
-            <p>Username : <span><input ng-model="user.username" placeholder="Username" type="text"></span></p>
-            <p>Password : <span><input ng-model="user.password" placeholder="Password" type="password"></span></p>
-            <p><input type="submit" ng-click="controller.login(user)"/></p>
-            <p><input type="checkbox" checked/> Remember me<br/>
-                Forget <a href="#">Username</a> /
-                <a href="#"> Password</a></p>
-            <p>New User <a href="Registration.html">Register Here</a></p>
-        </form>
-
-    </div>
+    <form name="form" ng-controller="LoginController" role="form">
+        <div class="form-group">
+			<label for="Email">Email</label>
+	        <input style="width:60%; margin-top:10px;" type="text" name="email" id="email" class="form-control" ng-model="email" placeholder="email" required />
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+    	    <input style="width:60%; margin-top:10px;" type="password" name="password" id="password" class="form-control" ng-model="password" placeholder="password" required />
+		</div>
+        <button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-primary" value="Login" title="Login" ng-disabled="!form.$valid">
+           	<span>Login</span>
+       	</button>
+			<p>New User <a href="/Registration.html">Register Here</a></p>
+    </form>
 </div>

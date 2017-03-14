@@ -3,6 +3,9 @@ var service = {};
 service.resultSet = []; 
 service.connection = new Array(); //save connection socket
 
+
+service.checkLoginCredential = checkLoginCredential;
+
 service.validateEmail = validateEmail;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
@@ -23,6 +26,17 @@ var profile = mongoose.model('Profiles', profileSchema);
 //===========================================
 //ACCOUNT RELATED SERVICES.....
 //===========================================
+function checkLoginCredential(loginInfo){
+	var data = JSON.stringify(loginInfo);
+	console.log("IN CHECK LOGIN CREDENTIAL : " + data);
+	//var user = mongoose.model('Users', userSchema);
+	return user.findOne({email: loginInfo.email, password: loginInfo.password}, '_id premium',function(err, result){
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+
 function createAccount(accountInfo){
 	var newUser = new user({
 		email : accountInfo.email,
@@ -70,7 +84,7 @@ function createProfile(reqData, userId){
 
 /*
 //account related service
-service.checkLoginCredential = checkLoginCredential;
+
 service.getAccount = getAccount;
 service.checkSecurityAnswer = checkSecurityAnswer;
 service.resetPassword = resetPassword;
@@ -167,16 +181,7 @@ var message = mongoose.model('Message', messageSchema);
 //ACCOUNT RELATED SERVICES.....
 //===========================================
 
-function checkLoginCredential(loginInfo){
-	var data = JSON.stringify(loginInfo);
-	console.log("IN CHECK LOGIN CREDENTIAL : " + data);
-	//var user = mongoose.model('Users', userSchema);
-	return user.findOne({email: loginInfo.email, password: loginInfo.password}, '_id premium',function(err, result){
-		if(err) return console.error(err);
-		console.log(result);
-		return result;
-	});
-}
+
 
 function validateEmail(userEmail){
 	console.log("IN validateEmail : " + userEmail);

@@ -1,5 +1,19 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $rootScope, $location, dataService) {	
 
-	$scope.tagline = 'To the moon and back!';	
+	$rootScope.isUserLoggedIn = (sessionStorage.getItem('loggedIn') == 'true');
 
+	this.logout = function(){
+		sessionStorage.setItem('loggedIn', false);
+		$location.path('/');
+	}
+	
+	this.loadRegistration = function(){
+		$location.path('/registration');
+	}
+	
+	this.goHome = function(){
+		if($rootScope.isUserLoggedIn){
+			$location.path('/');
+		}
+	}
 });

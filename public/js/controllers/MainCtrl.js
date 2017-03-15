@@ -1,9 +1,10 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $rootScope, $location, dataService) {	
+angular.module('MainCtrl', []).controller('MainController', function($rootScope, $location, dataService) {	
 
 	$rootScope.isUserLoggedIn = (sessionStorage.getItem('loggedIn') == 'true');
 
 	this.logout = function(){
 		sessionStorage.setItem('loggedIn', false);
+		$rootScope.isUserLoggedIn = false;
 		$location.path('/');
 	}
 	
@@ -12,8 +13,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ro
 	}
 	
 	this.goHome = function(){
-		if($rootScope.isUserLoggedIn){
-			$location.path('/');
-		}
+		$location.path('/');
 	}
 });

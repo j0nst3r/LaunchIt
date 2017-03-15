@@ -5,11 +5,10 @@ angular.module('LoginCtrl', []).controller('LoginController', function($scope, $
 			console.log(JSON.stringify(body.data));
 			if(body.data.message !== undefined && body.data.message === "OK"){
 				console.log(body.data.userInfo);
-				$scope.isUserLoggedIn = true;
-				$scope.userId = body.data.userInfo._id;
+				$rootScope.isUserLoggedIn = true;
 				sessionStorage.setItem('loggedIn', true);
 				sessionStorage.setItem('userId', body.data.userInfo._id);
-				$location.path('/'); // path not hash
+				$location.path('/');
 			}else{
 				$rootScope.isUserLoggedIn = false;
 				toastr.error('Login credentials invalid.')

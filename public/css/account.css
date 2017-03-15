@@ -1,0 +1,126 @@
+	html, body
+	{
+		height: 100%;
+	}
+	
+	body
+	{
+		margin: 0px;
+		padding: 0px;
+		font-size: 12pt;
+		font-weight: 300;
+		color: #444444;
+	}
+	
+	
+	ol, ul
+	{
+		padding: 0;
+		list-style: none;
+	}
+	
+	.button
+	{
+		display: inline-block;
+		padding: 1em 3em 1em 2em;
+		letter-spacing: 0.20em;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 0.90em;
+		color: #FFF;
+	}
+	
+	.button:before
+	{
+		display: inline-block;
+		background: #FFC31F;
+		margin-right: 1em;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 20px;
+		text-align: center;
+		color: #272925;
+	}
+
+	.title
+	{
+		margin-bottom: 3em;
+		text-align:left;
+	}
+	.title h2
+	{
+		font-size: 2.8em;
+	}
+	
+	.email {
+		margin-bottom:20px;
+	}
+	.email label,.password label,.name label,.picture label {
+		display: block;
+		line-height:30px;
+	}
+	.email input {
+		width:100%;
+	}
+	.password span {
+		color: red;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 28px;
+	}
+	
+    #header
+	{
+		position: relative;
+		float: left;
+		width: 20%;
+		padding: 3em 0em;
+	}
+
+	#logo
+	{
+		text-align: center;
+		margin-bottom: 4em;
+	}
+	
+	#logo a {
+    text-decoration: none;
+    color: black;
+}
+	
+	#logo span a
+	{
+		color: rgba(255,255,255,0.5);
+	}
+	
+	#logo img
+	{
+		display: inline-block;
+		margin-bottom: 1em;
+		border-radius: 50%;
+	} 
+	
+	#menu li a
+	{
+		display: block;
+		padding: 2em 1.5em;
+		text-align: center;
+		text-decoration:  none;
+		text-transform: uppercase;
+		font-weight: 700;
+		color: grey;
+	}
+	
+
+	#main
+	{
+		overflow: hidden;
+		padding: 3em 50px 5em 50px;
+		background: #FFF;
+		border-top: 10px solid #fff;
+		height: 100%;
+	}
+
+

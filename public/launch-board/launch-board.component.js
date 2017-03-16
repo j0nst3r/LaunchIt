@@ -11,15 +11,17 @@ angular.
 
 		controller: function () {
 			this.launches = [
-				new Launch("https://images-na.ssl-images-amazon.com/images/I/31S%2BCZ82ofL._SY300_.jpg", "A duck"),
-				new Launch("http://www.saintpetersblog.com/wp-content/uploads/2014/08/rubber-duck.jpg", "Another duck")
+				new Launch("Duck1", "A duck", "https://images-na.ssl-images-amazon.com/images/I/31S%2BCZ82ofL._SY300_.jpg"),
+				new Launch("Duck2", "Another duck", "http://www.saintpetersblog.com/wp-content/uploads/2014/08/rubber-duck.jpg")
 			]
 		}
 	})
 
-function Launch(image, description) {	// TODO Grab these from DB
-	this.image = image
+function Launch(name, description, image) {	// TODO Grab these from DB
+	this.name = name
 	this.description = description
+	this.image = image
+
 	this.yays = 0
 	
 	this.yay = () => this.yays++

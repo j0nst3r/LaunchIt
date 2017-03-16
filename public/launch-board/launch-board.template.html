@@ -29,7 +29,13 @@
 		transition: opacity .4s;
 	}
 
-	.image-center {
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+	.center {
 		position: absolute;
 		left: 30%;
 		right: 30%;
@@ -37,20 +43,24 @@
 	}
 </style>
 
-<h1>CHECK OUT ALL THE PRETTY PICTURES</h1>
+<h1>My Launches</h1>
 
-<h3 ng-if="$ctrl.isPrivate">This is the private board</h3>
+<input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" onclick="window.location.href='/createlaunch'"/>
 
 <!-- A pretty picture thingy with magical buttons -->
-<button onclick="window.location.href='/createlaunch'">+</button>
 <figure ng-repeat="launch in $ctrl.launches">
 	<div class="hidey">
-		<img class="hoverable" ng-src="{{launch.image}}" />
+		<img ng-src="{{launch.image}}" />
 
 		<div class="hidden">
-			<input type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()" style="float: right"></input>
-			<span class="image-center">{{launch.yays}}</span>
-			<input type="button" value="-" title="I H8 DIS" ng-click="launch.nay()" style="float: left"></input>
+			<input ng-if="$ctrl.isPrivate" class="left" type="button" value="Edit" title="Edit Launch" ng-click="$ctrl.edit(launch)"/>
+			<input ng-if="!$ctrl.isPrivate" class="left" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+
+			<h3 class="center">{{launch.name}}</h3>
+			<span class="center">{{launch.yays}}</span>
+
+			<input ng-if="$ctrl.isPrivate" class="right" type="button" value="Delete" title="Delete Launch" ng-click="$ctrl.delete(launch)"/>
+			<input ng-if="!$ctrl.isPrivate" class="right"type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
 		</div>
 	</div>
 	<figcaption>{{launch.description}}</figcaption>

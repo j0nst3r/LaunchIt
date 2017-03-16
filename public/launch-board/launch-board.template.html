@@ -45,7 +45,7 @@
 
 <h1>My Launches</h1>
 
-<input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" onclick="window.location.href='/createlaunch'"/>
+<input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
 
 <!-- A pretty picture thingy with magical buttons -->
 <figure ng-repeat="launch in $ctrl.launches">

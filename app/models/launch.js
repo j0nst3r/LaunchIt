@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 //Defines our Launch schema
 var LaunchSchema = new Schema({
+    owner : ObjectId,
     name : String,
     tags : [String],
     promotion : Boolean,

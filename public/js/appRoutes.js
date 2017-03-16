@@ -35,8 +35,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		
 		.when('/launches', {
 			templateUrl: 'views/launches.html',
-			controller: 'LaunchesController'
+
+			controller: 'LaunchesController'	
 		})
+
+		.when('/createlaunch', {
+			templateUrl: 'views/createlaunch.html',
+			controller: 'CreateLaunchController'	
+		})
+		
 		
 		.when('/launch-board', {
 			template: '<launch-board></launch-board>'

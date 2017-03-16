@@ -28,6 +28,13 @@
 		opacity: 1;
 		transition: opacity .4s;
 	}
+
+	.image-center {
+		position: absolute;
+		left: 30%;
+		right: 30%;
+		text-align: center;
+	}
 </style>
 
 <h1>CHECK OUT ALL THE PRETTY PICTURES</h1>
@@ -41,7 +48,7 @@
 
 		<div class="hidden">
 			<input type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()" style="float: right"></input>
-			<span style="position: absolute; left: 30%; right: 30%; text-align: center">{{launch.yays}}</span>
+			<span class="image-center">{{launch.yays}}</span>
 			<input type="button" value="-" title="I H8 DIS" ng-click="launch.nay()" style="float: left"></input>
 		</div>
 	</div>

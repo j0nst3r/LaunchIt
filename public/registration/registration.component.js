@@ -46,7 +46,7 @@ angular
 							$scope.emailFailed = false;
 							$scope.mailChecker = 'pass';
 						}else{
-							$scope.emailCheckerResult = body.data.error;
+							toastr.error(body.data.error);
 							$scope.emailFailed = true;
 						}
 					});

@@ -10,6 +10,7 @@ angular.
 		},
 
 		controller: ["$location", function (location) {
+			this.isEdit = false
 			this.launches = [
 				new Launch("Duck1", "A duck", "https://images-na.ssl-images-amazon.com/images/I/31S%2BCZ82ofL._SY300_.jpg"),
 				new Launch("Duck2", "Another duck", "http://www.saintpetersblog.com/wp-content/uploads/2014/08/rubber-duck.jpg")

@@ -5,7 +5,7 @@
 	img {
 		max-width: 512px;
 	}
-	input {
+	input[type=button] {
 		border-radius: 32px;
 	}
 
@@ -16,9 +16,15 @@
 	.hidden {
 		position: absolute;
 		bottom: 8px;
-		display: block;
+
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
 
 		width: 100%;
+
+		text-align: center;
 
 		opacity: 0;
 		transition: opacity .4s;
@@ -27,19 +33,6 @@
 	.hidey:hover .hidden {
 		opacity: 1;
 		transition: opacity .4s;
-	}
-
-	.left {
-		float: left;
-	}
-	.right {
-		float: right;
-	}
-	.center {
-		position: absolute;
-		left: 30%;
-		right: 30%;
-		text-align: center;
 	}
 </style>
 
@@ -53,14 +46,20 @@
 		<img ng-src="{{launch.image}}" />
 
 		<div class="hidden">
-			<input ng-if="$ctrl.isPrivate" class="left" type="button" value="Edit" title="Edit Launch" ng-click="$ctrl.edit(launch)"/>
-			<input ng-if="!$ctrl.isPrivate" class="left" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+			<div>
+				<input ng-if="$ctrl.isPrivate && !$ctrl.isEdit" type="button" value="Edit" title="Edit Launch" ng-click="$ctrl.isEdit = true"/>
+				<input ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+			</div>
+			
+			<div>
+				<h2>{{launch.name}}</h2>
+				<h4>{{launch.yays}}</h4>
+			</div>
 
-			<h3 class="center">{{launch.name}}</h3>
-			<span class="center">{{launch.yays}}</span>
-
-			<input ng-if="$ctrl.isPrivate" class="right" type="button" value="Delete" title="Delete Launch" ng-click="$ctrl.delete(launch)"/>
-			<input ng-if="!$ctrl.isPrivate" class="right"type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+			<div>
+				<input ng-if="$ctrl.isPrivate && $ctrl.isEdit" type="button" value="Delete" title="Delete Launch" ng-click="$ctrl.delete(launch)"/>
+				<input ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+			</div>
 		</div>
 	</div>
 	<figcaption>{{launch.description}}</figcaption>

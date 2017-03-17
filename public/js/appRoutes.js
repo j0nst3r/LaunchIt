@@ -38,9 +38,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'LaunchesController'	
 		})
 
-		.when('/createlaunch', {
-			templateUrl: 'views/createlaunch.html',
-			controller: 'CreateLaunchController'	
+		.when('/create-launch', {
+			template: '<create-launch></create-launch>'
 		})
 		
 		

@@ -16,7 +16,7 @@ angular.
 				new Launch("Duck2", "Another duck", "http://www.saintpetersblog.com/wp-content/uploads/2014/08/rubber-duck.jpg")
 			]
 			this.create = function (){
-				location.path('/createlaunch')
+				location.path('/create-launch')
 			}
 		}]
 	})

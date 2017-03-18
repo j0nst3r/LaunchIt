@@ -1,7 +1,22 @@
 <style>
 	figure {
+		position: relative;
 		float: left;
 	}
+	figcaption {
+		position: absolute;
+		z-index: -1;
+
+		opacity: 0;
+		top: 0;
+		transition: .4s;
+	}
+	figure:hover figcaption {
+		opacity: 1;
+		top: 100%;
+		transition: .4s;
+	}
+
 	img {
 		max-width: 512px;
 	}
@@ -9,58 +24,79 @@
 		border-radius: 32px;
 	}
 
-	.hidey {
+	textarea {
+		width: 100%;
+		resize: none;
+	}
+
+	.bgcontainer {
 		position: relative;
 	}
 
-	.hidden {
+	.bgcontainer > * {
 		position: absolute;
-		bottom: 8px;
-
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		justify-content: space-between;
-
+		bottom: .5em;
+		display: block;
 		width: 100%;
-
 		text-align: center;
-
-		opacity: 0;
-		transition: opacity .4s;
+	}
+	
+	.center {
+		position: absolute;
+		left: 30%;
+		right: 30%;
+		bottom: 0;
+	}
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
 	}
 
-	.hidey:hover .hidden {
+	.hidden {
+		opacity: 0;
+		transition: .4s;
+	}
+
+	figure:hover .hidden {
 		opacity: 1;
-		transition: opacity .4s;
+		transition: .4s;
 	}
 </style>
 
-<h1>My Launches</h1>
+<h1>{{$ctrl.isPrivate ? "My" : "Someone's"}} Launches</h1>
 
 <input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
 
 <!-- A pretty picture thingy with magical buttons -->
 <figure ng-repeat="launch in $ctrl.launches">
-	<div class="hidey">
-		<img ng-src="{{launch.image}}" />
+	<img ng-src="{{launch.image}}"/>
 
-		<div class="hidden">
-			<div>
-				<input ng-if="$ctrl.isPrivate && !$ctrl.isEdit" type="button" value="Edit" title="Edit Launch" ng-click="$ctrl.isEdit = true"/>
-				<input ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
-			</div>
-			
-			<div>
-				<h2>{{launch.name}}</h2>
+	<div class="bgcontainer">
+		<div ng-class="!$ctrl.edit[launch.id] ? 'hidden' : 'containee'">
+			<div class="center">
+				<h2 ng-if="!$ctrl.edit[launch.id]">{{launch.name}}</h2>
+				<input ng-if="$ctrl.edit[launch.id]" ng-model="launch.name"/>
+
 				<h4>{{launch.yays}}</h4>
 			</div>
+			
+			<div class="left">
+				<input ng-if="$ctrl.isPrivate && !$ctrl.edit[launch.id]" type="button" value="Edit" title="Edit launch" ng-click="$ctrl.edit[launch.id] = true"/>
+				<input ng-if="$ctrl.edit[launch.id]" type="button" value="Done" title="Confirm edits" ng-click="$ctrl.edit[launch.id] = false"/>
 
-			<div>
-				<input ng-if="$ctrl.isPrivate && $ctrl.isEdit" type="button" value="Delete" title="Delete Launch" ng-click="$ctrl.delete(launch)"/>
+				<input ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+			</div>
+
+			<div class="right">
+				<input ng-if="$ctrl.isPrivate && $ctrl.edit[launch.id]" type="button" value="Delete" title="Delete launch" ng-click="$ctrl.delete(launch)"/>
 				<input ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
 			</div>
 		</div>
 	</div>
-	<figcaption>{{launch.description}}</figcaption>
+
+	<figcaption ng-if="!$ctrl.edit[launch.id]">{{launch.description}}</figcaption>
+	<textarea ng-if="$ctrl.edit[launch.id]" ng-model="launch.description"></textarea>
+
 </figure>

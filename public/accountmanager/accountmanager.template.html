@@ -1,0 +1,117 @@
+<div class="jumbotron">
+	<h1>Account Manager</h1>
+	
+	<div>
+		<button name="updateEmail" data-toggle="modal" data-target="#myModal" class="btn btn-default" ng-click="updateEmailModal()">Update Email</button>
+	</div>
+	
+	<!-- update email modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Update Email</h4>
+				</div>
+				<div class="modal-body">
+					<form name="newEmailForm" role="form">
+						<div ng-class="{ 'has-error': form.email.$pristine || (form.email.$dirty && form.email.$error.required) || form.email.$invalid}">
+							<label for="Email">New Email</label>
+							<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" placeholder="Email"
+								pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(newEmailForm.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
+							<img ng-src="{{( newEmailForm.email.$error.pattern || newEmailForm.email.$error.required || $scope.emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+						</div>
+						<div>
+							<label for="password">Password</label>
+							<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password" required/>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="$scope.emailFailed" ng-click="updateEmail(newEmailForm.email)">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</br>
+	
+	<div>
+	<button ng-click="showUpdatePasswordForm()">Change Password</button>
+	
+		<form name="updatePasswordForm" role="form" ng-show="$scope.changePasswordRequested">
+		<div class="form-group">
+	        <label for="password">Old Password</label>
+    	   	<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="user.oldPass" placeholder="Password" required/>	
+	    </div>
+		
+		<div class="form-group" ng-class="{ 'has-error': updatePasswordForm.password.$pristine || (updatePasswordForm.password.$dirty && updatePasswordForm.password.$error.required) || form.password.$invalid}">
+	        <label for="password">Password</label>
+    	   	<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password" 
+    	   		pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
+			<img ng-src="{{( updatePasswordForm.password.$error.pattern || updatePasswordForm.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+				
+	    </div>
+	            
+	    <div class="form-group" ng-class="{ 'has-error': updatePasswordForm.passwordConf.$pristine || (updatePasswordForm.passwordConf.$dirty && updatePasswordForm.passwordConf.$error.required) || updatePasswordForm.passwordConf.$invalid}">
+	        <label for="passwordConf">Password Confirmation</label>
+    	    <input style="width:60%; margin-top:10px;" type="password" name="passwordConf" id="passwordConf"  ng-model="user.passwordConf" placeholder="Password Confirmation"
+    	    	pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
+			<img ng-src="{{(updatePasswordForm.passwordConf.$error.pattern || updatePasswordForm.passwordConf.$error.required || validatePasswordConfirmation(updatePasswordForm.password, updatePasswordForm.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+	    </div>
+		<div>
+			<li>minimum 8 characters long</li>
+			<li>At least one lower case letter</li>
+			<li>At least one upper case letter</li>
+			<li>At least one numeric character</li>
+			<li>At least one special character</li>
+			<li>Password and Password Confirmation must match</li>
+		</div>
+		
+        <button ng-click="resetPassword(user)" title="Missing or Invalid Required Field(s) Value." class="btn btn-primary">
+			</t><span>Submit</span>
+        </button>
+		</form>
+	</div>
+	
+	<div>
+		<button ng-click="showPaypalForm()">Link PayPal Account</button>
+		<div ng-show="$scope.linkPaypalRequested">
+			<p>SOME INSTRUCTIONS TO BE HERE</p>
+		</div>
+	</div>
+	
+	<div>
+		<button ng-click="showDisableForm()">Disable Account</button>
+		<div ng-show="disableFormRequested">
+		<p>Some instruction, warning and notifications</p>
+		<form name="form" role="form">
+		<div class="form-group" ng-show="disableAccountRequested">
+	        <label for="password">Old Password</label>
+    	   	<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="user.password" placeholder="Password" required/>	
+	    </div>
+		
+		<div class="form-group" ng-class="{ 'has-error': form.password.$pristine || (form.password.$dirty && form.password.$error.required) || form.password.$invalid}">
+	        <label>enter "YES" if you really wish to disable account :( </label>
+    	   	<input style="width:60%; margin-top:10px;" type="text" name="disableConf" id="disableConf"  ng-model="user.disableAccount" placeholder="enter YES to confirm disableing account" required/>
+		</div>
+
+		<div>
+			<button ng-click="disableUserAccount(user)" title="Missing or Invalid Required Field(s) Value."
+				ng-disabled="form.$invalid || validatePasswordConfirmation(form.password, form.passwordConf)" class="btn btn-primary">
+			<span>Submit</span>
+			</button>		
+		<div>
+		</form>
+		</div>
+	    </div>
+	</div>
+	
+	<div>
+		<button ng-click="showDeleteAccountForm()">Delete Account</button>
+		<div ng-show="deleteAccountForm()">
+			<p>Account cannot be deleted at this time....</p>
+		</div>
+	</div>
+</div>

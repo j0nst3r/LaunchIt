@@ -1,18 +1,35 @@
-<div class="jumbotron text-center">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+
+<div class="container">
+ <div class="jumbotron text-center">
     <h1>Login Page</h1>
 
-    <form name="form" ng-controller="LoginController" role="form">
-        <div>
-			<label for="Email">Email</label>
-	        <input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" placeholder="email" required />
-		</div>
-		<div>
-			<label for="password">Password</label>
-    	    <input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" placeholder="password" required />
-		</div>
-        <button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-primary" value="Login" title="Login" ng-disabled="!form.$valid">
-           	<span>Login</span>
-       	</button>
-			<p>New User <a href="/registration">Register Here</a></p>
-    </form>
+		<small class="text-muted">Connect launchit with your favorite social network</small>
+			<br><br>
+			<p>
+				<a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+				<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
+				<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>
+				<a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i class="fa fa-google-plus"></i></a>
+			</p>
+
+		<small class="text-muted">Or Login with Launchit accout</small>
+		    <br><br>
+
+				<form name="form" ng-controller="LoginController" role="form">
+					<div>
+						<label for="Email">Email</label>
+						<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" placeholder="email" required />
+					</div>
+					<div>
+						<label for="password">Password</label>
+						<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" placeholder="password" required />
+					</div>
+					<button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-lg btn-primary btn-block btn-center" data-bindattr-3="3" value="Login" title="Login" ng-disabled="!form.$valid">
+						<span>Login</span>
+					</button>
+						<small class="create-account text-muted">Dont have a [your service] or social network account?</small><br>
+						<p>New User <a href="/registration">Register Here</a></p>
+				</form>
+ </div>
 </div>

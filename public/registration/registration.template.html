@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-<div class="container">
-	<div class="jumbotron">
-		<h1>Registration</h1>
-		
-		<form name="form" role="form">
-=======
+
 <div class="jumbotron">
 	<h1>Registration</h1>
 	
@@ -70,33 +64,6 @@
 				<img ng-src="{{(form.passwordConf.$error.pattern || form.passwordConf.$error.required || validatePasswordConfirmation(form.password, form.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 			</div>
 				
-			<div>
-				<li>minimum 8 characters long</li>
-				<li>At least one lower case letter</li>
-				<li>At least one upper case letter</li>
-				<li>At least one numeric character</li>
-				<li>At least one special character</li>
-				<li>Password and Password Confirmation must match</li>
-			</div>
-			
-<<<<<<< HEAD
-			<button ng-click="createUserAccount(user)" title="Missing or Invalid Required Field(s) Value."
-					ng-disabled="form.$invalid || validatePasswordConfirmation(form.password, form.passwordConf)" class="btn btn-primary">
-				<span>Start Building!</span>
-			</button>
-		
-		</form>
-	</div> 
-</div>
-
-<link rel="stylesheet" type="text/css" href="css/register.css">
-<!-- Website Font style -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-<!-- Google Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-=======
 		<div>
 			<li>minimum 8 characters long</li>
 			<li>At least one lower case letter</li>
@@ -113,4 +80,4 @@
    	
 	</form>
 </div> 
->>>>>>> 4e09d041049037bf0d7d6a4727f8d1a052bc4800
+

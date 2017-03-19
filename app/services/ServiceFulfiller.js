@@ -9,6 +9,7 @@ service.checkLoginCredential = checkLoginCredential;
 service.validateEmail = validateEmail;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
+service.createLaunch = createLaunch;
 
 module.exports = service;
 

@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 //Defines our Launch schema
 module.exports = mongoose.Schema( 
 	{	
+        owner : mongoose.Schema.Types.ObjectId,
         name : String,
         tags : [String],
         promotion : Boolean,

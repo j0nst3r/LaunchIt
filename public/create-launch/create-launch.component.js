@@ -7,6 +7,8 @@ angular.
 		controller: function($scope, $rootScope, $location, dataService) {
 			$scope.create = function(launch){
 				var newLaunch = launch;
+				var userId = sessionStorage.getItem('userId');
+				newLaunch.owner = userId
 				dataService.createLaunch(newLaunch).then(function(body) {
 					console.log(JSON.stringify(body.data));
 				})

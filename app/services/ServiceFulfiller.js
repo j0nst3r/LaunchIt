@@ -90,6 +90,7 @@ function createProfile(reqData, userId){
 //===========================================
 function createLaunch(launchInfo){
 	var newLaunch = new launch({
+		owner: launchInfo.owner,
 		name: launchInfo.name,
 		website : launchInfo.website,
 		description : launchInfo.description

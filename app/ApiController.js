@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 //===========================================
 //LAUNCH STUFF...................................
 //===========================================
-router.post('/getAllLaunches', function(req, res) {
+router.get('/getAllLaunches', function(req, res) {
 	console.log("getAllLaunches service requested : " + JSON.stringify(req.body));
 	
 	serviceFulfiller.getAllLaunches().then(

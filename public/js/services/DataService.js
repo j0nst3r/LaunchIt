@@ -21,31 +21,10 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	
 	return dataService;	
 	
-
-	function getAllUsers(id){
-		var data = { 
-			id: id
-		};
-		return $http({
-			method: 'GET',
-			url: urlBase + '/listUsers',
-			params: data
-		}).then(
-		    function(res) {
-		    	console.log(JSON.stringify(res.data));
-		    	return res.data;
-		    },
-		    function(res) {
-		    	console.log(JSON.stringify(res.data));
-		    	return $q.reject(res.data);
-		    }
-		)
-	}
-	
 	function getAllLaunches(){
 		return $http({
 			method: 'GET',
-			url: urlBase + '/',
+			url: urlBase + '/getAllLaunches',
 		}).then(
 		    function(res) {
 		    	console.log(JSON.stringify(res.data));

@@ -25,6 +25,9 @@ var user = mongoose.model('Users', userSchema);
 var profileSchema = require('../models/profile.js');
 var profile = mongoose.model('Profiles', profileSchema);
 
+var launchSchema = require('../models/launch.js');
+var launch = mongoose.model('Launches', profileSchema);
+
 
 
 //===========================================
@@ -120,7 +123,16 @@ function createProfile(reqData, userId){
 //LAUNCH RELATED SERVICES...................
 //==========================================
 function getAllLaunches() {
-	var findLaunches = function(db, callback) {
+	
+	console.log("IN getAllLaunches");
+	//return launch.find({QUERY PARAM....IN JSON FORMAT},'OPTIONAL - RETURN COLUMN YOU WANT',function(err, result){
+	return launch.find({}, function(err, result){ //find everything in launch, no param, and return whole document
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+	
+	/*var findLaunches = function(db, callback) {
   	// Get the launches collection
   	var collection = db.collection('launches');
   	// Find some documents
@@ -130,7 +142,7 @@ function getAllLaunches() {
     	console.log(launches)
     	callback(launches);
  	 });
-	}
+	}*/
 }
 
 /*

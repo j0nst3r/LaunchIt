@@ -9,6 +9,8 @@ service.checkLoginCredential = checkLoginCredential;
 service.validateEmail = validateEmail;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
+
+service.getLaunches = getLaunches;
 service.createLaunch = createLaunch;
 
 module.exports = service;
@@ -88,6 +90,13 @@ function createProfile(reqData, userId){
 //===========================================
 //LAUNCH RELATED SERVICES....................
 //===========================================
+function getLaunches(owner) {
+	return launch.find({'launch.name': owner}, function (err, result) {
+		if (err) return console.error(err);
+
+		return console.log(result)
+	})
+}
 function createLaunch(launchInfo){
 	var newLaunch = new launch({
 		owner: launchInfo.owner,

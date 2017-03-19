@@ -116,6 +116,10 @@ router.post('/createAccount', function(req, res){
 //===========================================
 //LAUNCH RELATED SERVICES.....
 //===========================================
+router.post('/getLaunches', function (req, res) {
+	console.log("getLaunches service requested: " + JSON.stringify(req.body));
+	serviceFulfiller.getLaunches(req.body);
+})
 router.post('/createLaunch', function(req, res) {
 	console.log("createlaunch service requested: " + JSON.stringify(req.body));
 	serviceFulfiller.createLaunch(req.body);

@@ -118,7 +118,8 @@ div#columns:hover figure:not(:hover) {
   #columns { column-gap: 0px; }
   #columns figure { width: 100%; }
 }
-	
+
+@import url(http://weloveiconfonts.com/api/?family=brandico|entypo|openwebicons|zocial);
 	.btn-center{
   width: 50%;
   text-align: center;

@@ -1,4 +1,4 @@
 angular.module('LaunchIt', ['ngRoute','ngFileUpload','ngImgCrop','ui.bootstrap','appRoutes',
-							'AccountCtrl', 'LaunchesCtrl', 'LoginCtrl', 'MainCtrl', 'NotificationCtrl', 'ProfileCtrl', 'registration', 
+							'LaunchesCtrl', 'LoginCtrl', 'MainCtrl', 'NotificationCtrl', 'ProfileCtrl', 'registration', 'accountpage', 
 							'DataService']);
 

@@ -23,8 +23,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 		
 		.when('/account', {
-			templateUrl: 'views/account.html',
-			controller: 'AccountController'	
+			template: '<accountmanager></accountmanager>',
 		})
 		
 		.when('/profile', {

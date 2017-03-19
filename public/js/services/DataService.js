@@ -27,8 +27,12 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 			url: urlBase + '/getAllLaunches',
 		}).then(
 		    function(res) {
-		    	console.log(JSON.stringify(res.data));
-		    	return res.data;
+		    	console.log(JSON.stringify(res.data) + "WHAT IS GOING ON!!!!!!!!!!!!");
+		    	var arr = [];
+				json = JSON.stringify(res.data); //convert to json string
+				arr = $.parseJSON(json); //convert to javascript array
+				console.log(arr[0]);
+		    	return arr;
 		    },
 		    function(res) {
 		    	console.log(JSON.stringify(res.data));

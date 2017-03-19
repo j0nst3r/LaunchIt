@@ -1,4 +1,5 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="css/login.css">
 
 <div class="container">
  <div class="jumbotron text-center">
@@ -25,6 +26,11 @@
 						<label for="password">Password</label>
 						<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" placeholder="password" required />
 					</div>
+
+					<input id="ember360" class="ember-view ember-text-field form-control login-input" placeholder="Email Address" type="text" ng-model="email"  required >
+	       			 <input id="ember361" class="ember-view ember-text-field form-control login-input-pass" placeholder="Password" type="password" ng-model="password"  required >
+					<script id="metamorph-22-start" type="text/x-placeholder"></script><script id="metamorph-22-end" type="text/x-placeholder"></script>
+
 					<button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-lg btn-primary btn-block btn-center" data-bindattr-3="3" value="Login" title="Login" ng-disabled="!form.$valid">
 						<span>Login</span>
 					</button><br><br>

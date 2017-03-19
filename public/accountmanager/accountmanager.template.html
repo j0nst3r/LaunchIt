@@ -8,25 +8,25 @@
 	<br />
 
 	<div>
-		<button name="changePassword" data-toggle="modal" data-target="#changePasswordModal" class="btn btn-default" ng-click="changePassword()">Change Password</button>
+		<button name="changePassword" data-toggle="modal" data-target="#changePasswordModal" class="btn btn-default" ng-click="updatePasswordModal()">Change Password</button>
 	</div>
 
 	<br />
 
 	<div>
-		<button name="linkPaypal" data-toggle="modal" data-target="#linkPaypalModal" class="btn btn-default" ng-click="linkPaypal()">Link Paypal</button>
+		<button name="linkPaypal" data-toggle="modal" data-target="#linkPaypalModal" class="btn btn-default" ng-disabled="true" ng-click="updatePaypalModal()">Link Paypal</button>
 	</div>
 
 	<br />
 
 	<div>
-		<button name="disableAccount" data-toggle="modal" data-target="#disableAccountModal" class="btn btn-default" ng-click="disableAccount()">Disable Account</button>
+		<button name="disableAccount" data-toggle="modal" data-target="#disableAccountModal" class="btn btn-default" ng-disabled="true" ng-click="disableAccountModal()">Disable Account</button>
 	</div>
 
 	<br />
 
 	<div>
-		<button name="deleteAccount" data-toggle="modal" data-target="#deleteAccountModal" class="btn btn-default" ng-click="deleteAccount()">Delete Account</button>
+		<button name="deleteAccount" data-toggle="modal" data-target="#deleteAccountModal" class="btn btn-default" ng-disabled="true" ng-click="deleteAccountModal()">Delete Account</button>
 	</div>
 
 	<!-- update email modal -->
@@ -43,18 +43,19 @@
 							<label for="Email">New Email</label>
 							<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" placeholder="Email"
 								pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(newEmailForm.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
-							<img ng-src="{{( newEmailForm.email.$error.pattern || newEmailForm.email.$error.required || $scope.emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+							<img ng-src="{{( newEmailForm.email.$error.pattern || newEmailForm.email.$error.required || emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 						</div>
 						<div>
 							<label for="password">Password</label>
-							<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password" required/>
-							<img ng-src="{{( newEmailForm.password.$error.pattern || newEmailForm.password.$error.required || $scope.passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+							<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" placeholder="Password" required
+								ng-change="validatePassword(newEmailForm.password)" ng-model-options="{updateOn: 'default', debounce: 500 }"/>
+							<img ng-src="{{(newEmailForm.password.$error.required || passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
-	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disable="true" ng-click="updateEmail(newEmailForm.email)">Save changes</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newEmailForm.$invalid || checkNewEmailForm()" ng-click="update(newEmailForm)">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -71,25 +72,27 @@
 					<h4 class="modal-title">Change Password</h4>
 				</div>
 				<div class="modal-body">
-					<form name="updatePasswordForm" role="form">
-						<div class="form-group">
+					<form name="newPasswordForm" role="form">
+						<div>
 							<label for="password">Old Password</label>
-							<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="user.oldPass" placeholder="Password" required/>
+							<input style="width:60%; margin-top:10px;" type="password" name="oldPass" id="oldPass"  ng-model="oldPass" placeholder="Old Password" required
+								ng-change="validatePassword(newPasswordForm.oldPass)" ng-model-options="{updateOn: 'default', debounce: 500 }"/>
+							<img ng-src="{{(newPasswordForm.oldPass.$error.required || passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 						</div>
 
-						<div class="form-group" ng-class="{ 'has-error': updatePasswordForm.password.$pristine || (updatePasswordForm.password.$dirty && updatePasswordForm.password.$error.required) || form.password.$invalid}">
-							<label for="password">Password</label>
-							<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password"
+						<div ng-class="{ 'has-error': newPasswordForm.password.$pristine || (newPasswordForm.password.$dirty && newPasswordForm.password.$error.required) || form.password.$invalid}">
+							<label for="password">New Password</label>
+							<input style="width:60%; margin-top:10px;" type="password" name="newPassword" id="newPassword"  ng-model="newPassword" placeholder="New Password"
 								   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-							<img ng-src="{{( updatePasswordForm.password.$error.pattern || updatePasswordForm.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+							<img ng-src="{{( newPasswordForm.newPassword.$error.pattern || newPasswordForm.newPassword.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 
 						</div>
 
-						<div class="form-group" ng-class="{ 'has-error': updatePasswordForm.passwordConf.$pristine || (updatePasswordForm.passwordConf.$dirty && updatePasswordForm.passwordConf.$error.required) || updatePasswordForm.passwordConf.$invalid}">
-							<label for="passwordConf">Password Confirmation</label>
-							<input style="width:60%; margin-top:10px;" type="password" name="passwordConf" id="passwordConf"  ng-model="user.passwordConf" placeholder="Password Confirmation"
+						<div ng-class="{ 'has-error': newPasswordForm.passwordConf.$pristine || (newPasswordForm.passwordConf.$dirty && newPasswordForm.passwordConf.$error.required) || newPasswordForm.passwordConf.$invalid}">
+							<label for="passwordConf">New Password Confirmation</label>
+							<input style="width:60%; margin-top:10px;" type="password" name="passwordConf" id="passwordConf"  ng-model="passwordConf" placeholder="New Password Confirmation"
 								   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-							<img ng-src="{{(updatePasswordForm.passwordConf.$error.pattern || updatePasswordForm.passwordConf.$error.required || validatePasswordConfirmation(updatePasswordForm.password, updatePasswordForm.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+							<img ng-src="{{(newPasswordForm.passwordConf.$error.pattern || newPasswordForm.passwordConf.$error.required || validatePasswordConfirmation(newPasswordForm.newPassword, newPasswordForm.passwordConf))? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 						</div>
 						<div>
 							<li>minimum 8 characters long</li>
@@ -105,9 +108,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
-					<button ng-click="resetPassword(user)" title="Missing or Invalid Required Field(s) Value." class="btn btn-primary">
-						</t><span>Submit</span>
-					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newPasswordForm.$invalid || validatePasswordConfirmation(newPasswordForm.newPassword, newPasswordForm.passwordConf) || passwordFailed" ng-click="update(newPasswordForm)">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -125,7 +126,7 @@
 				</div>
 				<div class="modal-body">
 					<form name="linkPaypalForm" role="form">
-						// NEED INSTRUCTION
+						*NOTE* paypal API goes in here
 
 					</form>
 				</div>
@@ -152,12 +153,12 @@
 					<form name="disbaleAccountform" role="form">
 						<div class="form-group" ng-show="disableAccountRequested">
 							<label for="password">Old Password</label>
-							<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="user.password" placeholder="Password" required/>
+							<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="password" placeholder="Password" required/>
 						</div>
 
 						<div class="form-group" ng-class="{ 'has-error': form.password.$pristine || (form.password.$dirty && form.password.$error.required) || form.password.$invalid}">
 							<label>enter "YES" if you really wish to disable account :( </label>
-							<input style="width:60%; margin-top:10px;" type="text" name="disableConf" id="disableConf"  ng-model="user.disableAccount" placeholder="enter YES to confirm disableing account" required/>
+							<input style="width:60%; margin-top:10px;" type="text" name="disableConf" id="disableConf"  ng-model="disableAccount" placeholder="enter YES to confirm disableing account" required/>
 						</div>
 
 
@@ -166,7 +167,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
 					<button ng-click="disableUserAccount(user)" title="Missing or Invalid Required Field(s) Value."
-							ng-disabled="form.$invalid || validatePasswordConfirmation(form.password, form.passwordConf)" class="btn btn-primary">
+							ng-disabled="form.$invalid" class="btn btn-primary">
 						<span>Submit</span>
 					</button>
 				</div>

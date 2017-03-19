@@ -70,7 +70,7 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	function updateEmail(accountInfo){
 		return $http({
 			method: 'POST',
-				url: urlBase + '/resetPassword',
+				url: urlBase + '/updateEmail',
 				data: accountInfo
 		}).then(
 			function(body) { //what to on on success call

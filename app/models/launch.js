@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 
 //Defines our Launch schema
 var LaunchSchema = new Schema({
-    owner : ObjectId,
     name : String,
     tags : [String],
     promotion : Boolean,
@@ -17,4 +16,4 @@ var LaunchSchema = new Schema({
 });
 // define our Launch model
 // module.exports allows us to pass this to other files when it is called
-module.exports = mongoose.model('Launch', LaunchSchema);
+//module.exports = mongoose.model('Launch', LaunchSchema);

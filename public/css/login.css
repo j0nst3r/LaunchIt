@@ -57,6 +57,7 @@
   text-align: center;
   width: 100%;
   display: block;
+  padding-left: 15em;
 }
 
 .form-signin .form-control {

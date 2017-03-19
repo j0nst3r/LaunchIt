@@ -11,15 +11,13 @@ angular.
 
 		controller: ["$location", "dataService", function (location, dataService) {
 
-			// this.launches = [
-			// 	new Launch("Cabbage", "Cabbage or headed cabbage (comprising several cultivars of Brassica oleracea) is a leafy green or purple biennial plant, grown as an annual vegetable crop for its dense-leaved heads.", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Cabbage_and_cross_section_on_white.jpg/1920px-Cabbage_and_cross_section_on_white.jpg"),
-			// 	new Launch("Celery", "Celery (Apium graveolens), a marshland plant in the family Apiaceae, has been cultivated as a vegetable since antiquity. Celery has a long fibrous stalk tapering into leaves. Depending on location and cultivar, either its stalks, leaves, or hypocotyl are eaten and used in cooking.", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Illustration_Apium_graveolens0.jpg/800px-Illustration_Apium_graveolens0.jpg"),
-			// 	new Launch("Dill", "Dill (Anethum graveolens) is an annual herb in the celery family Apiaceae.", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Illustration_Anethum_graveolens0.jpg/800px-Illustration_Anethum_graveolens0.jpg"),
-			// 	new Launch("Kale", "Kale (English IPA /keɪl/) or leaf cabbage refers to certain vegetable cultivars of the plant species Brassica oleracea. A kale plant has green or purple leaves and the central leaves do not form a head (as with headed cabbages). Kales are considered to be closer to wild cabbage than most domesticated forms of Brassica oleracea.", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Boerenkool.jpg/1024px-Boerenkool.jpg"),
-			// 	new Launch("Beetroot", "The beetroot is the taproot portion of the beet plant, usually known in North America as the beet, also table beet, garden beet, red beet, or golden beet. It is one of several of the cultivated varieties of Beta vulgaris grown for their edible taproots and their leaves (called beet greens)", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Detroitdarkredbeets.png/220px-Detroitdarkredbeets.png")
-			// ]
+			this.launches = [
+				new Launch("LaunchIt", "A web application which shares the ideas of startup companies.", "https://lh6.googleusercontent.com/VqsfOtouEj7tSCMd9bodm722nzBCCSpTtPKyrQKjO2FykHILjjipkp01vvYaspTZHLiZyTaN1V_CzIc=w1920-h945"),
+				new Launch("Pinterest", "Find and save recipes, parenting hacks, style inspiration and other ideas to try.", "https://s-media-cache-ak0.pinimg.com/avatars/pinterest_1475538227_280.jpg"),
+				new Launch("Kickstarter", "The world's largest funding platform for creative projects. A home for film, music, art, theater, games, comics, design, photography, and more.", "https://www.kickstarter.com/download/kickstarter-logo-k-color.png")
+			]
 
-			this.launches = this.launches = dataService.getLaunches(sessionStorage.getItem('userId'))
+			// this.launches = this.launches = dataService.getLaunches(sessionStorage.getItem('userId'))
 
 			this.create = function () {
 				location.path('/create-launch')

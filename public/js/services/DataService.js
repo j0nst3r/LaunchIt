@@ -44,6 +44,10 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	dataService.getHistoryChatMsg = getHistoryChatMsg;
 	dataService.getAllUsers = getAllUsers;
 	
+	/*
+	  LAUNCH SERVICE CALLS
+	*/
+	dataService.createLaunch = createLaunch;
 	return dataService;	
 	
 
@@ -152,6 +156,18 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 				console.log(JSON.stringify(res.data));
 				return $q.reject(res.data);
 			});
+	}
+
+	function createLaunch(newLaunch){
+		return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
+		.then(function(body){
+			console.log(body);
+			return body;
+		},
+		function(res){
+			console.log(JSON.stringify(res.data));
+			return $q.reject(res.data);
+		});
 	}
 
 	function validateEmail(newEmail){

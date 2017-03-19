@@ -81,7 +81,20 @@ function createProfile(reqData, userId){
 	});
 }
 
-
+//===========================================
+//LAUNCH RELATED SERVICES....................
+//===========================================
+function createLaunch(launchInfo){
+	var newLaunch = new launch({
+		name: launchInfo.name,
+		website : launchInfo.website,
+		description : launchInfo.description
+	})
+	return newLaunch.save(function (err, result) {
+		if(err) return console.error(err);
+		return console.log(result);
+	})
+}
 /*
 //account related service
 

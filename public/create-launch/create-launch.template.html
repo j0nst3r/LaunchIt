@@ -3,22 +3,22 @@
     <form name="createLaunch">
         <div>
             <label for="name">Launch Name</label>
-            <input type="text" name="name" value="">
+            <input type="text" name="name" id="name" value="" ng-model='launch.name'>
         </div>
         <div>
             <label for="website">Content URL</label>
-            <input type="url" name="website" value="">
+            <input type="url" name="website" id='website' value="" ng-model='launch.website'>
         </div>
         <div>
             <label for="description">Description</label>
-            <input type="text" name="description" value="">
+            <input type="text" name="description" id='description' value="" ng-model='launch.description'>
         </div>
         <div>
             <label for="tags">Tags</label>
             <input type="text" name="tags" value="Separated with ,">
         </div>
         <div>
-            <button type="button">Create</button>
+            <input type="button" ng-click='$ctrl.create()' value='Create'/>
         </div>
     </form>
 </div>

@@ -19,19 +19,17 @@ angular.
 				new Launch("Beetroot", "The beetroot is the taproot portion of the beet plant, usually known in North America as the beet, also table beet, garden beet, red beet, or golden beet. It is one of several of the cultivated varieties of Beta vulgaris grown for their edible taproots and their leaves (called beet greens)", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Detroitdarkredbeets.png/220px-Detroitdarkredbeets.png")
 			]
 
-			this.edit = {}
-
-			this.create = function (){
+			this.create = function () {
 				location.path('/create-launch')
+			}
+			this.delete = function (launch) {
+				let index = this.launches.indexOf(launch)
+				if (index >= 0) this.launches.splice(index, 1)
 			}
 		}]
 	})
 
 function Launch(name, description, image) {	// TODO Grab these from DB
-	if (Launch.globId == undefined) Launch.globId = 0
-
-	this.id = Launch.globId++
-
 	this.name = name
 	this.description = description
 	this.image = image
@@ -40,4 +38,6 @@ function Launch(name, description, image) {	// TODO Grab these from DB
 	
 	this.yay = () => this.yays++
 	this.nay = () => this.yays--
+
+	this.editting = false
 }

@@ -77,6 +77,28 @@ router.post('/validateEmail', function(req, res){
 	});
 });
 
+router.post('/validatePassword', function(req, res){
+	console.log("validatePassword service requested: " + JSON.stringify(req.body));
+	serviceFulfiller.validatePassword(req.body).then( function(result){
+		if(result !== null){
+			res.status(200).json({message:"OK"});
+		}else{
+			res.status(200).json({error: "Failed"});
+		}
+	});
+});
+
+router.post('/updateEmail', function(req, res){
+	console.log("updateEmail service requested: " + JSON.stringify(req.body));
+	serviceFulfiller.updateEmail(req.body).then( function(result){
+		if(result !== null){
+			res.status(200).json({message:"OK"});
+		}else{
+			res.status(200).json({error: "Failed"});
+		}
+	});
+});
+
 router.post('/getAccount', function(req, res){
 	console.log("validateEmail service requested: " + JSON.stringify(req.body));
 	serviceFulfiller.getAccount(req.body).then( function(result){
@@ -90,17 +112,9 @@ router.post('/getAccount', function(req, res){
 
 router.post('/resetPassword', function(req, res){
 	console.log("resetPassword service requested: " + JSON.stringify(req.body));
-	
-	serviceFulfiller.checkSecurityAnswer(req.body).then(function(result){
-		if(result == null){
-			res.status(200).json({error: "Wrong Security Answer.."});
-		}
-		serviceFulfiller.resetPassword(req.body).then( function(result){
-			res.status(200).json(result);
-		});
-		
-	})
-	
+	serviceFulfiller.resetPassword(req.body).then( function(result){
+		res.status(200).json(result);
+	});
 });
 
 router.post('/createAccount', function(req, res){

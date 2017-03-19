@@ -24,12 +24,13 @@
 						<div>
 							<label for="password">Password</label>
 							<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password" required/>
+							<img ng-src="{{( newEmailForm.password.$error.pattern || newEmailForm.password.$error.required || $scope.passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 	            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
-	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="$scope.emailFailed" ng-click="updateEmail(newEmailForm.email)">Save changes</button>
+	            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disable="true" ng-click="updateEmail(newEmailForm.email)">Save changes</button>
 				</div>
 			</div>
 		</div>

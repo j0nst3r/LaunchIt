@@ -7,6 +7,9 @@ service.connection = new Array(); //save connection socket
 service.checkLoginCredential = checkLoginCredential;
 
 service.validateEmail = validateEmail;
+service.updateEmail = updateEmail;
+service.validatePassword = validatePassword;
+service.resetPassword = resetPassword;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
 
@@ -61,6 +64,37 @@ function validateEmail(userEmail){
 		console.log(result);
 		return result;
 	});
+}
+
+function updateEmail(data){
+	console.log("IN updateEmail : " + data);
+	var query = {_id: data._id};
+	delete data._id;
+	user.update(query, {$set: data}, function(err, result){
+		if(err) return console.err(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
+
+function validatePassword(data){
+	console.log("IN validatePassword : " + data);
+	return user.findOne(data, function(err, result){
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+
+function resetPassword(data){
+	console.log("IN updatePassword : " + data);
+	var query = {_id: data._id};
+	delete data._id;
+	user.update(query, {$set: data}, function(err, result){
+		if(err) return console.err(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
 }
 
 

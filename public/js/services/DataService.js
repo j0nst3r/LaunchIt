@@ -44,6 +44,8 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	dataService.getHistoryChatMsg = getHistoryChatMsg;
 	dataService.getAllUsers = getAllUsers;
 	
+	dataService.getAllLaunches = getAllLaunches;
+	
 	return dataService;	
 	
 
@@ -55,6 +57,22 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 			method: 'GET',
 			url: urlBase + '/listUsers',
 			params: data
+		}).then(
+		    function(res) {
+		    	console.log(JSON.stringify(res.data));
+		    	return res.data;
+		    },
+		    function(res) {
+		    	console.log(JSON.stringify(res.data));
+		    	return $q.reject(res.data);
+		    }
+		)
+	}
+	
+	function getAllLaunches(){
+		return $http({
+			method: 'GET',
+			url: urlBase + '/',
 		}).then(
 		    function(res) {
 		    	console.log(JSON.stringify(res.data));

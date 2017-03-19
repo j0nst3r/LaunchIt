@@ -1,5 +1,5 @@
-angular.module('LaunchesCtrl', []).controller('LaunchesController', function($scope, $rootScope, $location) {
-	$scope.launches = [
+angular.module('LaunchesCtrl', []).controller('LaunchesController', function($scope, $rootScope, $location, dataService) {
+	$scope.launches = dataService.getAllLaunches();/*[
 			{website : "http://i.imgur.com/XZAMD9P.png",
 			description : "Cinderella wearing European fashion of the mid-1860’s"},
 			{website : "//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/rapunzel.jpg",
@@ -18,5 +18,5 @@ angular.module('LaunchesCtrl', []).controller('LaunchesController', function($sc
 			description : "Ariel wearing an evening gown of the 1890’s"},
 			{website : "//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/tiana.jpg",
 			description : "Tiana wearing the <i>robe de style</i> of the 1920’s"}
-    ]
+    ]*/
 });

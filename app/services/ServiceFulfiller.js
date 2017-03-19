@@ -9,6 +9,7 @@ service.checkLoginCredential = checkLoginCredential;
 service.validateEmail = validateEmail;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
+service.getAllLaunches = getAllLaunches;
 
 module.exports = service;
 
@@ -81,6 +82,22 @@ function createProfile(reqData, userId){
 	});
 }
 
+//==========================================
+//LAUNCH RELATED SERVICES...................
+//==========================================
+function getAllLaunches() {
+	var findLaunches = function(db, callback) {
+  	// Get the launches collection
+  	var collection = db.collection('launches');
+  	// Find some documents
+  	collection.find({}).toArray(function(err, launches) {
+    	assert.equal(err, null);
+    	console.log("Found the following launches");
+    	console.log(launches)
+    	callback(launches);
+ 	 });
+	}
+}
 
 /*
 //account related service

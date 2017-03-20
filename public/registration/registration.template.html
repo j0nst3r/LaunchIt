@@ -40,9 +40,8 @@
 										<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>										
 										<input class="form-control" type="text" name="email" id="email"  ng-model="user.email" placeholder="Email"
 											pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(form.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
-										
 									</div>
-									<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || $emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+									<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 								</div>
 							</div>
 

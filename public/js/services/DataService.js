@@ -17,8 +17,82 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	dataService.resetPassword = resetPassword;
 	dataService.performLoginOperation = performLoginOperation;
 	
+	dataService.getAllLaunches = getAllLaunches;
+	
 	return dataService;	
 	
+	// get all of the launches in the database and return them
+	function getAllLaunches(){
+		return $http({
+			method: 'GET',
+			url: urlBase + '/getAllLaunches',
+		}).then(
+		    function(res) {
+		    	console.log(JSON.stringify(res.data));
+		    	return res.data;
+		    },
+		    function(res) {
+		    	console.log(JSON.stringify(res.data));
+		    	return $q.reject(res.data);
+		    }
+		)
+	}
+
+	function testForumService(){
+		return $http({
+				method: 'GET',
+				url: urlBase + '/testForumService'
+		}).then(
+			function(res) { //what to on on success call
+				console.log(JSON.stringify(res.data));
+				return res.data;
+			},
+			function(res) { //what to do on failed call
+				console.log(JSON.stringify(res.data));
+				return $q.reject(res.data);
+		});
+	}
+
+	function getForumList(ownerId){
+		var apiUrl;
+		if(ownerId == undefined){
+			apiUrl = urlBase + '/getForumList';
+		}else{
+			apiUrl = urlBase.concat('/getForumList/').concat(ownerId);
+		}
+		console.log(apiUrl);
+				return $http({
+				method: 'GET',
+				url: apiUrl
+		}).then(
+			function(body) { //what to on on success call
+				console.log(body);
+				return body;
+			},
+			function(res){
+				console.log(JSON.stringify(res.data));
+				return $q.reject(res.data);
+			});
+
+	}
+
+	function getForumById(forumId){
+		console.log(forumId);
+		return $http({
+				method: 'POST',
+				url: urlBase + '/getForumById',
+				data: forumId
+		}).then(
+			function(body) { //what to on on success call
+				console.log(body);
+				return body.data;
+			},
+			function(res){
+				console.log(JSON.stringify(res.data));
+				return $q.reject(res.data);
+			});
+	}
+
 	function validateEmail(newEmail){
 		return $http({
 			method: 'POST',

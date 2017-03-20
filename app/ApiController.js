@@ -9,6 +9,21 @@ var mongoose = require('mongoose');
 
 
 
+//===========================================
+//LAUNCH STUFF...................................
+//===========================================
+router.get('/getAllLaunches', function(req, res) {
+	console.log("getAllLaunches service requested : " + JSON.stringify(req.body));
+	
+	serviceFulfiller.getAllLaunches().then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+});
+
 
 //===========================================
 //IMAGE UPLOAD API.....

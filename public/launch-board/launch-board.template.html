@@ -65,12 +65,12 @@
 		background-color: rgb(200, 200, 200, .5);
 	}
 
-	.hidden {
+	.hiddenn {
 		opacity: 0;
 		transition: .4s;
 	}
 
-	figure:hover .hidden {
+	figure:hover .hiddenn {
 		opacity: 1;
 		transition: .4s;
 	}
@@ -84,7 +84,7 @@
 	<figure ng-repeat="launch in $ctrl.launches">
 		<img ng-src="{{launch.image}}"/>
 
-		<div class="inside" ng-class="!launch.editting ? 'hidden' : ''">
+		<div class="inside" ng-class="!launch.editting ? 'hiddenn' : ''">
 			<div>
 				<input ng-if="$ctrl.isPrivate && !launch.editting" type="button" value="Edit" title="Edit launch" ng-click="launch.editting = true"/>
 				<input ng-if="launch.editting" type="button" value="Done" title="Confirm edits" ng-click="launch.editting = false"/>

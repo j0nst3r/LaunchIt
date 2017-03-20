@@ -14,6 +14,9 @@ service.createAccount = createAccount;
 service.createProfile = createProfile;
 service.getAllLaunches = getAllLaunches;
 
+service.getLaunches = getLaunches;
+service.createLaunch = createLaunch;
+
 module.exports = service;
 
 var mongoose = require('mongoose');
@@ -27,7 +30,6 @@ var profile = mongoose.model('Profiles', profileSchema);
 
 var launchSchema = require('../models/launch.js');
 var launch = mongoose.model('Launches', profileSchema);
-
 
 
 //===========================================
@@ -130,7 +132,18 @@ function getAllLaunches() {
 		return result;
 	});
 }
-
+function createLaunch(launchInfo){
+	var newLaunch = new launch({
+		owner: launchInfo.owner,
+		name: launchInfo.name,
+		website : launchInfo.website,
+		description : launchInfo.description
+	})
+	return newLaunch.save(function (err, result) {
+		if(err) return console.error(err);
+		return console.log(result);
+	})
+}
 /*
 //account related service
 

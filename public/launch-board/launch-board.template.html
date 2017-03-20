@@ -1,0 +1,114 @@
+<style>
+	figure {
+		position: relative;
+		float: left;
+
+		margin-bottom: 8em;
+	}
+	figcaption {
+		position: absolute;
+		z-index: -1;
+
+		opacity: 0;
+		top: 0;
+		transition: .4s;
+	}
+	figure:hover figcaption {
+		opacity: 1;
+		top: 100%;
+		transition: .4s;
+	}
+
+	img {
+		max-width: 512px;
+		max-height: 512px;
+	}
+	input[type=button] {
+		border-radius: 32px;
+	}
+
+	textarea {
+		position: absolute;
+		top: 100%;
+
+		width: 100%;
+		resize: none;
+	}
+
+	h3 {
+		margin: 0;
+	}
+
+	p {
+		margin-bottom: 0;
+	}
+
+	.flexbox {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+
+	.inside {
+		position: absolute;
+		bottom: 0;
+
+		width: 100%;
+		text-align: center;
+
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: flex-end;
+		justify-content: space-between;
+
+		background-color: rgb(200, 200, 200, .5);
+	}
+
+	.hidden {
+		opacity: 0;
+		transition: .4s;
+	}
+
+	figure:hover .hidden {
+		opacity: 1;
+		transition: .4s;
+	}
+</style>
+
+<h1>{{$ctrl.isPrivate ? "My" : "Someone's"}} Launches</h1>
+
+<input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
+
+<div class="flexbox">
+	<figure ng-repeat="launch in $ctrl.launches">
+		<img ng-src="{{launch.image}}"/>
+
+		<div class="inside" ng-class="!launch.editting ? 'hidden' : ''">
+			<div>
+				<input ng-if="$ctrl.isPrivate && !launch.editting" type="button" value="Edit" title="Edit launch" ng-click="launch.editting = true"/>
+				<input ng-if="launch.editting" type="button" value="Done" title="Confirm edits" ng-click="launch.editting = false"/>
+
+				<input ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+			</div>
+
+			<div>
+				<h3 ng-if="!launch.editting">{{launch.name}}</h3>
+				<input ng-if="launch.editting" ng-model="launch.name"/>
+
+				<p>{{launch.yays}}</p>
+			</div>
+			
+			<div>
+				<input ng-if="$ctrl.isPrivate && !launch.editting" type="button" value="Delete" style="visibility: hidden"/>	<!-- Garbage spacing hack -->
+				<input ng-if="$ctrl.isPrivate && launch.editting" type="button" value="Delete" title="Delete launch" ng-click="$ctrl.delete(launch)"/>
+
+				<input ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+			</div>
+		</div>
+
+		<figcaption ng-if="!launch.editting">{{launch.description}}</figcaption>
+		<textarea ng-if="launch.editting" ng-model="launch.description"></textarea>
+
+	</figure>
+</div>

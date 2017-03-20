@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 //Defines our Launch schema
 module.exports = mongoose.Schema( 
-    {    
+    {
         owner : mongoose.Schema.Types.ObjectId,
         name : String,
         tags : [String],
@@ -15,5 +15,5 @@ module.exports = mongoose.Schema(
         description : String,
         voteYay : Number,
         voteNay : Number
-    }
+	}
 );

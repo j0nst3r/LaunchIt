@@ -47,11 +47,16 @@
 	<!-- ANGULAR CUSTOM -->
 	<script src="js/controllers/AccountCtrl.js"></script>
 	<script src="js/controllers/LaunchesCtrl.js"></script>
+	<script src="js/controllers/CreateLaunchCtrl.js"></script>
 	<script src="js/controllers/MainCtrl.js"></script>
 	<script src="js/controllers/NotificationCtrl.js"></script>
 	<script src="js/controllers/ProfileCtrl.js"></script>
 	<script src="js/controllers/LoginCtrl.js"></script>
 	<script src="js/services/DataService.js"></script>
+	<script src="launch-board/launch-board.module.js"></script>
+	<script src="launch-board/launch-board.component.js"></script>
+	<script src="create-launch/create-launch.module.js"></script>
+	<script src="create-launch/create-launch.component.js"></script>
 	<script src="registration/registration.module.js"></script>
 	<script src="registration/registration.component.js"></script>
 	<script src="accountmanager/accountmanager.module.js"></script>
@@ -75,7 +80,7 @@
 			<li ng-show="$root.isUserLoggedIn"><a href="/notification">Notifications</a></li>
 			<li ng-show="$root.isUserLoggedIn"><a href="/profile">Profile</a></li>
 			<li ng-show="$root.isUserLoggedIn"><a href="/account">Account</a></li>
-			<li ng-show="$root.isUserLoggedIn"><a href="/launches">Launches</a></li>
+			<li ng-show="$root.isUserLoggedIn"><a href="/launch-board-private">My LaunchBoard</a></li>
 			<li ng-hide="$root.isUserLoggedIn"><a href="/login">Login</a></li>
 			<li ng-hide="$root.isUserLoggedIn"><a href="/registration">Register!</a></li>
 			<li ng-show="$root.isUserLoggedIn"><a href="/" ng-click="ctrl.logout()">Logout</a></li>	

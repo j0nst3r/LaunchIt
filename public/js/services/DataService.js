@@ -19,6 +19,11 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	
 	dataService.getAllLaunches = getAllLaunches;
 	
+	/*
+	  LAUNCH SERVICE CALLS
+	*/
+	dataService.getLaunches = getLaunches;
+	dataService.createLaunch = createLaunch;
 	return dataService;	
 	
 	// get all of the launches in the database and return them
@@ -124,8 +129,30 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 				return $q.reject(res.data);
 			});
 	}
-	
-	function getAccount(accountInfo){
+	function getLaunches(owner) {
+		return $http({method: 'POST', url: urlBase + '/getLaunches', data: owner})
+		.then(function (body) {
+			console.log(body);
+			return body;
+		},
+		function (res) {
+			console.log(JSON.stringify(res.data));
+			return $q.reject(res.data);
+		});
+	}
+	function createLaunch(newLaunch){
+		return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
+		.then(function(body){
+			console.log(body);
+			return body;
+		},
+		function(res){
+			console.log(JSON.stringify(res.data));
+			return $q.reject(res.data);
+		});
+	}
+
+	function getAccount(accountInfo) {
 		return $http({
 			method: 'POST',
 				url: urlBase + '/getAccount',

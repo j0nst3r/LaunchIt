@@ -5,31 +5,31 @@
  <div class="jumbotron text-center">
     <h1>Login Page</h1>
 	<div class="container text-center">
-		<form class= "form-signin" name="form" ng-controller="LoginController" role="form" data-ember-action="2">
+		<form class="form-signin" name="form" ng-controller="LoginController" role="form" data-ember-action="2">
 					<small class="text-muted">Connect launchit with your favorite social network</small>
 					<br><br>
 					<p>
-						<a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
-						<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
-						<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>
-						<a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i class="fa fa-google-plus"></i></a>
+						<a class="btn btn-primary social-login-btn social-facebook" ng-disabled="true" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+						<a class="btn btn-primary social-login-btn social-twitter" ng-disabled="true" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
+						<a class="btn btn-primary social-login-btn social-linkedin" ng-disabled="true" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>
+						<a class="btn btn-primary social-login-btn social-google" ng-disabled="true" href="/auth/google"><i class="fa fa-google-plus"></i></a>
 					</p>
 
 					<small class="text-muted">Or Login with your Launchit account</small>
 					<br><br>
 					
 					<div  >
-						
-						<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" id="ember360" class="ember-view ember-text-field form-control login-input" placeholder="Email Address" required />
+						<input type="text" name="email" id="email"  ng-model="email" id="ember360" class="ember-view ember-text-field form-control login-input" placeholder="Email Address" required />
 					</div>
 					<div class="ember" >
 					
-						<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" id="ember361" class="ember-view ember-text-field form-control login-input-pass" placeholder="Password" required />
+						<input type="password" name="password" id="password"  ng-model="password" id="ember361" class="ember-view ember-text-field form-control login-input-pass" placeholder="Password" required />
 					</div>
 
 					<script id="metamorph-22-start" type="text/x-placeholder"></script><script id="metamorph-22-end" type="text/x-placeholder"></script>
-			</form>
-			<button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-lg btn-primary btn-block btn-center" data-bindattr-3="3" value="Login" title="Login" ng-disabled="!form.$valid">Login</button><br>
+			
+			<button type="submit" ng-click="validateLogin(form.email,form.password)" class="btn btn-lg btn-primary btn-block btn-center" data-bindattr-3="3" value="Login" title="Login" ng-disabled="form.$invalid">Login</button><br>
 						<small class="create-account text-muted">Dont have a Launchit or social network account?<br><button id="ember363" class="ember-view btn btn-sm btn-default"><a href="/registration"> Register Here </a></button> </small>
+		</form>
 	 </div>	
 </div>

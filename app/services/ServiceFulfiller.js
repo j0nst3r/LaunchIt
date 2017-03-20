@@ -13,6 +13,9 @@ service.resetPassword = resetPassword;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
 
+service.getAllLaunches = getAllLaunches;
+service.createLaunch = createLaunch;
+
 module.exports = service;
 
 var mongoose = require('mongoose');
@@ -24,6 +27,8 @@ var user = mongoose.model('Users', userSchema);
 var profileSchema = require('../models/profile.js');
 var profile = mongoose.model('Profiles', profileSchema);
 
+var launchSchema = require('../models/launch.js');
+var launch = mongoose.model('Launches', launchSchema);
 
 
 //===========================================
@@ -115,7 +120,29 @@ function createProfile(reqData, userId){
 	});
 }
 
-
+//==========================================
+//LAUNCH RELATED SERVICES...................
+//==========================================
+function getAllLaunches() {
+	console.log("In ServiceFulfiller: getAllLaunches");
+	return launch.find({}, function(err, result){ 
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+function createLaunch(launchInfo){
+	var newLaunch = new launch({
+		owner: launchInfo.owner,
+		name: launchInfo.name,
+		website : launchInfo.website,
+		description : launchInfo.description
+	})
+	return newLaunch.save(function (err, result) {
+		if(err) return console.error(err);
+		return console.log(result);
+	})
+}
 /*
 //account related service
 

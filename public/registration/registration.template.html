@@ -27,8 +27,9 @@
 									<div class="input-group" ng-class="{ 'has-error': (form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required}">	
 										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>								
 										<input class="form-control" type="text" name="lastname" id="lastname"  placeholder="Enter Your Last Name" ng-model="user.lastName" required/>
-										<img ng-src="{{((form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+										
 									</div>
+									<img ng-src="{{((form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 								</div>
 							</div>
 									
@@ -39,8 +40,9 @@
 										<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>										
 										<input class="form-control" type="text" name="email" id="email"  ng-model="user.email" placeholder="Email"
 											pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(form.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
-										<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || $emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+										
 									</div>
+									<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || $emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 								</div>
 							</div>
 
@@ -51,8 +53,9 @@
 										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>										
 										<input class="form-control" type="password" name="password" id="password"  ng-model="user.password" placeholder="Enter Your Password" 
 											pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-										<img ng-src="{{( form.password.$error.pattern || form.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>										
+																				
 									</div>
+									<img ng-src="{{( form.password.$error.pattern || form.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 								</div>
 							</div>
 
@@ -63,8 +66,9 @@
 										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
 										<input class="form-control" type="password" name="passwordConf" id="passwordConf"  ng-model="user.passwordConf" placeholder="Password Confirmation"
 											pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-										<img ng-src="{{(form.passwordConf.$error.pattern || form.passwordConf.$error.required || validatePasswordConfirmation(form.password, form.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+										
 									</div>
+									<img ng-src="{{(form.passwordConf.$error.pattern || form.passwordConf.$error.required || validatePasswordConfirmation(form.password, form.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
 								</div>
 							</div>
 

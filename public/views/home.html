@@ -3,27 +3,17 @@
 </head>
 
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
-	<md-content class="md-padding" layout-xs="column" layout="row" flex-xs flex-gt-xs="33" layout-wrap>
-		<div layout="column" ng-repeat="launch in launches">
+	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
+		<div layout="column" flex-xs flex-gt-xs="33" ng-repeat="launch in launches">
       		<md-card>
-        		<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
         		<md-card-title>
           			<md-card-title-text>
             			<span class="md-headline">{{launch.name}}</span>
           			</md-card-title-text>
         		</md-card-title>
+				<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
         		<md-card-actions layout="row" layout-align="start center">
           			<md-card-icon-actions>
-            			<md-button class="md-icon-button" aria-label="Favorite">
-              				<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-            			</md-button>
-           				<md-button class="md-icon-button" aria-label="Share">
-              				<md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-            			</md-button>
-            			<md-button class="md-icon-button" aria-label="Share">
-            				<md-icon md-svg-icon="../public/image/details.png"></md-icon>
-            			</md-button>
-          				<md-button>Promote</md-button>
           			</md-card-icon-actions>
         		</md-card-actions>
         		<md-card-content>
@@ -35,45 +25,3 @@
     	</div>
     </md-content>
 </div>
-
-<!--
-<div flex-xs flex-gt-xs="50" layout="column">
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Large</span>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
-        </md-card-actions>
-      </md-card>
-      <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Extra Large</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="row" layout-align="space-between">
-          <div class="md-media-xl card-media"></div>
-
-          <md-card-actions layout="column">
-            <md-button class="md-icon-button" aria-label="Favorite">
-              <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Settings">
-              <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Share">
-              <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-            </md-button>
-          </md-card-actions>
-        </md-card-content>
-      </md-card>
-    </div>-->

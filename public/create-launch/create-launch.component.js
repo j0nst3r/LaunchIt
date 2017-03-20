@@ -12,6 +12,7 @@ angular.
 				dataService.createLaunch(newLaunch).then(function(body) {
 					console.log(JSON.stringify(body.data));
 				})
+				$location.path('/launch-board-private')
 				console.log(newLaunch);
 			}
 		}

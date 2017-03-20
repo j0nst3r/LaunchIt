@@ -4,7 +4,7 @@
 
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
 	<md-content class="md-padding" layout-xs="column" layout="row" ng-repeat="launch in launches">
-		<div flex-xs flex-gt-xs="33" layout="row" layout-wrap style="inline">
+		<div flex-xs flex-gt-xs="33" layout="column" layout-wrap>
       		<md-card>
         		<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
         		<md-card-title>

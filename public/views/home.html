@@ -1,10 +1,7 @@
-<body ng-app="LaunchesCtrl">
-
-<span ng-controller="LaunchesController">
+<div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
 	<figure ng-repeat="launch in launches" style="float: left; margin-right:1%; margin-bottom: 0.5em;">	
 		<img ng-src={{launch.website}}/>
 		<figcaption>{{launch.description}}</figcaption>
+		<figcaption>{{launch.name}}</figcaption>
 	</figure>
-</span>
-
-</body>
+</div>

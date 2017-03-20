@@ -21,18 +21,15 @@ angular.module('DataService', []).factory('dataService', ['$http', function($htt
 	
 	return dataService;	
 	
+	// get all of the launches in the database and return them
 	function getAllLaunches(){
 		return $http({
 			method: 'GET',
 			url: urlBase + '/getAllLaunches',
 		}).then(
 		    function(res) {
-		    	console.log(JSON.stringify(res.data) + "WHAT IS GOING ON!!!!!!!!!!!!");
-		    	var arr = [];
-				json = JSON.stringify(res.data); //convert to json string
-				arr = $.parseJSON(json); //convert to javascript array
-				console.log(arr[0]);
-		    	return arr;
+		    	console.log(JSON.stringify(res.data));
+		    	return res.data;
 		    },
 		    function(res) {
 		    	console.log(JSON.stringify(res.data));

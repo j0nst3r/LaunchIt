@@ -123,26 +123,12 @@ function createProfile(reqData, userId){
 //LAUNCH RELATED SERVICES...................
 //==========================================
 function getAllLaunches() {
-	
-	console.log("IN getAllLaunches");
-	//return launch.find({QUERY PARAM....IN JSON FORMAT},'OPTIONAL - RETURN COLUMN YOU WANT',function(err, result){
-	return launch.find({}, function(err, result){ //find everything in launch, no param, and return whole document
+	console.log("In ServiceFulfiller: getAllLaunches");
+	return launch.find({}, function(err, result){ 
 		if(err) return console.error(err);
 		console.log(result);
 		return result;
 	});
-	
-	/*var findLaunches = function(db, callback) {
-  	// Get the launches collection
-  	var collection = db.collection('launches');
-  	// Find some documents
-  	collection.find({}).toArray(function(err, launches) {
-    	assert.equal(err, null);
-    	console.log("Found the following launches");
-    	console.log(launches)
-    	callback(launches);
- 	 });
-	}*/
 }
 
 /*

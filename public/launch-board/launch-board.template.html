@@ -75,7 +75,7 @@
 		transition: .4s;
 	}
 </style>
-
+<div class="jumbotron">
 <h1>{{$ctrl.isPrivate ? "My" : "Someone's"}} Launches</h1>
 
 <input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
@@ -111,4 +111,5 @@
 		<textarea ng-if="launch.editting" ng-model="launch.description"></textarea>
 
 	</figure>
+</div>
 </div>

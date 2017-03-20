@@ -1,7 +1,33 @@
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
-	<figure ng-repeat="launch in launches" style="float: left; margin-right:1%; margin-bottom: 0.5em;">	
-		<img ng-src={{launch.website}}/>
-		<figcaption>{{launch.description}}</figcaption>
-		<figcaption>{{launch.name}}</figcaption>
-	</figure>
+	<div flex-wrap flex-gt-xs="33" layout="row">
+	<md-content class="md-padding" layout-xs="column" layout="row">
+      <md-card flex-wrap flex-gt-xs="33" ng-repeat="launch in launches">
+        <img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{launch.name}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+          <md-card-icon-actions>
+            <md-button class="md-icon-button" aria-label="Favorite">
+              <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Share">
+              <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+            </md-button>
+          </md-card-icon-actions>
+          <md-button>Details</md-button>
+          <md-button>Promote</md-button>
+        </md-card-actions>
+        <md-card-content>
+          <p>
+            {{launch.description}}
+          </p>
+        </md-card-content>
+      </md-card>
 </div>

@@ -28,7 +28,7 @@ var profileSchema = require('../models/profile.js');
 var profile = mongoose.model('Profiles', profileSchema);
 
 var launchSchema = require('../models/launch.js');
-var launch = mongoose.model('Launches', profileSchema);
+var launch = mongoose.model('Launches', launchSchema);
 
 
 //===========================================

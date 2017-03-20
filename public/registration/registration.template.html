@@ -1,57 +1,101 @@
+<div class="container">
+	<div class="row main">
+		<div class="jumbotron">
+				<div class="panel-heading">
+					<div class="panel-title text-center">
+						<h1 class="title">Registration</h1>
+						<hr />
+					</div>
+				</div>
+					<div class="main-login main-center">
+						<form class="form-horizontal" name="form" role="form">	
 
-<div class="jumbotron">
-	<h1>Registration</h1>
-	
-	<form name="form" role="form">
-			
-			<div ng-class="{ 'has-error': (form.firstname.$pristine || form.firstname.$dirty) && form.firstname.$error.required}">
-				<label for="firstname">First Name</label>
-				<input style="width:60%; margin-top:10px;" type="text" name="firstname" id="firstname"  placeholder="First Name" ng-model="user.firstName" required/>
-				<img ng-src="{{((form.firstname.$pristine || form.firstname.$dirty) && form.firstname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-			</div>
-				
-			<div ng-class="{ 'has-error': (form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required}">
-				<label for="lastname">Last Name</label>
-				<input style="width:60%; margin-top:10px;" type="text" name="lastname" id="lastname"  placeholder="Last Name" ng-model="user.lastName" required/>
-				<img ng-src="{{((form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-			</div>
-					
-			<div ng-class="{ 'has-error': form.email.$pristine || (form.email.$dirty && form.email.$error.required) || form.email.$invalid}">
-				<label for="Email">Email</label>
-				<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="user.email" placeholder="Email"
-					pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(form.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
-				<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || $emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-			</div>
-					
-			<div ng-class="{ 'has-error': form.password.$pristine || (form.password.$dirty && form.password.$error.required) || form.password.$invalid}">
-				<label for="password">Password</label>
-				<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="user.password" placeholder="Password" 
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-				<img ng-src="{{( form.password.$error.pattern || form.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-					
-			</div>
-					
-			<div ng-class="{ 'has-error': form.passwordConf.$pristine || (form.passwordConf.$dirty && form.passwordConf.$error.required) || form.passwordConf.$invalid}">
-				<label for="passwordConf">Password Confirmation</label>
-				<input style="width:60%; margin-top:10px;" type="password" name="passwordConf" id="passwordConf"  ng-model="user.passwordConf" placeholder="Password Confirmation"
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
-				<img ng-src="{{(form.passwordConf.$error.pattern || form.passwordConf.$error.required || validatePasswordConfirmation(form.password, form.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-			</div>
-				
-		<div>
-			<li>minimum 8 characters long</li>
-			<li>At least one lower case letter</li>
-			<li>At least one upper case letter</li>
-			<li>At least one numeric character</li>
-			<li>At least one special character</li>
-			<li>Password and Password Confirmation must match</li>
-		</div>
-    	
-        <button ng-click="createUserAccount(user)" title="Missing or Invalid Required Field(s) Value."
-				ng-disabled="form.$invalid || validatePasswordConfirmation(form.password, form.passwordConf) || emailFailed" class="btn btn-primary">
-			<span>Start Building!</span>
-        </button>
-   	
-	</form>
-</div> 
+							<div class="form-group">	
+								<label for="firstname" class="cols-sm-2 control-label">First Name</label>
+								<div class="cols-sm-10">	
+									<div class="input-group" ng-class="{ 'has-error': (form.firstname.$pristine || form.firstname.$dirty) && form.firstname.$error.required}">
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>								
+										<input class="form-control" type="text" name="firstname" id="firstname"  placeholder="Enter Your First Name" ng-model="user.firstName" required/>
+										<img ng-src="{{((form.firstname.$pristine || form.firstname.$dirty) && form.firstname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+									</div>
+								</div>
+							</div>
 
+							<div class="form-group">	
+								<label for="lastname" class="cols-sm-2 control-label">Last Name</label>
+								<div class="cols-sm-10">
+									<div class="input-group" ng-class="{ 'has-error': (form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required}">	
+										<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>								
+										<input class="form-control" type="text" name="lastname" id="lastname"  placeholder="Enter Your Last Name" ng-model="user.lastName" required/>
+										<img ng-src="{{((form.lastname.$pristine || form.lastname.$dirty) && form.lastname.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+									</div>
+								</div>
+							</div>
+									
+							<div class="form-group">
+								<label for="Email" class="cols-sm-2 control-label">Email</label>
+								<div class="cols-sm-10">
+									<div class="input-group" ng-class="{ 'has-error': form.email.$pristine || (form.email.$dirty && form.email.$error.required) || form.email.$invalid}">
+										<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>										
+										<input class="form-control" type="text" name="email" id="email"  ng-model="user.email" placeholder="Email"
+											pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(form.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>
+										<img ng-src="{{( form.email.$error.pattern || form.email.$error.required || $emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="password" class="cols-sm-2 control-label">Password</label>
+								<div class="cols-sm-10">
+									<div class="input-group" ng-class="{ 'has-error': form.password.$pristine || (form.password.$dirty && form.password.$error.required) || form.password.$invalid}">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>										
+										<input class="form-control" type="password" name="password" id="password"  ng-model="user.password" placeholder="Enter Your Password" 
+											pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
+										<img ng-src="{{( form.password.$error.pattern || form.password.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>										
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="passwordConf" class="cols-sm-2 control-label">Password Confirmation</label>
+								<div class="cols-sm-10">		
+									<div class="input-group" ng-class="{ 'has-error': form.passwordConf.$pristine || (form.passwordConf.$dirty && form.passwordConf.$error.required) || form.passwordConf.$invalid}">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+										<input class="form-control" type="password" name="passwordConf" id="passwordConf"  ng-model="user.passwordConf" placeholder="Password Confirmation"
+											pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>
+										<img ng-src="{{(form.passwordConf.$error.pattern || form.passwordConf.$error.required || validatePasswordConfirmation(form.password, form.passwordConf)) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group ">
+									<button type="button" class="btn btn-primary btn-lg btn-block login-button" ng-click="createUserAccount(user)" title="Missing or Invalid Required Field(s) Value."
+										ng-disabled="form.$invalid || validatePasswordConfirmation(form.password, form.passwordConf) || emailFailed">Start Building!</button>	
+							</div>
+
+							<div class="login-register">
+				            <a href="/login">Login</a>
+				        	</div>
+						<div>
+							<li>minimum 8 characters long</li>
+							<li>At least one lower case letter</li>
+							<li>At least one upper case letter</li>
+							<li>At least one numeric character</li>
+							<li>At least one special character</li>
+							<li>Password and Password Confirmation must match</li>
+						</div>					
+					</form>
+				</div>
+			</div> 
+	</div>
+</div>
+
+<!-- Website CSS style -->
+<link rel="stylesheet" type="text/css" href="css/register.css">
+
+<!-- Website Font style -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		
+<!-- Google Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>

@@ -3,8 +3,8 @@
 </head>
 
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
-	<md-content class="md-padding" layout-xs="column" layout="row">
-		<div flex-xs flex-gt-xs="33" layout="column" layout-wrap ng-repeat="launch in launches">
+	<md-content class="md-padding" layout-xs="column" layout="row" flex-xs flex-gt-xs="33" layout-wrap>
+		<div layout="column" ng-repeat="launch in launches">
       		<md-card>
         		<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
         		<md-card-title>

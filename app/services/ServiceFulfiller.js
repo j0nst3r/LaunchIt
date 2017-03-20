@@ -12,9 +12,8 @@ service.validatePassword = validatePassword;
 service.resetPassword = resetPassword;
 service.createAccount = createAccount;
 service.createProfile = createProfile;
-service.getAllLaunches = getAllLaunches;
 
-service.getLaunches = getLaunches;
+service.getAllLaunches = getAllLaunches;
 service.createLaunch = createLaunch;
 
 module.exports = service;

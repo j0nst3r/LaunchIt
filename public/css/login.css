@@ -62,7 +62,7 @@ display: inline;
   text-align: center;
   width: 100%;
   display: block;
-  padding-left: 15em;
+  padding-left: 0em;
 }
 
 .form-signin .form-control {

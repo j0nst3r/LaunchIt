@@ -1,15 +1,15 @@
 "use strict"
 
-angular.
-	module('launchBoard').
-	component('launchBoard', {
+angular
+	.module('launchBoard')
+	.component('launchBoard', {
 		templateUrl: "launch-board/launch-board.template.html",
 
 		bindings: {
 			isPrivate: '@'
 		},
 
-		controller: ["$location", "dataService", function (location, dataService) {
+		controller: ["$location", "$uibModal", "dataService", function (location, $uibModal, dataService) {
 			this.reload = function () {
 				dataService.getAllLaunches()
 					.then(launches => {
@@ -31,8 +31,31 @@ angular.
 				location.path('/create-launch')
 			}
 
-			this.delete = function (launch) {
-				
+			this.edit = function (launch) {
+				$uibModal.open({
+					component: 'edit',
+					resolve: {
+						meta: {
+							title: "Edit Launch"
+						},
+						fields: {
+							name: ['text', 'Name'],
+							description: ['text', 'Description']
+						},
+						data: launch
+					}
+				}).result.then(result => {	// TODO DB calls
+					for (let i = 0; i < this.launches.length; i++) {
+						if (this.launches[i]._id === result.data._id) {
+							if (result.del) {
+								this.launches.splice(i, 1)
+								break
+							} else {
+								this.launches[i] = result.data
+							}
+						}
+					}
+				})
 			}
 		}]
 	})

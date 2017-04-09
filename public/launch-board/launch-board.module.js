@@ -1,2 +1,2 @@
 "use strict"
-angular.module('launchBoard', ['DataService'])
+angular.module('launchBoard', ['ui.bootstrap', 'DataService', 'edit'])

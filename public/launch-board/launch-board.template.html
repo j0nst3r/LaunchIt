@@ -25,9 +25,6 @@
 		max-width: 512px;
 		max-height: 512px;
 	}
-	input[type=button] {
-		border-radius: 32px;
-	}
 
 	textarea {
 		position: absolute;
@@ -62,7 +59,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: flex-end;
-		justify-content: space-between;
+		justify-content: center;
 
 		background-color: rgba(200, 200, 200, .5);
 	}
@@ -80,37 +77,24 @@
 <div class="jumbotron">
 <h1>{{$ctrl.isPrivate ? "My" : "Someone's"}} Launches</h1>
 
-<input ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
+<input class="btn btn-primary" ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
 
 <div class="flexbox">
 	<figure ng-repeat="launch in $ctrl.launches">
 		<img ng-src="{{launch.website}}"/>
 
-		<div class="inside" ng-class="!launch.editting ? 'hiddenn' : ''">
-			<div>
-				<input ng-if="$ctrl.isPrivate && !launch.editting" type="button" value="Edit" title="Edit launch" ng-click="launch.editting = true"/>
-				<input ng-if="launch.editting" type="button" value="Done" title="Confirm edits" ng-click="launch.editting = false"/>
-
-				<input ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
-			</div>
+		<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
 
 			<div>
-				<h3 ng-if="!launch.editting">{{launch.name}}</h3>
-				<input ng-if="launch.editting" ng-model="launch.name"/>
-
+				<h3>{{launch.name}}</h3>
 				<p>{{launch.yays}}</p>
 			</div>
 			
-			<div>
-				<input ng-if="$ctrl.isPrivate && !launch.editting" type="button" value="Delete" style="visibility: hidden"/>	<!-- Garbage spacing hack -->
-				<input ng-if="$ctrl.isPrivate && launch.editting" type="button" value="Delete" title="Delete launch" ng-click="$ctrl.delete(launch)"/>
-
-				<input ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
-			</div>
+			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
 		</div>
 
-		<figcaption ng-if="!launch.editting">{{launch.description}}</figcaption>
-		<textarea ng-if="launch.editting" ng-model="launch.description"></textarea>
+		<figcaption>{{launch.description}}</figcaption>
 
 	</figure>
 </div>

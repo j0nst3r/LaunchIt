@@ -4,7 +4,7 @@
 
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
-		<div layout="column" flex-xs flex-gt-xs="33" ng-repeat="launch in launches">
+		<div layout="column" flex-xs flex-gt-xs="33" ng-repeat="launch in launches | filter:searchText">
       		<md-card>
         		<md-card-title>
           			<md-card-title-text>

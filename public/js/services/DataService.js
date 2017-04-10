@@ -1,4 +1,4 @@
-angular.module('DataService', []).factory('dataService', ['$http', function($http, $q) {
+angular.module('DataService', []).factory('dataService', ['$http', '$q', function($http, $q) {
 	var urlBase = '';
 	$http.get('application.properties').then(function(response){
 		urlBase = response.data.apiUrl + "api";

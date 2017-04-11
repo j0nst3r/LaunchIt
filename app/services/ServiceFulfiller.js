@@ -15,6 +15,8 @@ service.createProfile = createProfile;
 
 service.getAllLaunches = getAllLaunches;
 service.createLaunch = createLaunch;
+service.deleteLaunch = deleteLaunch;
+service.updateLaunchInfo = updateLaunchInfo;
 
 module.exports = service;
 
@@ -143,6 +145,38 @@ function createLaunch(launchInfo){
 		return console.log(result);
 	})
 }
+
+function updateLaunchInfo(launchInfo){
+	var data = JSON.stringify(launchInfo);
+	console.log("IN updateLaunchInfo: " + data);
+
+	var query = {_id:launchInfo._id.$oid};
+	delete launchInfo._id;
+	delete launchInfo.owner;
+	launch.update(query, {$set: launchInfo}, function(err, result){
+		if(err) return console.error(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
+
+function deleteLaunch(launchInfo){
+	var data = JSON.stringify(launchInfo);
+	console.log("IN deleteLaunch: " + data);
+
+	var query = {_id:launchInfo._id.$oid};
+	delete launchInfo._id;
+	delete launchInfo.owner;
+	launch.remove(query, function(err, result){
+		if(err) return console.error(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
+
+
+
+
 /*
 //account related service
 

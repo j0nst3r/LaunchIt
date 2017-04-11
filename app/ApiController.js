@@ -6,25 +6,6 @@ var serviceFulfiller = require('./services/ServiceFulfiller');
 var pathExists = require('path-exists');
 var mongoose = require('mongoose');
 
-
-
-
-//===========================================
-//LAUNCH STUFF...................................
-//===========================================
-router.get('/getAllLaunches', function(req, res) {
-	console.log("getAllLaunches service requested : " + JSON.stringify(req.body));
-	
-	serviceFulfiller.getAllLaunches().then(
-		function(result){
-			res.status(200).json(result);
-		},
-		function(result){
-			console.log(JSON.stringify(result));
-		});
-});
-
-
 //===========================================
 //IMAGE UPLOAD API.....
 //===========================================
@@ -145,14 +126,51 @@ router.post('/createAccount', function(req, res){
 //===========================================
 //LAUNCH RELATED SERVICES.....
 //===========================================
+router.get('/getAllLaunches', function(req, res) {
+	console.log("getAllLaunches service requested : " + JSON.stringify(req.body));
+	
+	serviceFulfiller.getAllLaunches().then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+});
+
 router.post('/getLaunches', function (req, res) {
 	console.log("getLaunches service requested: " + JSON.stringify(req.body));
 	serviceFulfiller.getLaunches(req.body);
 })
+
 router.post('/createLaunch', function(req, res) {
 	console.log("createlaunch service requested: " + JSON.stringify(req.body));
 	serviceFulfiller.createLaunch(req.body);
 })
+
+router.post('/updateLaunchInfo', function(req, res){
+	console.log("updateLaunchInfo service requested : " + JSON.stringify(req.body));
+	
+	serviceFulfiller.updateLaunchInfo(req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+});
+
+router.post('/deleteLaunch', function(req, res){
+	console.log("updateLaunchInfo service requested : " + JSON.stringify(req.body));
+	
+	serviceFulfiller.deleteLaunch(req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+});
  
 //===========================================
 //PROFILE RELATED SERVICES.....

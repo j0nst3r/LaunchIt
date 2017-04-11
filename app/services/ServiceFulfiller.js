@@ -150,7 +150,7 @@ function updateLaunchInfo(launchInfo){
 	var data = JSON.stringify(launchInfo);
 	console.log("IN updateLaunchInfo: " + data);
 
-	var query = {_id:launchInfo._id.$oid};
+	var query = {_id:launchInfo._id};
 	delete launchInfo._id;
 	delete launchInfo.owner;
 	launch.update(query, {$set: launchInfo}, function(err, result){
@@ -164,7 +164,7 @@ function deleteLaunch(launchInfo){
 	var data = JSON.stringify(launchInfo);
 	console.log("IN deleteLaunch: " + data);
 
-	var query = {_id:launchInfo._id.$oid};
+	var query = {_id:launchInfo._id};
 	delete launchInfo._id;
 	delete launchInfo.owner;
 	launch.remove(query, function(err, result){

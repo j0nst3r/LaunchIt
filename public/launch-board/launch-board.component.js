@@ -45,8 +45,9 @@ angular
 						data: launch
 					}
 				}).result.then(result => {
+					
 					const launch = result.data
-
+					console.log(launch)
 					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
 
 					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)

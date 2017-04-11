@@ -44,17 +44,13 @@ angular
 						},
 						data: launch
 					}
-				}).result.then(result => {	// TODO DB calls
-					for (let i = 0; i < this.launches.length; i++) {
-						if (this.launches[i]._id === result.data._id) {
-							if (result.del) {
-								this.launches.splice(i, 1)
-								break
-							} else {
-								this.launches[i] = result.data
-							}
-						}
-					}
+				}).result.then(result => {
+					const launch = result.data
+
+					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
+
+					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)
+						.then(() => this.reload())
 				})
 			}
 		}]

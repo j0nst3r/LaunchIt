@@ -24,6 +24,9 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	*/
 	dataService.getLaunches = getLaunches;
 	dataService.createLaunch = createLaunch;
+	dataService.updateLaunch = updateLaunch;
+	dataService.deleteLaunch = deleteLaunch;
+
 	return dataService;	
 	
 	// get all of the launches in the database and return them
@@ -129,6 +132,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
+
 	function getLaunches(owner) {
 		return $http({method: 'POST', url: urlBase + '/getLaunches', data: owner})
 		.then(function (body) {
@@ -150,6 +154,26 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			console.log(JSON.stringify(res.data));
 			return $q.reject(res.data);
 		});
+	}
+	function updateLaunch(launch) {
+		return $http({method: 'POST', url: urlBase + '/updateLaunchInfo', data: launch})
+			.then(body => {
+				console.log(body)
+				return body
+			}, res => {
+				console.log(JSON.stringify(res.data))
+				return $q.reject(res)
+			})
+	}
+	function deleteLaunch(launch) {
+		return $http({method: 'POST', url: urlBase + '/deleteLaunch', data: launch})
+			.then(body => {
+				console.log(body)
+				return body
+			}, res => {
+				console.log(JSON.stringify(res.data))
+				return $q.reject(res)
+			})
 	}
 
 	function getAccount(accountInfo) {

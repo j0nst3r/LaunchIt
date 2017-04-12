@@ -1,27 +1,105 @@
+<style>
+	md-card {
+		position: relative;
+	}
+	
+	md-card:hover figcaption {
+		opacity: 1;
+		top: 100%;
+		transition: .4s;
+	}
+
+	.inside {
+		position: absolute;
+		bottom: 0;
+
+		width: 100%;
+		text-align: center;
+
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: flex-end;
+		justify-content: center;
+
+		background-color: rgba(200, 200, 200, .5);
+	}
+
+	.hiddenn {
+		opacity: 0;
+		transition: .4s;
+	}
+
+	md-card:hover .hiddenn {
+		opacity: 1;
+		transition: .4s;
+	}
+</style>
+
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
+
 <div class="jumbotron" ng-app="LaunchesCtrl" ng-controller="LaunchesController">
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
-		<div layout="column" flex-xs flex-gt-xs="33" ng-repeat="launch in launches | filter:searchText">
-      		<md-card>
-        		<md-card-title>
-          			<md-card-title-text>
-            			<span class="md-headline">{{launch.name}}</span>
-          			</md-card-title-text>
-        		</md-card-title>
-				<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
-        		<md-card-actions layout="row" layout-align="start center">
-          			<md-card-icon-actions>
-          			</md-card-icon-actions>
-        		</md-card-actions>
-        		<md-card-content>
-          			<p>
-            		{{launch.description}}
-          			</p>
-        		</md-card-content>
-      		</md-card>
+		<div layout="row">
+			<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 0">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+
+						<div>
+							<h3>{{launch.name}}</h3>
+							<p>{{launch.yays}}</p>
+						</div>
+			
+						<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+					</div>
+	        		<md-card-actions layout="row" layout-align="start center">
+          				<md-card-icon-actions>
+          				</md-card-icon-actions>
+        			</md-card-actions>
+      			</md-card>
+      		</div>
+      		<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 1">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+
+						<div>
+							<h3>{{launch.name}}</h3>
+							<p>{{launch.yays}}</p>
+						</div>
+			
+						<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+					</div>
+	        		<md-card-actions layout="row" layout-align="start center">
+          				<md-card-icon-actions>
+          				</md-card-icon-actions>
+        			</md-card-actions>
+      			</md-card>
+      		</div>
+      		<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 2">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+
+						<div>
+							<h3>{{launch.name}}</h3>
+							<p>{{launch.yays}}</p>
+						</div>
+			
+						<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+					</div>
+	        		<md-card-actions layout="row" layout-align="start center">
+          				<md-card-icon-actions>
+          				</md-card-icon-actions>
+        			</md-card-actions>
+      			</md-card>
+      		</div>
     	</div>
     </md-content>
 </div>

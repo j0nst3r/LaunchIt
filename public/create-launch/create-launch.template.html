@@ -23,9 +23,10 @@
 		</md-input-container>
         
         <!--type input doesn't play well with md-input-->
-        <input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>
+        <!--Removed file upload from frontend for now since backend isn't functional-->
+        <!--<input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>
 		
-		<md-input-container class="md-block">
+		<md-input-container class="md-block">-->
         <div>
             <label for="description">Description</label>
             <input type="text" name="description" id='description' value="" ng-model='launch.description' required>

@@ -94,7 +94,10 @@
 			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
 		</div>
 
-		<figcaption>{{launch.description}}</figcaption>
+		<figcaption>
+			<p>{{launch.description}}</p>
+			<h6>{{launch.tags}}</h6>
+		</figcaption>
 
 	</figure>
 </div>

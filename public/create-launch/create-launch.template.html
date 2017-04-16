@@ -35,13 +35,13 @@
         </div>
 		</md-input-container>
 		
-		<!--<md-input-container class="md-block">
+		<md-input-container class="md-block">
         <div>
             <label for="tags">Tags</label>
-            <input type="text" name="tags" value="Separated with ,">
+            <input type="text" name="tags" placeholder="Separated with ," ng-model='launch.tags'>
         </div>
 		</md-input-container>
-		-->
+		
         <div>
             <input type="button" ng-click='create(launch)' value='Create'/>
         </div>

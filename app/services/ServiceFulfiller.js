@@ -134,11 +134,13 @@ function getAllLaunches() {
 	});
 }
 function createLaunch(launchInfo){
+	const tags = launchInfo.tags.split(",")
 	var newLaunch = new launch({
 		owner: launchInfo.owner,
 		name: launchInfo.name,
 		website : launchInfo.website,
-		description : launchInfo.description
+		description : launchInfo.description,
+		tags : tags
 	})
 	return newLaunch.save(function (err, result) {
 		if(err) return console.error(err);

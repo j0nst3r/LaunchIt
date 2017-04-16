@@ -96,7 +96,7 @@
 
 		<figcaption>
 			<p>{{launch.description}}</p>
-			<h6>{{launch.tags}}</h6>
+			<span ng-repeat="tag in launch.tags">{{tag}} </span>
 		</figcaption>
 
 	</figure>

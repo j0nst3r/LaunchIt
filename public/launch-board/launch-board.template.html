@@ -84,14 +84,14 @@
 		<img ng-src="{{launch.website}}"/>
 
 		<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : 'Click to View'}}" ng-click="$ctrl.isPrivate ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
+			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
 
 			<div>
 				<h3>{{launch.name}}</h3>
 				<p>{{launch.yays}}</p>
 			</div>
 			
-			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay()"/>
+			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
 		</div>
 
 		<figcaption>

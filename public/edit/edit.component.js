@@ -19,6 +19,8 @@ angular
 
 				this.edit = this.resolve.data ? true : false
 				this.data = this.edit ? angular.copy(this.resolve.data) : {}	// Edit if binding, create otherwise
+
+				this.readonly = this.resolve.readonly
 			}
 
 			this.return = function (del) {

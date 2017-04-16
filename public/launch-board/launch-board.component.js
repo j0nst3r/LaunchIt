@@ -31,18 +31,19 @@ angular
 				location.path('/create-launch')
 			}
 
-			this.edit = function (launch) {
+			this.view = function (launch, edit) {
 				$uibModal.open({
 					component: 'edit',
 					resolve: {
 						meta: {
-							title: "Edit Launch"
+							title: (edit ? "Edit " : "") + launch.name
 						},
 						fields: {
 							name: ['text', 'Name'],
 							description: ['text', 'Description']
 						},
-						data: launch
+						data: launch,
+						readonly: !edit
 					}
 				}).result.then(result => {
 					

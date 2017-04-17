@@ -24,9 +24,9 @@
         
         <!--type input doesn't play well with md-input-->
         <!--Removed file upload from frontend for now since backend isn't functional-->
-        <!--<input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>
+        <!--<input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>-->
 		
-		<md-input-container class="md-block">-->
+		<md-input-container class="md-block">
         <div>
             <label for="description">Description</label>
             <input type="text" name="description" id='description' value="" ng-model='launch.description' required>
@@ -38,8 +38,8 @@
 		
 		<md-input-container class="md-block">
         <div>
-            <label for="tags">Tags</label>
-            <input type="text" name="tags" placeholder="Separated with ," ng-model='launch.tags'>
+            <label for="tags">Tags Separated with comma(,)</label>
+            <input type="text" name="tags" value="" ng-model='launch.tags'>
         </div>
 		</md-input-container>
 		

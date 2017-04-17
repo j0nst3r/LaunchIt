@@ -1,5 +1,6 @@
-angular.module('LaunchesCtrl', []).controller('LaunchesController', function($scope, $rootScope, $location, dataService) {
-	
+
+angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesController', function($scope, $rootScope, $location, $uibModal, dataService) {
+
 	// call on dataService to all the launches and then
 	// store each launch object into $scope.launches
 	dataService.getAllLaunches().then( function(launchArray) {
@@ -26,4 +27,21 @@ angular.module('LaunchesCtrl', []).controller('LaunchesController', function($sc
         	$scope.launches.push(launchObj);
         }
 	});
+	
+	$scope.view = function (launch) {
+				$uibModal.open({
+					component: 'edit',
+					resolve: {
+						meta: {
+							title: launch.name
+						},
+						fields: {
+							name: ['text', 'Name'],
+							description: ['text', 'Description']
+						},
+						data: launch,
+						readonly: true
+					}
+				})
+			}
 });

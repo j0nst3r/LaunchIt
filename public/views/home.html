@@ -44,7 +44,7 @@
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
 			<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 0">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 0" ng-click="view(launch)">
 					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
 					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
@@ -63,7 +63,7 @@
       			</md-card>
       		</div>
       		<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 1">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 1" ng-click="view(launch)">
 					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
 					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>
@@ -82,7 +82,7 @@
       			</md-card>
       		</div>
       		<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 2">
+    	  		<md-card ng-repeat="launch in launches | filter:searchText" ng-if="$index % 3 == 2" ng-click="view(launch)">
 					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
 					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 						<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay()"/>

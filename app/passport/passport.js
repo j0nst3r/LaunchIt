@@ -30,7 +30,7 @@ module.exports = function(app, passport){
         done(err, user);
         });
     });
-
+	
 //==================== Facebook  ===========================================
 
     passport.use(new FacebookStrategy({
@@ -123,6 +123,7 @@ module.exports = function(app, passport){
                     //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
                     socialId: socialMedia.id
                 });
+				
                 curUser.save(function(err) {
                     if (err) {console.log(err);
 					}else{
@@ -133,23 +134,32 @@ module.exports = function(app, passport){
 					});
 					newProfile.save(function(err){
 						if (err) console.log(err);
-						return done(err, result);
 					});
 					
 					});
 					}
 				});
+				
+				
+				return done(null, curUser);
+				
             } else {
 				console.log("EXISTING USER...")
                 //found user. Return
-                return done(err, user);
+                return done(null, curUser);
             }
         });
     }));
 
     app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'] }));
-    app.get('/auth/google/callback',  passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-            res.redirect('/');
+    app.get('/auth/google/callback',  passport.authenticate('google', { failureRedirect: '/login' }),
+		function(req, res){
+			var url = "/login/";
+			var userId = req.user._id;
+			console.log(req.user._id);
+			url = url.concat(userId);
+			console.log(url);
+            res.redirect(url);
     });
     
     return passport;

@@ -12,6 +12,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/login.html',
 			controller: 'LoginController'
 		})
+		
+		.when('/login/:id',{
+			templateUrl: 'views/redirection.html',
+			controller: 'LoginController'
+		})
   
 		.when('/registration', {
 			template: '<registrationform></registrationform>'

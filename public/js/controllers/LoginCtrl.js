@@ -1,4 +1,5 @@
-angular.module('LoginCtrl', []).controller('LoginController', function($scope, $rootScope, $location, dataService) {
+angular.module('LoginCtrl', [])
+.controller('LoginController', function($scope, $rootScope, $location, dataService) {
 	
 	$scope.validateLogin = function(userIn, passIn){		
 		dataService.performLoginOperation(userIn.$viewValue, passIn.$viewValue).then( function(body){
@@ -18,4 +19,24 @@ angular.module('LoginCtrl', []).controller('LoginController', function($scope, $
 			}
 		});
 	};
+	
+	$scope.authenticate = function(platform){
+		
+		switch(platform){
+			case 'google':
+				console.log("GOOGLE AUTHEN...");
+				window.location.href = "/auth/google";
+				break;
+			default:
+				break;
+		}
+		
+	}
+})
+.controller('RedirectionController', function($scope, $rootScope, $location, $routeParams, dataService) {
+	
+	$rootScope.isUserLoggedIn = true;
+	sessionStorage.setItem('loggedIn', true);
+	sessionStorage.setItem('userId', $routeParams._id);
+	$location.path('/');
 })

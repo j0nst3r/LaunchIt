@@ -40,7 +40,8 @@ angular
 						},
 						fields: {
 							name: ['text', 'Name'],
-							description: ['text', 'Description']
+							description: ['text', 'Description'],
+							tags: ['text', 'Tags']
 						},
 						data: launch,
 						readonly: !edit
@@ -48,6 +49,7 @@ angular
 				}).result.then(result => {
 					
 					const launch = result.data
+					launch.tags = result.data.tags.split(',')
 					console.log(launch)
 					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
 

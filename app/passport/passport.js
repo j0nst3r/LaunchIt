@@ -3,7 +3,16 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
-var User             = require('../models/user');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+
+var userSchema = require('../models/user.js');
+var user = mongoose.model('Users', userSchema);
+
+var profileSchema = require('../models/profile.js');
+var profile = mongoose.model('Profiles', profileSchema);
+
+
 var session          = require('express-session');
 
 module.exports = function(app, passport){
@@ -17,7 +26,7 @@ module.exports = function(app, passport){
     });
 
     passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+    user.findById(id, function(err, user) {
         done(err, user);
         });
     });
@@ -36,17 +45,7 @@ module.exports = function(app, passport){
         console.log( name[0] ); // FirstName
         console.log( name[1] ); // LastName
         var passIn = "Password!";
- /*
-        if (  MongoDBemail   == profile._json.email) {  
-            login with user
-        } else { 
-            create user and login
-        }
-*/
-
-            done(null,profile);
-        }
-    ));
+    }));
 
     app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {  successRedirect: '/', failureRedirect: '/login', scope:['email'] }));
@@ -105,16 +104,48 @@ module.exports = function(app, passport){
         clientSecret: 'ar5cLIUNgZtJqeXm-y4CHKlV',
         callbackURL: "http://localhost:8080/auth/google/callback"
     },
-    function(accessToken, refreshToken, profile, done) {
-        console.log(profile.emails[0].value);
-        console.log(profile.name.givenName);
-        console.log(profile.name.familyName);
-      //  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      //      return done(err, user);
-      // });
-      done(null,profile);
-    }
-    ));
+	function(accessToken, refreshToken, socialMedia, done) {
+        //check user table for anyone with a socialId of profile.id
+        user.findOne({
+            'socialId': socialMedia.id 
+        }, function(err, curUser) {
+			console.log(JSON.stringify(socialMedia));
+            if (err) {
+                return done(err);
+            }
+            //No user was found... so create a new user with values from(all the profile. stuff)
+            if (!curUser) {
+                curUser = new user({
+                    //name: profile.displayName,
+                    //email: profile.emails[0].value,
+                    //username: profile.username,
+                    //provider: 'facebook',
+                    //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
+                    socialId: socialMedia.id
+                });
+                curUser.save(function(err) {
+                    if (err) {console.log(err);
+					}else{
+					console.log("finding user and createing profile");
+					user.findOne({'socialId': socialMedia.id }, function(err , result){
+					var newProfile = new profile({
+						_id : result._id
+					});
+					newProfile.save(function(err){
+						if (err) console.log(err);
+						return done(err, result);
+					});
+					
+					});
+					}
+				});
+            } else {
+				console.log("EXISTING USER...")
+                //found user. Return
+                return done(err, user);
+            }
+        });
+    }));
 
     app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'] }));
     app.get('/auth/google/callback',  passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {

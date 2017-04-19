@@ -6,12 +6,10 @@ angular
 		templateUrl: "launch-board/launch-board.template.html",
 
 		bindings: {
-			isPrivate: '@'
+			isPrivate: '<'
 		},
 
-		controller: ["$routeParams", "$location", "$uibModal", "dataService", function ($route, $location, $uibModal, dataService) {
-			this.isPrivate = ($route.userId == undefined ? true : false);
-			console.log(this.isPrivate);
+		controller: ["$location", "$uibModal", "dataService", function ($location, $uibModal, dataService) {
 			this.reload = function () {
 				dataService.getAllLaunches()
 					.then(launches => {
@@ -30,7 +28,7 @@ angular
 			this.reload()
 
 			this.create = function () {
-				location.path('/create-launch')
+				$location.path('/create-launch')
 			}
 
 			this.view = function (launch, edit) {

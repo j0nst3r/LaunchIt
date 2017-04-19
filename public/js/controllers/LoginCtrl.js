@@ -37,6 +37,7 @@ angular.module('LoginCtrl', [])
 	
 	$rootScope.isUserLoggedIn = true;
 	sessionStorage.setItem('loggedIn', true);
-	sessionStorage.setItem('userId', $routeParams._id);
+	console.log($routeParams.id);
+	sessionStorage.setItem('userId', $routeParams.id);
 	$location.path('/');
 })

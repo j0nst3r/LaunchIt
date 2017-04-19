@@ -139,8 +139,6 @@ module.exports = function(app, passport){
 					});
 					}
 				});
-				
-				
 				return done(null, curUser);
 				
             } else {

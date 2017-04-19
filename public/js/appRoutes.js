@@ -47,12 +47,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 		
 		
-		.when('/launch-board', {
+		.when('/launch-board/:userId?', {
 			template: '<launch-board></launch-board>'
 		})
-		.when('/launch-board-private', {
-			template: '<launch-board is-private=true></launch-board>'
-		});
 		
 	$locationProvider.html5Mode(true);
 

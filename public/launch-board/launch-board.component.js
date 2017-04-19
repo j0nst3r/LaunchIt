@@ -9,7 +9,9 @@ angular
 			isPrivate: '@'
 		},
 
-		controller: ["$location", "$uibModal", "dataService", function (location, $uibModal, dataService) {
+		controller: ["$routeParams", "$location", "$uibModal", "dataService", function ($route, $location, $uibModal, dataService) {
+			this.isPrivate = ($route.userId == undefined ? true : false);
+			console.log(this.isPrivate);
 			this.reload = function () {
 				dataService.getAllLaunches()
 					.then(launches => {

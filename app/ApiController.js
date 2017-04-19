@@ -140,7 +140,13 @@ router.get('/getAllLaunches', function(req, res) {
 
 router.post('/getLaunches', function (req, res) {
 	console.log("getLaunches service requested: " + JSON.stringify(req.body));
-	serviceFulfiller.getLaunches(req.body);
+	serviceFulfiller.getLaunches(req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+	});
 })
 
 router.post('/createLaunch', function(req, res) {

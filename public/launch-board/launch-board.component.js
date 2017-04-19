@@ -6,10 +6,12 @@ angular
 		templateUrl: "launch-board/launch-board.template.html",
 
 		bindings: {
-			isPrivate: '<'
+			userId: '<'
 		},
 
 		controller: ["$location", "$uibModal", "dataService", function ($location, $uibModal, dataService) {
+			this.isPrivate = function () { return this.userId == undefined }
+
 			this.reload = function () {
 				dataService.getAllLaunches()
 					.then(launches => {

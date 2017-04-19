@@ -48,10 +48,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		
 		
 		.when('/launch-board/:userId?', {
-			template: '<launch-board is-private="$resolve.isPrivate"></launch-board>',
+			template: '<launch-board user-id="$resolve.userId"></launch-board>',
 			resolve: {
-				isPrivate: ['$route', function ($route) {
-					return $route.current.params.userId == undefined
+				userId: ['$route', function ($route) {
+					return $route.current.params.userId
 				}]
 			}
 		})

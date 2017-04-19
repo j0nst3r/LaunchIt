@@ -147,7 +147,11 @@ function getLaunches(ownerId){
 
 
 function createLaunch(launchInfo){
-	const tags = launchInfo.tags.split(",")
+	let tags = []
+	if(launchInfo.tags !=null) {
+		tags = launchInfo.tags.split(",")
+	}
+	
 	var newLaunch = new launch({
 		owner: launchInfo.owner,
 		name: launchInfo.name,

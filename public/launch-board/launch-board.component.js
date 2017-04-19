@@ -51,7 +51,10 @@ angular
 				}).result.then(result => {
 					
 					const launch = result.data
-					launch.tags = result.data.tags.split(',')
+					console.log(result.data.tags)
+					if(result.data.tags != null){
+						launch.tags = result.data.tags.split(',')
+					}
 					console.log(launch)
 					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
 

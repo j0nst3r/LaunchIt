@@ -55,7 +55,7 @@ angular
 					
 					const launch = result.data
 					console.log(result.data.tags)
-					if(result.data.tags != ''){
+					if(result.data.tags.length !== 0){
 						launch.tags = result.data.tags
 					}
 					console.log(launch)

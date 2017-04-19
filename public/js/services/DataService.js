@@ -134,10 +134,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	}
 
 	function getLaunches(owner) {
-		return $http({method: 'POST', url: urlBase + '/getLaunches', data: owner})
-		.then(function (body) {
-			console.log(body);
-			return body;
+		return $http({method: 'POST', url: urlBase + '/getLaunches', data: { owner: owner }})
+		.then(function (res) {
+			console.log(res.data);
+			return res.data;
 		},
 		function (res) {
 			console.log(JSON.stringify(res.data));

@@ -10,10 +10,16 @@ angular
 		},
 
 		controller: ["$location", "$uibModal", "dataService", function ($location, $uibModal, dataService) {
-			this.isPrivate = function () { return this.userId == undefined }
+			this.$onInit = function () {
+				this.isPrivate = this.userId == undefined
+
+				if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
+
+				this.reload()
+			}
 
 			this.reload = function () {
-				dataService.getAllLaunches()
+				dataService.getLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
 
@@ -25,9 +31,6 @@ angular
 						}
 					})
 			}
-			
-			this.launches = []
-			this.reload()
 
 			this.create = function () {
 				$location.path('/create-launch')
@@ -56,6 +59,7 @@ angular
 						launch.tags = result.data.tags.split(',')
 					}
 					console.log(launch)
+					// launch.tags = result.data.tags.split(',') Dis borked on delete
 					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
 
 					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)

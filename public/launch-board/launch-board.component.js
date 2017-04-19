@@ -55,8 +55,8 @@ angular
 					
 					const launch = result.data
 					console.log(result.data.tags)
-					if(result.data.tags != null){
-						launch.tags = result.data.tags.split(',')
+					if(result.data.tags != ''){
+						launch.tags = result.data.tags
 					}
 					console.log(launch)
 					// launch.tags = result.data.tags.split(',') Dis borked on delete

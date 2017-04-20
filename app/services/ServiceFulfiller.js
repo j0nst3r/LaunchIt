@@ -15,10 +15,13 @@ service.createAccount = createAccount;
 service.createProfile = createProfile;
 service.addToFavorite = addToFavorite;
 service.removeFromFavorite = removeFromFavorite;
-service.getUserFavorites = getUserFavorites;
+service.addToFollowing = addToFollowing;
+service.removeFromFollowing = removeFromFollowing;
+service.getProfile = getProfile;
 
 service.getAllLaunches = getAllLaunches;
 service.getLaunchesById = getLaunchesById;
+service.getLaunchesByOwnerId = getLaunchesByOwnerId;
 service.getLaunches = getLaunches;
 service.createLaunch = createLaunch;
 service.deleteLaunch = deleteLaunch;
@@ -158,8 +161,38 @@ function removeFromFavorite(favList, reqData){
 	return Promise.resolve({message:"OK"});
 }
 
-function getUserFavorites(reqData){
-	console.log("IN getUserFavorites: " + JSON.stringify(reqData));
+function addToFollowing(favList, reqData){
+	console.log("IN addToFavorite: " + JSON.stringify(reqData));
+	var query = {_id: reqData.userId};
+	
+	if (favList.indexOf(reqData.launchId) === -1) {
+		favList.push(reqData.followId);
+	}
+	
+	profile.update(query, {$set: {following: favList}}, function(err, result){
+		if(err) return console.err(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
+
+function removeFromFollowing(favList, reqData){
+	console.log("IN removeFromFavorite: " + JSON.stringify(reqData));
+	var query = {_id: reqData.userId};
+	
+	newList = favList.filter(function(data){
+		return (data != reqData.followId);
+	})
+	
+	profile.update(query, {$set: {removeFromFollowing: newList}}, function(err, result){
+		if(err) return console.err(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
+
+function getProfile(reqData){
+	console.log("IN getUserProfile: " + JSON.stringify(reqData));
 	return profile.findOne({_id:reqData.userId}, function(err, result){
 		if(err) return console.error(err);
 		console.log(result);
@@ -182,6 +215,15 @@ function getAllLaunches() {
 function getLaunchesById(launchIdList){
 	console.log("In ServiceFulfiller: getLaunchById " + launchIdList);
 	return launch.find({_id:{"$in": launchIdList}}, function(err, result){ 
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+
+function getLaunchesByOwnerId(followingIdList){
+	console.log("In ServiceFulfiller: getLaunchesByOwnerId " + followingIdList);
+	return launch.find({owner:{"$in": followingIdList}}, function(err, result){ 
 		if(err) return console.error(err);
 		console.log(result);
 		return result;

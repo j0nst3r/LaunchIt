@@ -152,7 +152,7 @@ router.post('/addToFavorite', function (req, res) {
 	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
-	serviceFulfiller.getUserFavorites(req.body).then(
+	serviceFulfiller.getProfiles(req.body).then(
 	function(result){
 		console.log("got result back....")
 		serviceFulfiller.addToFavorite(result.favLaunch, req.body).then(
@@ -173,10 +173,51 @@ router.post('/removeFromFavorite', function (req, res) {
 	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
-	serviceFulfiller.getUserFavorites(req.body).then(
+	serviceFulfiller.getProfile(req.body).then(
 	function(result){
 		console.log("got result back....")
 		serviceFulfiller.removeFromFavorite(result.favLaunch, req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+	},
+	function(result){
+		console.log(JSON.stringify(result));
+		res.status(200).JSON(result);
+	});
+})
+
+router.post('/addToFollowing', function (req, res) {
+	console.log("addToFollowing service requested: " + JSON.stringify(req.body));
+	
+	//get favLaunch from profile
+	serviceFulfiller.getProfile(req.body).then(
+	function(result){
+		console.log("got result back...." + result)
+		serviceFulfiller.addToFollowing(result.following, req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+	},
+	function(result){
+		console.log(JSON.stringify(result));
+		res.status(200).JSON(result);
+	});
+})
+
+router.post('/removeFromFollowing', function (req, res) {
+	console.log("removeFromFollowing service requested: " + JSON.stringify(req.body));
+	
+	//get favLaunch from profile
+	serviceFulfiller.getProfile(req.body).then(
+	function(result){
+		serviceFulfiller.removeFromFollowing(result.following, req.body).then(
 		function(result){
 			res.status(200).json(result);
 		},
@@ -194,7 +235,7 @@ router.post('/getFavoriteLaunches', function (req, res) {
 	console.log("getLaunches service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
-	serviceFulfiller.getUserFavorites(req.body).then(
+	serviceFulfiller.getProfile(req.body).then(
 	function(result){
 		//get the lauches from the list
 		serviceFulfiller.getLaunchesById(result.favLaunch).then(
@@ -211,6 +252,27 @@ router.post('/getFavoriteLaunches', function (req, res) {
 	});
 })
 
+router.post('/getFollowLaunches', function (req, res) {
+	console.log("getFollowLaunches service requested: " + JSON.stringify(req.body));
+	
+	//get favLaunch from profile
+	serviceFulfiller.getProfile(req.body).then(
+	function(result){
+		//get the lauches from the list
+		console.log(result.following)
+		serviceFulfiller.getLaunchesByOwnerId(result.following).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+	},
+	function(result){
+		console.log(JSON.stringify(result));
+		res.status(200).JSON(result);
+	});
+})
 
 
 router.post('/createLaunch', function(req, res) {

@@ -13,7 +13,7 @@ module.exports = mongoose.Schema(
         comments : [String],
         website : String,
         description : String,
-        voteYay : Number,
-        voteNay : Number
+        voteYay : [String],
+        voteNay : [String]
 	}
 );

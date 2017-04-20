@@ -4,6 +4,8 @@ module.exports = mongoose.Schema(
 	{
 		displayName: String,
 		firstName: String,
-		lastName: String
+		lastName: String,
+		favLaunch: [String],
+		following: [String]
 	}
 );

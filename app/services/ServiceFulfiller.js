@@ -184,7 +184,7 @@ function removeFromFollowing(favList, reqData){
 		return (data != reqData.followId);
 	})
 	
-	profile.update(query, {$set: {removeFromFollowing: newList}}, function(err, result){
+	profile.update(query, {$set: {following: newList}}, function(err, result){
 		if(err) return console.err(err);
 		return console.log(result);
 	});

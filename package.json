@@ -24,7 +24,7 @@
     "express-session": "^1.15.2",
     "jsonwebtoken": "^7.3.0",
     "method-override": "~2.0.2",
-    "mongoose": "~4.4",
+    "mongoose": "^4.4.20",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

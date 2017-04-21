@@ -12,6 +12,7 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 		for (i in launchArray) { 
 			// create launchObj, copy all the launchArray[i] attributes to launchObj
 			var launchObj = { 	
+					id:				launchArray[i]._id,
 					owner:	 		launchArray[i].owner,
         			name:	 		launchArray[i].name,
         			tags: 			launchArray[i].tags,
@@ -22,7 +23,15 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
        				description: 	launchArray[i].description,
         			voteYay: 		launchArray[i].voteYay,
         			voteNay: 		launchArray[i].voteNay };
-        	
+        
+			launchObj.nay = function(){
+				dataService.castVote('down', sessionStorage.getItem('userId'), this.id);
+			}
+			
+			launchObj.yay = function(){
+				dataService.castVote('up', sessionStorage.getItem('userId'), this.id);
+			}
+		
         	// put the new launchObj into launches
         	$scope.launches.push(launchObj);
         }

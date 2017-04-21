@@ -148,6 +148,23 @@ router.post('/getLaunches', function (req, res) {
 	});
 })
 
+router.post('/castVote', function(req, res){
+	console.log("user casting vote..." + JSON.stringify(req.body));
+	serviceFulfiller.getLaunchById(req.body.launchId).then(
+		function(result){
+			serviceFulfiller.castVote(result, req.body).then(
+			function(result){
+				res.status(200).json(result);
+			},
+			function(result){
+				console.log(JSON.stringify(result));
+			});
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+	});
+})
+
 router.post('/addToFavorite', function (req, res) {
 	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
 	

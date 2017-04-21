@@ -24,10 +24,14 @@ angular
 						this.launches = launches
 
 						for (let i = 0; i < this.launches.length; i++) {
-							this.launches[i].yays = 0
+							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						
-							this.launches[i].yay = function () { this.yays++ }
-							this.launches[i].nay = function () { this.yays-- }
+							this.launches[i].yay = function () {
+									dataService.castVote('up', sessionStorage.getItem('userId'), launches[i]._id)
+								}
+							this.launches[i].nay = function () {
+									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id) 
+								}
 						}
 					})
 			}

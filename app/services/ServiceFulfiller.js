@@ -19,13 +19,17 @@ service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
 
+
 service.getAllLaunches = getAllLaunches;
 service.getLaunchesById = getLaunchesById;
+service.getLaunchById = getLaunchById;
 service.getLaunchesByOwnerId = getLaunchesByOwnerId;
 service.getLaunches = getLaunches;
 service.createLaunch = createLaunch;
 service.deleteLaunch = deleteLaunch;
 service.updateLaunchInfo = updateLaunchInfo;
+service.castVote = castVote;
+
 
 module.exports = service;
 
@@ -230,6 +234,14 @@ function getLaunchesByOwnerId(followingIdList){
 	});
 }
 
+function getLaunchById(launchId){
+	return launch.findOne({_id:launchId}, function(err, result){ 
+		if(err) return console.error(err);
+		console.log(result);
+		return result;
+	});
+}
+
 function getLaunches(ownerId){
 	console.log("In ServiceFulfiller: getLaunches");
 	return launch.find(ownerId, function(err, result){ 
@@ -288,6 +300,39 @@ function deleteLaunch(launchInfo){
 	return Promise.resolve({message:"OK"});
 }
 
+function castVote(result, ballot){
+		//clears the list of the old vote
+		console.log(result);
+		var newNayList = result.voteNay.filter(function(data){
+			return (data != ballot.userId);
+		})
+		var newYayList = result.voteYay.filter(function(data){
+			return (data != ballot.userId);
+		})
+		switch(ballot.type){
+			case "down":
+				newNayList.push(ballot.userId);
+				break;
+			case "up":
+				newYayList.push(ballot.userId);
+				break;
+			default:
+				console.log("STOP TRYING TO BREAK API...")
+				return;
+		}
+		
+		result.voteNay = newNayList;
+		result.voteYay = newYayList;
+
+		console.log(result);
+		
+		launch.findOneAndUpdate({_id:ballot.launchId},{$set: result}, {new: true}, function(err, result){
+			if(err) return console.error(err);
+			console.log(result);
+			return result;
+		})
+		return Promise.resolve(result);
+}
 
 
 

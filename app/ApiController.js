@@ -169,7 +169,7 @@ router.post('/addToFavorite', function (req, res) {
 	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
-	serviceFulfiller.getProfiles(req.body).then(
+	serviceFulfiller.getProfile(req.body).then(
 	function(result){
 		console.log("got result back....")
 		serviceFulfiller.addToFavorite(result.favLaunch, req.body).then(

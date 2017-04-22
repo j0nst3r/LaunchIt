@@ -31,6 +31,11 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 			launchObj.yay = function(){
 				dataService.castVote('up', sessionStorage.getItem('userId'), this.id);
 			}
+
+			launchObj.favorite = function(){
+				console.log("favoritism, nepotism, cronyism!");
+				dataService.addToFavorite(sessionStorage.getItem('userId'), this.id);
+			}
 		
         	// put the new launchObj into launches
         	$scope.launches.push(launchObj);

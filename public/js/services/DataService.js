@@ -65,6 +65,25 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 		);
 		
 	}
+
+	function addToFavorite(user, launch) {
+		console.log("in DataService: addToFavorite()")
+		$http({
+			method:'POST',
+			url: urlBase + '/addToFavorite',
+			data: {
+					userId: user,
+					launchId: launch
+			  	  }
+		}).then(
+			function(body){
+				console.log(body);
+			},
+			function(res){
+				console.log(res.data);
+			}
+		);
+	}
 	
 	function validateEmail(newEmail){
 		return $http({

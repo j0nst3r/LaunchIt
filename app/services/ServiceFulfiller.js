@@ -136,7 +136,7 @@ function createProfile(reqData, userId){
 }
 
 function addToFavorite(favList, reqData){
-	console.log("IN addToFavorite: " + JSON.stringify(reqData));
+	console.log("In ServiceFulfiller addToFavorite: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	if (favList.indexOf(reqData.launchId) === -1) {

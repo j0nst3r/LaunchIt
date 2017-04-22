@@ -13,7 +13,7 @@ service.resetPassword = resetPassword;
 service.createAccount = createAccount;
 
 service.createProfile = createProfile;
-service.addToFavorite = addToFavorite;
+service.addToFavorites = addToFavorites;
 service.removeFromFavorite = removeFromFavorite;
 service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
@@ -135,8 +135,8 @@ function createProfile(reqData, userId){
 	});
 }
 
-function addToFavorite(favList, reqData){
-	console.log("In ServiceFulfiller addToFavorite: " + JSON.stringify(reqData));
+function addToFavorites(favList, reqData){
+	console.log("In ServiceFulfiller addToFavorites: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	if (favList.indexOf(reqData.launchId) === -1) {
@@ -166,7 +166,7 @@ function removeFromFavorite(favList, reqData){
 }
 
 function addToFollowing(favList, reqData){
-	console.log("IN addToFavorite: " + JSON.stringify(reqData));
+	console.log("IN addToFollowing: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	if (favList.indexOf(reqData.launchId) === -1) {

@@ -33,8 +33,7 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 			}
 
 			launchObj.favorite = function(){
-				console.log("favoritism, nepotism, cronyism!");
-				dataService.addToFavorite(sessionStorage.getItem('userId'), this.id);
+				dataService.addToFavorites(sessionStorage.getItem('userId'), this.id);
 			}
 		
         	// put the new launchObj into launches

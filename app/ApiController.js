@@ -165,8 +165,8 @@ router.post('/castVote', function(req, res){
 	});
 })
 
-router.post('/addToFavorite', function (req, res) {
-	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
+router.post('/addToFavorites', function (req, res) {
+	console.log("addToFavorites service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
 	serviceFulfiller.getProfile(req.body).then(

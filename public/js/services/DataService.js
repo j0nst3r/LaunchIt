@@ -26,6 +26,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.updateLaunch = updateLaunch;
 	dataService.deleteLaunch = deleteLaunch;
 	dataService.castVote = castVote;
+	dataService.addToFavorites = addToFavorites;
 	
 	return dataService;	
 	
@@ -66,11 +67,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 		
 	}
 
-	function addToFavorite(user, launch) {
-		console.log("in DataService: addToFavorite()")
+	function addToFavorites(user, launch) {
 		$http({
 			method:'POST',
-			url: urlBase + '/addToFavorite',
+			url: urlBase + '/addToFavorites',
 			data: {
 					userId: user,
 					launchId: launch

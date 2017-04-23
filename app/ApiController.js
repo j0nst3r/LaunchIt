@@ -249,7 +249,7 @@ router.post('/removeFromFollowing', function (req, res) {
 })
 
 router.post('/getFavoriteLaunches', function (req, res) {
-	console.log("getLaunches service requested: " + JSON.stringify(req.body));
+	console.log("getFavoriteLaunches service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
 	serviceFulfiller.getProfile(req.body).then(

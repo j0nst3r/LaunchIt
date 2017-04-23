@@ -47,7 +47,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	}
 
 	function castVote(vote, caster, launch){
-		$http({
+		return $http({
 			method:'POST',
 			url: urlBase + '/castVote',
 			data:	{
@@ -56,11 +56,13 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 					 launchId: launch 
 					}
 		}).then(
-			function(body){
-				console.log(body);
+			function(res){
+				console.log(res.data);
+				return res.data
 			},
 			function(res){
 				console.log(res.data);
+				return $q.reject(res.data)
 			}
 		);
 		

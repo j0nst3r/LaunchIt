@@ -171,8 +171,8 @@ router.post('/addToFavorites', function (req, res) {
 	//get favLaunch from profile
 	serviceFulfiller.getProfile(req.body).then(
 	function(result){
-		console.log("got result back....")
-		serviceFulfiller.addToFavorite(result.favLaunch, req.body).then(
+		console.log("got result back....");
+		serviceFulfiller.addToFavorites(result.favLaunch, req.body).then(
 		function(result){
 			res.status(200).json(result);
 		},
@@ -255,6 +255,7 @@ router.post('/getFavoriteLaunches', function (req, res) {
 	serviceFulfiller.getProfile(req.body).then(
 	function(result){
 		//get the lauches from the list
+		console.log("get launches by ID");
 		serviceFulfiller.getLaunchesById(result.favLaunch).then(
 		function(result){
 			res.status(200).json(result);

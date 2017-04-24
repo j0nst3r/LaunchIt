@@ -5,6 +5,8 @@ var router = express.Router();
 var serviceFulfiller = require('./services/ServiceFulfiller');
 var pathExists = require('path-exists');
 var mongoose = require('mongoose');
+var multer = require('multer');
+var upload = multer({dest:'/launchImg/'})
 
 //===========================================
 //IMAGE UPLOAD API.....
@@ -293,8 +295,9 @@ router.post('/getFollowLaunches', function (req, res) {
 
 
 router.post('/createLaunch', function(req, res) {
-	console.log("createlaunch service requested: " + JSON.stringify(req.body));
-	serviceFulfiller.createLaunch(req.body);
+	console.log("createLaunch service - file: " + JSON.stringify(req.file);
+	console.log("createlaunch service - body: " + JSON.stringify(req.body));
+	//serviceFulfiller.createLaunch(req.body);
 })
 
 router.post('/updateLaunchInfo', function(req, res){

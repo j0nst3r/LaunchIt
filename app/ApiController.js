@@ -294,10 +294,15 @@ router.post('/getFollowLaunches', function (req, res) {
 })
 
 
-router.post('/createLaunch', function(req, res) {
-	console.log("createLaunch service - file: " + JSON.stringify(req.file);
-	console.log("createlaunch service - body: " + JSON.stringify(req.body));
-	//serviceFulfiller.createLaunch(req.body);
+router.post('/createLaunch', upload.array('file'), function(req, res, next) {
+	console.log(JSON.parse(req.body.body));
+	console.log(req.files);
+	//console.log("createLaunch service - file: " + JSON.stringify(req.files));
+	//console.log("createlaunch service - body: " + JSON.parse(req.body));
+	var fileList = req.files
+	var data = JSON.parse(req.body.body);
+	
+	serviceFulfiller.createLaunch(JSON.parse(req.body.body));
 })
 
 router.post('/updateLaunchInfo', function(req, res){

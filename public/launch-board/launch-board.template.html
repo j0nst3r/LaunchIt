@@ -73,38 +73,68 @@
 		opacity: 1;
 		transition: .4s;
 	}
+
+	/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabcontent {
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 </style>
 <div class="jumbotron">
   
 <h1>{{$ctrl.isPrivate ? "My" : $ctrl.userId + "'s"}} Launches</h1>
+<div class="tab">
 <button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
   <button class="tablinks" ng-click="$ctrl.viewFavorites()">My Favorites</button>
-
-<input class="btn btn-primary" ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
-
-<div id="ownedLaunches" class="flexbox">
-	<figure ng-repeat="launch in $ctrl.launches">
-		<img ng-src="{{launch.website}}"/>
-
-		<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : 'Click to View'}}" ng-click="$ctrl.isPrivate ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
-
-			<div>
-				<h3>{{launch.name}}</h3>
-				<p>{{launch.yays}}</p>
-			</div>
-			
-			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
-		</div>
-
-		<figcaption>
-			<p>{{launch.description}}</p>
-			<span ng-repeat="tag in launch.tags">{{tag}} </span>
-		</figcaption>
-
-	</figure>
 </div>
-<div id="favoritedLaunches" class="flexbox">
+<input class="btn btn-primary" ng-if="$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
+
+<div class="flexbox">
 	<figure ng-repeat="launch in $ctrl.launches">
 		<img ng-src="{{launch.website}}"/>
 

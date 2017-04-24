@@ -19,6 +19,7 @@ angular
 			}
 
 			this.reload = function () {
+				this.isEditable = true
 				dataService.getLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
@@ -69,10 +70,10 @@ angular
 					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)
 						.then(() => this.reload())
 				})
-				document.getElementById("ownedLaunches").style.display = "block";
 			}
 
 			this.viewFavorites = function() {
+				this.isEditable = false
 				dataService.getFavoriteLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
@@ -88,7 +89,6 @@ angular
 								}
 						}
 					})
-				document.getElementById("favoritedLaunches").style.display = "block";
 			}
 		}]
 	})

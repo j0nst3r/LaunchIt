@@ -9,13 +9,13 @@ var mongoose = require('mongoose');
 //===========================================
 //IMAGE UPLOAD API.....
 //===========================================
-router.post('/uploadProfileImage/:id', function(req, res) {
+router.post('/uploadImage/:id', function(req, res) {
 	console.log(req);
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
         console.log("Uploading: " + filename); 
-        fstream = fs.createWriteStream(__dirname + '/profileImage/' + req.params.id + '.png');
+        fstream = fs.createWriteStream(__dirname + '/launchImage/' + req.params.id + '/' + filename + '.png');
         file.pipe(fstream);
         fstream.on('close', function () {
             res.redirect('back');
@@ -23,9 +23,9 @@ router.post('/uploadProfileImage/:id', function(req, res) {
     });
 });
 
-router.get('/userImage/:id', function (req, res) {
-	var profileDir = __dirname.concat('/profileImage/').concat(req.params.id).concat('.png');
-	var defaultDir = __dirname.concat('/profileImage/').concat('default').concat('.png');
+router.get('/launchImageFile/:id', function (req, res) {
+	var profileDir = __dirname + '/launchImage/' + req.params.id + '/' + filename + '.png';
+	var defaultDir = __dirname.concat('/launchImage/').concat('default').concat('.png');
 	var path = require('path'); 
 
 	if(pathExists.sync(profileDir)){

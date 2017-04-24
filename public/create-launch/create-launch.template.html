@@ -1,3 +1,9 @@
+<style>
+.upload-file{
+    margin: auto;
+}
+</style>
+
 <div class="jumbotron text-center">
 	<h1>Create That Launch Component!</h1>
     <md-content layout-padding>
@@ -24,7 +30,7 @@
         
         <!--type input doesn't play well with md-input-->
         <!--Removed file upload from frontend for now since backend isn't functional-->
-        <!--<input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>-->
+        <input class="upload-file" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>
 		
 		<md-input-container class="md-block">
         <div>
@@ -39,7 +45,7 @@
 		<md-input-container class="md-block">
         <div>
             <label for="tags">Tags Separated with comma(,)</label>
-            <input type="text" name="tags" value="" ng-model='launch.tags'>
+            <input type="text" name="tags" value="" ng-model='launch.tags' required>
         </div>
 		</md-input-container>
 		

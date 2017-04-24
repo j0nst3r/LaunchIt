@@ -12,6 +12,8 @@ angular.
 				dataService.createLaunch(newLaunch).then(function(body) {
 					console.log(JSON.stringify(body.data));
 				})
+				//Causes an error due to the req that is passed to busboy being undefined
+				// dataService.uploadImage(newLaunch)
 				$location.path('/launch-board-private')
 				console.log(newLaunch);
 			}

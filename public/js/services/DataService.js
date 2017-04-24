@@ -26,6 +26,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.updateLaunch = updateLaunch;
 	dataService.deleteLaunch = deleteLaunch;
 	dataService.castVote = castVote;
+	dataService.uploadImage = uploadImage;
 	
 	return dataService;	
 	
@@ -121,6 +122,11 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			console.log(JSON.stringify(res.data));
 			return $q.reject(res.data);
 		});
+	}
+	function uploadImage(newLaunch){
+		console.log(newLaunch)
+		return $http({method: 'POST', url : urlBase + '/uploadImage/' + newLaunch.owner})
+		
 	}
 	function updateLaunch(launch) {
 		return $http({method: 'POST', url: urlBase + '/updateLaunchInfo', data: launch})

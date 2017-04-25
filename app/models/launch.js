@@ -11,7 +11,7 @@ module.exports = mongoose.Schema(
         promotion : Boolean,
         promotionDate : Date,
         comments : [String],
-        website : String,
+        website : [String],
         description : String,
         voteYay : [String],
         voteNay : [String]

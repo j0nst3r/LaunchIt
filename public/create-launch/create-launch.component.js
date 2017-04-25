@@ -5,8 +5,16 @@ angular.
 	component('createLaunch', {
 		templateUrl: "create-launch/create-launch.template.html",
 		controller: function($scope, $rootScope, $location, dataService) {
+			$scope.test = function(fieldName, fileList) {
+				for(let i = 0; i < fileList.length; i++) {
+					$scope.imgList.push(fileList[i])
+					console.log($scope.imgList[i].name)
+				}
+			}
+			$scope.test2 = function() {
+				console.log("Hello")
+			}
 			$scope.create = function(launch){
-
 				if($('input[type=file]')[0].files.length > 5) {
 					alert("Cannot select more than 5 files")
 				}

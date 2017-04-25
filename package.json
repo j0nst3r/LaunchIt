@@ -22,6 +22,7 @@
     "debug": "^2.3.3",
     "express": "~4.5.1",
     "express-session": "^1.15.2",
+    "fs-extra": "^2.1.2",
     "jsonwebtoken": "^7.3.0",
     "method-override": "~2.0.2",
     "mongoose": "^4.4.20",

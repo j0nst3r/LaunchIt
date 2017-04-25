@@ -39,12 +39,12 @@ router.get('/userImage/:id', function (req, res) {
 }); 
 
 router.get('/launchImage/:launchID/:imageName', function (req, res) {
-	var targetDir = __dirname.concat('/launchImage/').concat(req.params.launchId).concat('/').concat(req.params.imageName).concat(req.params.imageExt);
-	var defaultDir = __dirname.concat('/launchImage/').concat('default').concat('png');
+	var targetDir = __dirname.concat('/launchImage/').concat(req.params.launchID).concat('/').concat(req.params.imageName);
+	var defaultDir = __dirname.concat('/launchImage/').concat('LaunchDefault.png')
 	var path = require('path'); 
-
-	if(pathExists.sync(profileDir)){
-		res.sendfile(path.resolve(profileDir));
+	console.log(targetDir);
+	if(pathExists.sync(targetDir)){
+		res.sendfile(path.resolve(targetDir));
 	}else{
 		res.sendfile(path.resolve(defaultDir));
 	} 
@@ -310,28 +310,36 @@ router.post('/getFollowLaunches', function (req, res) {
 router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	var fileList = req.files
 	var data = JSON.parse(req.body.body)
-	
+	var updatedList;
 	console.log(data);
 	console.log(fileList);
 	
 	serviceFulfiller.createLaunch(JSON.parse(req.body.body)).then(
-		function(result){			
+		function(result){
+			updateList = result;			
+			var baseUrl = req.headers.host;
+			console.log(req.headers.host);
 			//for each file in the file list, store image to correct folder and 
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
 				var permaDir = __dirname.concat('/launchImage/').concat(result._id).concat('/');
-				console.log(tempDir);
-				console.log(permaDir.concat(fileList[a].originalname));
 				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
 				if (err) return console.error(err)
 					console.log("file uploaded!")
 				});
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
+				updateList.website.push(imgSrc);
 			}
+			serviceFulfiller.updateLaunchInfo(result).then(
+			function(result){
+				res.status(200).json(result);
+			},
+			function(result){
+				console.log(JSON.stringify(result));
+			});
 		},function(err){
 			console.err(err);
 	});
-	
-	res.end();
 })
 
 router.post('/updateLaunchInfo', function(req, res){

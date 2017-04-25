@@ -12,7 +12,10 @@ angular.
                 var formData = new FormData();
                 // formData.append('JSON', JSON.stringify(newLaunch))
                 formData.append('body', JSON.stringify(newLaunch));
-                formData.append('file', $('input[type=file]')[0].files[0]); 
+				for(let i = 0; i < $('input[type=file]')[0].files.length; i++) {
+					formData.append('file', $('input[type=file]')[0].files[i]); 
+				}
+                // formData.append('file', $('input[type=file]')[0].files); 
 				for(let ket in formData.keys()){
 					console.log(ket)
 				}

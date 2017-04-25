@@ -1,23 +1,24 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var fsExtra = require('fs-extra');
 var router = express.Router();
 var serviceFulfiller = require('./services/ServiceFulfiller');
 var pathExists = require('path-exists');
 var mongoose = require('mongoose');
 var multer = require('multer');
-var upload = multer({dest:'/launchImg/'})
+var upload = multer({dest:'app/tempImg/'})
 
 //===========================================
 //IMAGE UPLOAD API.....
 //===========================================
-router.post('/uploadImage/:id', function(req, res) {
+router.post('/uploadProfileImage/:id', function(req, res) {
 	console.log(req);
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
         console.log("Uploading: " + filename); 
-        fstream = fs.createWriteStream(__dirname + '/launchImage/' + req.params.id + '/' + filename + '.png');
+        fstream = fs.createWriteStream(__dirname + '/profileImage/' + req.params.id + '.png');
         file.pipe(fstream);
         fstream.on('close', function () {
             res.redirect('back');
@@ -25,16 +26,28 @@ router.post('/uploadImage/:id', function(req, res) {
     });
 });
 
-router.get('/launchImageFile/:id', function (req, res) {
-	var profileDir = __dirname + '/launchImage/' + req.params.id + '/' + filename + '.png';
-	var defaultDir = __dirname.concat('/launchImage/').concat('default').concat('.png');
+router.get('/userImage/:id', function (req, res) {
+	var profileDir = __dirname.concat('/profileImage/').concat(req.params.id).concat('.png');
+	var defaultDir = __dirname.concat('/profileImage/').concat('default').concat('.png');
 	var path = require('path'); 
 
 	if(pathExists.sync(profileDir)){
 		res.sendfile(path.resolve(profileDir));
 	}else{
 		res.sendfile(path.resolve(defaultDir));
-	}     
+	} 
+}); 
+
+router.get('/launchImage/:launchID/:imageName', function (req, res) {
+	var targetDir = __dirname.concat('/launchImage/').concat(req.params.launchId).concat('/').concat(req.params.imageName).concat(req.params.imageExt);
+	var defaultDir = __dirname.concat('/launchImage/').concat('default').concat('png');
+	var path = require('path'); 
+
+	if(pathExists.sync(profileDir)){
+		res.sendfile(path.resolve(profileDir));
+	}else{
+		res.sendfile(path.resolve(defaultDir));
+	} 
 }); 
 
 
@@ -295,14 +308,30 @@ router.post('/getFollowLaunches', function (req, res) {
 
 
 router.post('/createLaunch', upload.array('file'), function(req, res, next) {
-	console.log(JSON.parse(req.body.body));
-	console.log(req.files);
-	//console.log("createLaunch service - file: " + JSON.stringify(req.files));
-	//console.log("createlaunch service - body: " + JSON.parse(req.body));
 	var fileList = req.files
-	var data = JSON.parse(req.body.body);
+	var data = JSON.parse(req.body.body)
 	
-	serviceFulfiller.createLaunch(JSON.parse(req.body.body));
+	console.log(data);
+	console.log(fileList);
+	
+	serviceFulfiller.createLaunch(JSON.parse(req.body.body)).then(
+		function(result){			
+			//for each file in the file list, store image to correct folder and 
+			for(var a = 0; a < fileList.length; a++){
+				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
+				var permaDir = __dirname.concat('/launchImage/').concat(result._id).concat('/');
+				console.log(tempDir);
+				console.log(permaDir.concat(fileList[a].originalname));
+				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
+				if (err) return console.error(err)
+					console.log("file uploaded!")
+				});
+			}
+		},function(err){
+			console.err(err);
+	});
+	
+	res.end();
 })
 
 router.post('/updateLaunchInfo', function(req, res){

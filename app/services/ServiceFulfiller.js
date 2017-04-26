@@ -14,7 +14,7 @@ service.createAccount = createAccount;
 
 service.createProfile = createProfile;
 service.addToFavorites = addToFavorites;
-service.removeFromFavorite = removeFromFavorite;
+service.removeFromFavorites = removeFromFavorites;
 service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
@@ -150,8 +150,8 @@ function addToFavorites(favList, reqData){
 	return Promise.resolve({message:"OK"});
 }
 
-function removeFromFavorite(favList, reqData){
-	console.log("IN removeFromFavorite: " + JSON.stringify(reqData));
+function removeFromFavorites(favList, reqData){
+	console.log("IN removeFromFavorites: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	newList = favList.filter(function(data){

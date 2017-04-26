@@ -15,7 +15,7 @@
 input[type='file'] {
     opacity: 0;
     width: 100%;
-    height: 50%;
+    height: 100%;
     position: absolute;
     cursor: pointer;
 }
@@ -45,11 +45,9 @@ input[type='file'] {
         </div>
 		</md-input-container>
         
-        <!--type input doesn't play well with md-input-->
-        <!--Removed file upload from frontend for now since backend isn't functional-->
         <div class='dropbox'>
-             <input id="uploads" class="upload-file" onchange="angular.element(this).scope().test(event.target.name, event.target.files)" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file' multiple/>
-             <div id='preview'></div>
+             <input id="uploads" class="upload-file" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file' multiple/>
+             <div id='preview'>Please upload up to 5 images</div>
         </div>
 		<md-input-container class="md-block">
         <div>

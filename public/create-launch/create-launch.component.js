@@ -15,63 +15,40 @@ angular.
 					while(preview.hasChildNodes()) {
 						preview.removeChild(preview.lastChild)
 					}
+					preview.innerHTML = "Please upload up to 5 images"
 				}
 				else {
 					while(preview.hasChildNodes()) {
 						preview.removeChild(preview.lastChild)
 					}
 					for(let i = 0; i < fileUpload.files.length; i++) {
-					var file = fileUpload.files[i]
-					var reader = new FileReader()
-					reader.onload = function(e) {
-						var img = document.createElement('img')
-						img.height = "100"
-						img.width = "100"
-						img.src = e.target.result
-						preview.appendChild(img)
-						if(preview.childNodes.length > 5){
-							alert("Please select no more than 5 images!")
-							while(preview.hasChildNodes()) {
-								preview.removeChild(preview.lastChild)
-							}
+						var file = fileUpload.files[i]
+						var reader = new FileReader()
+						reader.onload = function(e) {
+							var img = document.createElement('img')
+							img.height = "100"
+							img.width = "100"
+							img.src = e.target.result
+							preview.appendChild(img)
 						}
-					}
-						reader.readAsDataURL(file)
+							reader.readAsDataURL(file)
 					}
 				}
 				
 			}
-			
-			$scope.test = function(fieldName, fileList) {
 
-				for(let i = 0; i < fileList.length; i++) {
-					$scope.$apply(function() {
-						$scope.imgList.push(fileList[i])
-
-					})
-					console.log($scope.imgList[i])
-				}
-			}
-			$scope.test2 = function() {
-				console.log("Hello")
-			}
 			$scope.create = function(launch){
-				if($('input[type=file]')[0].files.length > 5) {
-					alert("Cannot select more than 5 files")
-				}
-				else {
+				// SHouldn't need this check anymore because it is handled in the file upload process
+				// if($('input[type=file]')[0].files.length > 5) {
+				// 	alert("Cannot select more than 5 files")
+				// }
 					var newLaunch = launch;
 					var userId = sessionStorage.getItem('userId');
 					newLaunch.owner = userId
 					var formData = new FormData();
-					// formData.append('JSON', JSON.stringify(newLaunch))
 					formData.append('body', JSON.stringify(newLaunch));
 					for(let i = 0; i < $('input[type=file]')[0].files.length; i++) {
 						formData.append('file', $('input[type=file]')[0].files[i]); 
-					}
-					                // formData.append('file', $('input[type=file]')[0].files); 
-					for(let ket in formData.keys()){
-						console.log(ket)
 					}
 					console.log(JSON.stringify(newLaunch))
 					$.ajax({
@@ -93,9 +70,6 @@ angular.
 						}.bind(this)
 
 					})
-				}
-				
-
 			}
 		}
 	})

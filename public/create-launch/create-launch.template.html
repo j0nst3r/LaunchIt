@@ -48,10 +48,10 @@ input[type='file'] {
         <!--type input doesn't play well with md-input-->
         <!--Removed file upload from frontend for now since backend isn't functional-->
         <div class='dropbox'>
-             <input class="upload-file" onchange="angular.element(this).scope().test(event.target.name, event.target.files)" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file' multiple>
-        </div>
-		<div ng-repeat="file in $scope.imgList">
-            hello
+             <input id="uploads" class="upload-file" onchange="angular.element(this).scope().test(event.target.name, event.target.files)" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file' multiple>
+             <li ng-repeat="file in imgList">
+                 <img src="file.url" alt="file.originalName">
+             </li>
         </div>
 		<md-input-container class="md-block">
         <div>

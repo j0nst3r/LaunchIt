@@ -8,7 +8,10 @@ angular.
 			$scope.imgList = []
 			$scope.test = function(fieldName, fileList) {
 				for(let i = 0; i < fileList.length; i++) {
-					$scope.imgList.push(fileList[i])
+					$scope.$apply(function() {
+						$scope.imgList.push(fileList[i])
+
+					})
 					console.log($scope.imgList[i])
 				}
 			}

@@ -4,8 +4,6 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var PayPalStrategy = require('passport-paypal-oauth').Strategy;
 
-var config = require('../common.js');
-
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
@@ -19,7 +17,7 @@ var profile = mongoose.model('Profiles', profileSchema);
 var session = require('express-session');
 
 module.exports = function (app, passport) {
-    var hostUrl = config.host;
+    var hostUrl = 'localhost:8080/';
 
     app.use(passport.initialize());
     app.use(passport.session());

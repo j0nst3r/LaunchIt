@@ -68,6 +68,7 @@ input[type='file'] {
 		
         <div>
             <input type="button" ng-click='create(launch)' value='Create' ng-disabled='createLaunch.name.$invalid || createLaunch.description.$invalid || createLaunch.tags.$invalid || createLaunch.website.$invalid'/>
+            <input type="button" ng-click='cancel()' value="Cancel">
         </div>
     </form>
 </div>

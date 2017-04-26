@@ -5,10 +5,11 @@ angular.
 	component('createLaunch', {
 		templateUrl: "create-launch/create-launch.template.html",
 		controller: function($scope, $rootScope, $location, dataService) {
+			$scope.imgList = []
 			$scope.test = function(fieldName, fileList) {
 				for(let i = 0; i < fileList.length; i++) {
 					$scope.imgList.push(fileList[i])
-					console.log($scope.imgList[i].name)
+					console.log($scope.imgList[i])
 				}
 			}
 			$scope.test2 = function() {

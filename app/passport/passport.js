@@ -3,6 +3,8 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
+var config = require('../common.js');
+
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
@@ -16,7 +18,13 @@ var profile = mongoose.model('Profiles', profileSchema);
 var session          = require('express-session');
 
 module.exports = function(app, passport){
-
+    var hostUrl = config.host;
+    console.log(hostUrl);
+    app.get('/getHost', function(req, res){
+        hostUrl = req.headers.host;
+        res.send(req.headers.host);
+        console.log(hostUrl);
+    });
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: false }}))
@@ -31,6 +39,7 @@ module.exports = function(app, passport){
         });
     });
 	
+    console.log(app);
 //==================== Facebook  ===========================================
 
     passport.use(new FacebookStrategy({
@@ -207,6 +216,11 @@ module.exports = function(app, passport){
         callbackURL: "http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com/auth/google/callback"
     },
 	function(accessToken, refreshToken, socialMedia, done) {
+
+        $.ajax({
+
+        })
+
         user.findOne({
             'socialId': socialMedia.id 
         }, function(err, curUser) {

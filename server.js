@@ -8,7 +8,7 @@ var passport	   = require('passport');
 var social		   = require('./app/passport/passport')(app, passport);
 
 // configuration ===========================================
-config = require('./application.properties');
+config = require('./config/property.js');
 
 var port = process.env.PORT || 8080; // set our port
 var db = mongoose.connect(config.dbUrl).connection;

@@ -69,7 +69,7 @@ angular.
 							console.log("Error: " + err)
 						}.bind(this)
 
-					})
+					}).then( () => window.location = '/launch-board')
 			}
 		}
 	})

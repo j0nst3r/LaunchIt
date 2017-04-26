@@ -46,7 +46,7 @@ input[type='file'] {
 		</md-input-container>
         
         <div class='dropbox'>
-             <input id="uploads" class="upload-file" type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file' multiple/>
+             <input id="uploads" class="upload-file" type="file" accept='.png, .jpg, .jpeg, .gif' name="fileUpload" value='' ng-model='launch.file' multiple/>
              <div id='preview'>Please upload up to 5 images</div>
         </div>
 		<md-input-container class="md-block">
@@ -67,7 +67,7 @@ input[type='file'] {
 		</md-input-container>
 		
         <div>
-            <input type="button" ng-click='create(launch)' value='Create'/>
+            <input type="button" ng-click='create(launch)' value='Create' ng-disabled='createLaunch.name.$invalid || createLaunch.description.$invalid || createLaunch.tags.$invalid || createLaunch.website.$invalid'/>
         </div>
     </form>
 </div>

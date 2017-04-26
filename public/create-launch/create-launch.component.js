@@ -37,6 +37,10 @@ angular.
 				
 			}
 
+			$scope.cancel = function() {
+				window.location = '/launch-board'
+			}
+
 			$scope.create = function(launch){
 				// SHouldn't need this check anymore because it is handled in the file upload process
 				// if($('input[type=file]')[0].files.length > 5) {

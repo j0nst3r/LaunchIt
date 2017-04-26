@@ -1,6 +1,7 @@
 angular.module('DataService', []).factory('dataService', ['$http', '$q', function($http, $q) {
 	var urlBase = '';
 	$http.get('application.properties').then(function(response){
+		console.log(response);
 		urlBase = response.data.apiUrl + "api";
 	});
 	$http.defaults.headers.post["Content-Type"] = 'application/JSON';

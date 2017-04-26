@@ -31,11 +31,30 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 			launchObj.yay = function(){
 				dataService.castVote('up', sessionStorage.getItem('userId'), this.id);
 			}
+
+			launchObj.toggleFavorite = function(){
+				// get the userId and the favorite list for that user
+				userId = sessionStorage.getItem('userId')
+				launchId = this.id
+				
+				// if launch is favorited, remove from user's favorite list and return, else add to user's favorite list
+				dataService.getFavoriteLaunches(userId).then( function(favs){
+					for (i in favs) {
+						if (favs[i]._id == launchId) {
+							dataService.removeFromFavorites(userId, launchId)
+							return
+						}
+					}
+					dataService.addToFavorites(userId, launchId)
+				})
+			}
 		
         	// put the new launchObj into launches
-        	$scope.launches.push(launchObj);
+        	$scope.launches.push(launchObj) 
         }
 	});
+
+	
 	
 	$scope.view = function (launch) {
 				$uibModal.open({

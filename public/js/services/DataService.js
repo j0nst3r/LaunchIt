@@ -26,6 +26,9 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.updateLaunch = updateLaunch;
 	dataService.deleteLaunch = deleteLaunch;
 	dataService.castVote = castVote;
+	dataService.addToFavorites = addToFavorites;
+	dataService.getFavoriteLaunches = getFavoriteLaunches;
+	dataService.removeFromFavorites = removeFromFavorites;
 	
 	return dataService;	
 	
@@ -66,6 +69,42 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			}
 		);
 		
+	}
+
+	function addToFavorites(user, launch) {
+		$http({
+			method:'POST',
+			url: urlBase + '/addToFavorites',
+			data: {
+					userId: user,
+					launchId: launch
+			  	  }
+		}).then(
+			function(body){
+				console.log(body);
+			},
+			function(res){
+				console.log(res.data);
+			}
+		);
+	}
+
+	function removeFromFavorites(user, launch) {
+		$http({
+			method:'POST',
+			url: urlBase + '/removeFromFavorites',
+			data: {
+					userId: user,
+					launchId: launch
+			  	  }
+		}).then(
+			function(body){
+				console.log(body);
+			},
+			function(res){
+				console.log(res.data);
+			}
+		);
 	}
 	
 	function validateEmail(newEmail){
@@ -111,6 +150,19 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			return $q.reject(res.data);
 		});
 	}
+
+	function getFavoriteLaunches(user) {
+		return $http({method: 'POST', url: urlBase + '/getFavoriteLaunches', data: { userId: user }})
+		.then(function (res) {
+			console.log(res.data);
+			return res.data;
+		},
+		function (res) {
+			console.log(JSON.stringify(res.data));
+			return $q.reject(res.data);
+		});
+	}
+
 	function createLaunch(newLaunch){
 		return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
 		.then(function(body){

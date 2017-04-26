@@ -13,8 +13,8 @@ service.resetPassword = resetPassword;
 service.createAccount = createAccount;
 
 service.createProfile = createProfile;
-service.addToFavorite = addToFavorite;
-service.removeFromFavorite = removeFromFavorite;
+service.addToFavorites = addToFavorites;
+service.removeFromFavorites = removeFromFavorites;
 service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
@@ -135,8 +135,8 @@ function createProfile(reqData, userId){
 	});
 }
 
-function addToFavorite(favList, reqData){
-	console.log("IN addToFavorite: " + JSON.stringify(reqData));
+function addToFavorites(favList, reqData){
+	console.log("In ServiceFulfiller addToFavorites: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	if (favList.indexOf(reqData.launchId) === -1) {
@@ -150,8 +150,8 @@ function addToFavorite(favList, reqData){
 	return Promise.resolve({message:"OK"});
 }
 
-function removeFromFavorite(favList, reqData){
-	console.log("IN removeFromFavorite: " + JSON.stringify(reqData));
+function removeFromFavorites(favList, reqData){
+	console.log("IN removeFromFavorites: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	newList = favList.filter(function(data){
@@ -166,7 +166,7 @@ function removeFromFavorite(favList, reqData){
 }
 
 function addToFollowing(favList, reqData){
-	console.log("IN addToFavorite: " + JSON.stringify(reqData));
+	console.log("IN addToFollowing: " + JSON.stringify(reqData));
 	var query = {_id: reqData.userId};
 	
 	if (favList.indexOf(reqData.launchId) === -1) {

@@ -19,6 +19,7 @@ angular
 			}
 
 			this.reload = function () {
+				this.isEditable = true
 				dataService.getLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
@@ -71,6 +72,25 @@ angular
 					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)
 						.then(() => this.reload())
 				})
+			}
+
+			this.viewFavorites = function() {
+				this.isEditable = false
+				dataService.getFavoriteLaunches(this.userId)
+					.then(launches => {
+						this.launches = launches
+
+						for (let i = 0; i < this.launches.length; i++) {
+							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
+						
+							this.launches[i].yay = function () {
+									dataService.castVote('up', sessionStorage.getItem('userId'), launches[i]._id)
+								}
+							this.launches[i].nay = function () {
+									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id) 
+								}
+						}
+					})
 			}
 		}]
 	})

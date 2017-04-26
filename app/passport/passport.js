@@ -19,12 +19,7 @@ var session          = require('express-session');
 
 module.exports = function(app, passport){
     var hostUrl = config.host;
-    console.log(hostUrl);
-    app.get('/getHost', function(req, res){
-        hostUrl = req.headers.host;
-        res.send(req.headers.host);
-        console.log(hostUrl);
-    });
+    
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true, cookie: { secure: false }}))
@@ -39,13 +34,12 @@ module.exports = function(app, passport){
         });
     });
 	
-    console.log(app);
 //==================== Facebook  ===========================================
 
     passport.use(new FacebookStrategy({
         clientID: '823444951139581',
         clientSecret: '174e3e5d33d503a5ac77d23161eea78e',
-        callbackURL: "http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com/auth/facebook/callback",
+        callbackURL: hostUrl + 'auth/facebook/callback',
         profileFields: ['id', 'displayName', 'email']
     },
     function(accessToken, refreshToken, socialMedia, done) {
@@ -101,7 +95,7 @@ module.exports = function(app, passport){
     passport.use(new TwitterStrategy({
         consumerKey: 'ZqlQympcucnIMB4P0aVpZnGJK',
         consumerSecret: 'CICrKoL3KQaT9P9p5QzsUvSnjO2Oea1xVzZc2n6zezvNS3khGK',
-        callbackURL: "http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com/auth/twitter/callback",
+        callbackURL: hostUrl + 'auth/twitter/callback',
         userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
     },
     function(token, tokenSecret, socialMedia, done) {
@@ -156,7 +150,7 @@ module.exports = function(app, passport){
     passport.use(new LinkedInStrategy({
         clientID: '86pgcisvxgos0e',
         clientSecret: 'IrlzgEBf9mZeJFwR',
-        callbackURL: "http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com/auth/linkedin/callback",
+        callbackURL: hostUrl + "auth/linkedin/callback",
         scope: ['r_emailaddress', 'r_basicprofile'],
     }, 
     function(accessToken, refreshToken, socialMedia, done) {
@@ -213,14 +207,9 @@ module.exports = function(app, passport){
     passport.use(new GoogleStrategy({
         clientID: '358732923710-ito5k4gg0s8qadi5416npkhesa6g9aj7.apps.googleusercontent.com',
         clientSecret: 'ar5cLIUNgZtJqeXm-y4CHKlV',
-        callbackURL: "http://ec2-54-215-234-96.us-west-1.compute.amazonaws.com/auth/google/callback"
+        callbackURL: hostUrl + "auth/google/callback"
     },
 	function(accessToken, refreshToken, socialMedia, done) {
-
-        $.ajax({
-
-        })
-
         user.findOne({
             'socialId': socialMedia.id 
         }, function(err, curUser) {

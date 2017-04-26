@@ -136,7 +136,7 @@ div.tab button.active {
 
 <div class="flexbox">
 	<figure ng-repeat="launch in $ctrl.launches">
-		<img ng-src="{{launch.website}}"/>
+		<img ng-src="{{launch.website[0]}}"/>
 
 		<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : 'Click to View'}}" ng-click="$ctrl.isPrivate ? $ctrl.view(launch, true) : $ctrl.view(launch)">
 			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>

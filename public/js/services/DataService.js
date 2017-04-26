@@ -1,6 +1,7 @@
 angular.module('DataService', []).factory('dataService', ['$http', '$q', function($http, $q) {
 	var urlBase = '';
 	$http.get('application.properties').then(function(response){
+		console.log(response);
 		urlBase = response.data.apiUrl + "api";
 	});
 	$http.defaults.headers.post["Content-Type"] = 'application/JSON';
@@ -26,6 +27,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.updateLaunch = updateLaunch;
 	dataService.deleteLaunch = deleteLaunch;
 	dataService.castVote = castVote;
+	dataService.uploadImage = uploadImage;
 	dataService.addToFavorites = addToFavorites;
 	dataService.getFavoriteLaunches = getFavoriteLaunches;
 	dataService.removeFromFavorites = removeFromFavorites;
@@ -173,6 +175,11 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			console.log(JSON.stringify(res.data));
 			return $q.reject(res.data);
 		});
+	}
+	function uploadImage(newLaunch){
+		console.log(newLaunch)
+		return $http({method: 'POST', url : urlBase + '/uploadImage/' + newLaunch.owner})
+		
 	}
 	function updateLaunch(launch) {
 		return $http({method: 'POST', url: urlBase + '/updateLaunchInfo', data: launch})

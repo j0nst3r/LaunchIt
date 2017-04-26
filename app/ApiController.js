@@ -1,10 +1,13 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var fsExtra = require('fs-extra');
 var router = express.Router();
 var serviceFulfiller = require('./services/ServiceFulfiller');
 var pathExists = require('path-exists');
 var mongoose = require('mongoose');
+var multer = require('multer');
+var upload = multer({dest:'app/tempImg/'})
 
 //===========================================
 //IMAGE UPLOAD API.....
@@ -32,7 +35,19 @@ router.get('/userImage/:id', function (req, res) {
 		res.sendfile(path.resolve(profileDir));
 	}else{
 		res.sendfile(path.resolve(defaultDir));
-	}     
+	} 
+}); 
+
+router.get('/launchImage/:launchID/:imageName', function (req, res) {
+	var targetDir = __dirname.concat('/launchImage/').concat(req.params.launchID).concat('/').concat(req.params.imageName);
+	var defaultDir = __dirname.concat('/launchImage/').concat('LaunchDefault.png')
+	var path = require('path'); 
+	console.log(targetDir);
+	if(pathExists.sync(targetDir)){
+		res.sendfile(path.resolve(targetDir));
+	}else{
+		res.sendfile(path.resolve(defaultDir));
+	} 
 }); 
 
 
@@ -293,9 +308,39 @@ router.post('/getFollowLaunches', function (req, res) {
 })
 
 
-router.post('/createLaunch', function(req, res) {
-	console.log("createlaunch service requested: " + JSON.stringify(req.body));
-	serviceFulfiller.createLaunch(req.body);
+router.post('/createLaunch', upload.array('file'), function(req, res, next) {
+	var fileList = req.files
+	var data = JSON.parse(req.body.body)
+	var updatedList;
+	console.log(data);
+	console.log(fileList);
+	
+	serviceFulfiller.createLaunch(JSON.parse(req.body.body)).then(
+		function(result){
+			updateList = result;			
+			var baseUrl = req.headers.host;
+			console.log(req.headers.host);
+			//for each file in the file list, store image to correct folder and 
+			for(var a = 0; a < fileList.length; a++){
+				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
+				var permaDir = __dirname.concat('/launchImage/').concat(result._id).concat('/');
+				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
+				if (err) return console.error(err)
+					console.log("file uploaded!")
+				});
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
+				updateList.website.push(imgSrc);
+			}
+			serviceFulfiller.updateLaunchInfo(result).then(
+			function(result){
+				res.status(200).json(result);
+			},
+			function(result){
+				console.log(JSON.stringify(result));
+			});
+		},function(err){
+			console.err(err);
+	});
 })
 
 router.post('/updateLaunchInfo', function(req, res){
@@ -313,6 +358,9 @@ router.post('/updateLaunchInfo', function(req, res){
 router.post('/deleteLaunch', function(req, res){
 	console.log("updateLaunchInfo service requested : " + JSON.stringify(req.body));
 	
+	
+	fsExtra.remove(__dirname.concat('/launchImage/').concat(req.body._id), function () { console.log('done'); });
+
 	serviceFulfiller.deleteLaunch(req.body).then(
 		function(result){
 			res.status(200).json(result);

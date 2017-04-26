@@ -12,6 +12,7 @@ public/libs/
 
 #Properties
 application.properties
+app\common.js
 
 # Misc
 *.log

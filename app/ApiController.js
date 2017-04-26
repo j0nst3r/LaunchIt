@@ -180,14 +180,14 @@ router.post('/castVote', function(req, res){
 	});
 })
 
-router.post('/addToFavorite', function (req, res) {
-	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
+router.post('/addToFavorites', function (req, res) {
+	console.log("addToFavorites service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
-	serviceFulfiller.getProfiles(req.body).then(
+	serviceFulfiller.getProfile(req.body).then(
 	function(result){
-		console.log("got result back....")
-		serviceFulfiller.addToFavorite(result.favLaunch, req.body).then(
+		console.log("got result back....");
+		serviceFulfiller.addToFavorites(result.favLaunch, req.body).then(
 		function(result){
 			res.status(200).json(result);
 		},
@@ -201,14 +201,14 @@ router.post('/addToFavorite', function (req, res) {
 	});
 })
 
-router.post('/removeFromFavorite', function (req, res) {
-	console.log("addToFavorite service requested: " + JSON.stringify(req.body));
+router.post('/removeFromFavorites', function (req, res) {
+	console.log("removeFromFavorite service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
 	serviceFulfiller.getProfile(req.body).then(
 	function(result){
-		console.log("got result back....")
-		serviceFulfiller.removeFromFavorite(result.favLaunch, req.body).then(
+		console.log("REMOVING FROM FAVORITES: ApiController ***********************************************************************************")
+		serviceFulfiller.removeFromFavorites(result.favLaunch, req.body).then(
 		function(result){
 			res.status(200).json(result);
 		},
@@ -264,12 +264,13 @@ router.post('/removeFromFollowing', function (req, res) {
 })
 
 router.post('/getFavoriteLaunches', function (req, res) {
-	console.log("getLaunches service requested: " + JSON.stringify(req.body));
+	console.log("getFavoriteLaunches service requested: " + JSON.stringify(req.body));
 	
 	//get favLaunch from profile
 	serviceFulfiller.getProfile(req.body).then(
 	function(result){
 		//get the lauches from the list
+		console.log("get launches by ID");
 		serviceFulfiller.getLaunchesById(result.favLaunch).then(
 		function(result){
 			res.status(200).json(result);

@@ -1,13 +1,12 @@
 <style>
-	figure {
+	md-card {
 		position: relative;
 		float: left;
 
-		margin-bottom: 8em;
 
 		z-index: 0;
 	}
-	figcaption {
+	.caption {
 		position: absolute;
 		z-index: -1;
 
@@ -15,7 +14,7 @@
 		top: 0;
 		transition: .4s;
 	}
-	figure:hover figcaption {
+	md-card:hover .caption {
 		opacity: 1;
 		top: 100%;
 		transition: .4s;
@@ -42,7 +41,7 @@
 		margin-bottom: 0;
 	}
 
-	.flexbox {
+	.md-padding {
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
@@ -69,7 +68,7 @@
 		transition: .4s;
 	}
 
-	figure:hover .hiddenn {
+	md-card:hover .hiddenn {
 		opacity: 1;
 		transition: .4s;
 	}
@@ -79,6 +78,7 @@ div.tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+	margin-top: 30px;
 }
 
 /* Style the buttons inside the tab */
@@ -94,7 +94,7 @@ div.tab button {
 
 /* Change background color of buttons on hover */
 div.tab button:hover {
-    background-color: #ddd;
+    background-color: #ccc;
 }
 
 /* Create an active/current tablink class */
@@ -125,35 +125,81 @@ div.tab button.active {
     to {opacity: 1;}
 }
 </style>
+
 <div class="jumbotron">
-  
-<h1>{{$ctrl.isPrivate ? "My" : $ctrl.userId + "'s"}} Launches</h1>
-<div class="tab">
-<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
-  <button class="tablinks" ng-click="$ctrl.viewFavorites()">My Favorites</button>
-</div>
-<input class="btn btn-primary" ng-if="$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
+	<div class="tab">
+		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
+  		<button class="tablinks" ng-click="$ctrl.viewFavorites()">My Favorites</button>	
+	</div>
+	<input class="btn btn-primary" ng-if="$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
 
-<div class="flexbox">
-	<figure ng-repeat="launch in $ctrl.launches">
-		<img ng-src="{{launch.website}}"/>
+	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
+		<div layout="row">
+			<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 0" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
+						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
 
-		<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : 'Click to View'}}" ng-click="$ctrl.isPrivate ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-			<input class="btn btn-danger" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
+						<div>
+							<p>{{launch.description}}</p>
+							<p>{{launch.yays}}</p>
+						</div>
 
-			<div>
-				<h3>{{launch.name}}</h3>
-				<p>{{launch.yays}}</p>
-			</div>
-			
-			<input class="btn btn-success" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
-		</div>
+						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
+						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
+						
+					</div>
+	        		<md-card-content layout="row" layout-align="start center">
+          				<hr>
+						  <p>{{launch.name}}</p>
+						<hr>
+        			</md-card-content>
+      			</md-card>
+      		</div>
+      		<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 1" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
+						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
 
-		<figcaption>
-			<p>{{launch.description}}</p>
-			<span ng-repeat="tag in launch.tags">{{tag}} </span>
-		</figcaption>
+						<div>
+							<p>{{launch.description}}</p>
+							<p>{{launch.yays}}</p>
+						</div>
 
-	</figure>
-</div>
+						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
+						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
+						
+					</div>
+	        		<md-card-content layout="row" layout-align="start center">
+          				<hr>
+						  <p>{{launch.name}}</p>
+						<hr>
+        			</md-card-content>
+      			</md-card>
+      		</div>
+      		<div layout="column" flex-xs flex-gt-xs="33">
+    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 2" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
+					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
+						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
+
+						<div>
+							<p>{{launch.description}}</p>
+							<p>{{launch.yays}}</p>
+						</div>
+
+						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
+						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
+						
+					</div>
+	        		<md-card-content layout="row" layout-align="start center">
+          				<hr>
+						  <p>{{launch.name}}</p>
+						<hr>
+        			</md-card-content>
+      			</md-card>
+      		</div>
+    </md-content>
 </div>

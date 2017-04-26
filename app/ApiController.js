@@ -357,6 +357,9 @@ router.post('/updateLaunchInfo', function(req, res){
 router.post('/deleteLaunch', function(req, res){
 	console.log("updateLaunchInfo service requested : " + JSON.stringify(req.body));
 	
+	
+	fsExtra.remove(__dirname.concat('/launchImage/').concat(req.body._id), function () { console.log('done'); });
+
 	serviceFulfiller.deleteLaunch(req.body).then(
 		function(result){
 			res.status(200).json(result);

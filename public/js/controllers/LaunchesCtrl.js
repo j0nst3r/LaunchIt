@@ -1,15 +1,8 @@
 
 angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesController', function($window, $scope, $rootScope, $location, $uibModal, dataService) {
 
-	$scope.getIfStatement = function(blah, cardIndex){
-		return (cardIndex % blah.ngif.col == blah.ngif.rem);
-	}
-
-	// call on dataService to all the launches and then
-	// store each launch object into $scope.launches
-	angular.element($window).bind('resize', function () {
-    	console.log($window.innerWidth);
-		if($window.innerWidth < 700){
+	console.log($window.innerWidth);
+	if($window.innerWidth < 768){
 			//only want 1 column
 			$scope.columnSpec = [];
 			var columnObj = {};
@@ -47,7 +40,52 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 			columnObj.ngif = {"col" : 3, "rem": 2}
 			$scope.columnSpec.push(columnObj);
 		}
-		console.log($scope.columnSpec)
+
+	$scope.getIfStatement = function(blah, cardIndex){
+		return (cardIndex % blah.ngif.col == blah.ngif.rem);
+	}
+
+	// call on dataService to all the launches and then
+	// store each launch object into $scope.launches
+	angular.element($window).bind('resize', function () {
+		if($window.innerWidth < 768){
+			//only want 1 column
+			$scope.columnSpec = [];
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 1, "rem": 0}
+			$scope.columnSpec.push(columnObj);
+		}else if($window.innerWidth < 1000){
+			//want 2 column
+			$scope.columnSpec = [];
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 2, "rem": 0}
+			$scope.columnSpec.push(columnObj);
+
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 2, "rem": 1}
+			$scope.columnSpec.push(columnObj);
+			
+		}else{
+			//want 3 column
+			$scope.columnSpec = [];
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 3, "rem": 0}
+			$scope.columnSpec.push(columnObj);
+
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 2, "rem": 1}
+			$scope.columnSpec.push(columnObj);
+
+			var columnObj = {};
+			columnObj.size = 100;
+			columnObj.ngif = {"col" : 3, "rem": 2}
+			$scope.columnSpec.push(columnObj);
+		}
 		$scope.$apply();
 	});
 

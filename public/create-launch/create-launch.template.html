@@ -38,7 +38,7 @@ input[type='file'] {
 		<md-input-container class="md-block">
         <div>
             <label for="website">Content URL</label>
-            <input type="url" name="website" id='website' value="" ng-model='launch.website' required>
+            <input type="url" name="website" id='website' value="" ng-model='launch.website'>
         </div>
 		<div ng-messages="projectForm.clientName.$error">
             <div ng-message="required">This is required.</div>
@@ -67,7 +67,7 @@ input[type='file'] {
 		</md-input-container>
 		
         <div>
-            <input type="button" ng-click='create(launch)' value='Create' ng-disabled='createLaunch.name.$invalid || createLaunch.description.$invalid || createLaunch.tags.$invalid || createLaunch.website.$invalid'/>
+            <input type="button" ng-click='create(launch)' value='Create' ng-disabled='createLaunch.name.$invalid || createLaunch.description.$invalid || createLaunch.tags.$invalid'/>
             <input type="button" ng-click='cancel()' value="Cancel">
         </div>
     </form>

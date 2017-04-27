@@ -129,7 +129,7 @@ function createProfile(reqData, userId){
 				firstName : reqData.firstName,
 				lastName : reqData.lastName
 			});
-	return newProfile.save(function (err, result) {
+	newProfile.save(function (err, result) {
 		if (err) return console.error(err);
 		return console.log(result);			
 	});
@@ -266,10 +266,16 @@ function createLaunch(launchInfo){
 		description : launchInfo.description,
 		tags : tags
 	})
-	return newLaunch.save(function (err, result) {
+	
+	newLaunch.save(function (err, result) {
 		if(err) return console.error(err);
 		return console.log(result);
 	})
+
+	return launch.findOne(newLaunch,function(err, result){
+		if(err) return console.error(err);
+		return result;
+	});
 }
 
 function updateLaunchInfo(launchInfo){

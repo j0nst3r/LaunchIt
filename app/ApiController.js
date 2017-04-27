@@ -315,11 +315,14 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	console.log(data);
 	console.log(fileList);
 	
-	serviceFulfiller.createLaunch(JSON.parse(req.body.body)).then(
-		function(result){
-			updateList = result;			
-			var baseUrl = req.headers.host;
-			console.log(req.headers.host);
+	var launchObj = JSON.parse(req.body.body)
+	var websiteList = [];
+	websiteList.push(launchObj.website);
+	launchObj.website = websiteList;
+	console.log(launchObj);
+	serviceFulfiller.createLaunch(launchObj).then(
+		function(createResult){	
+			console.log("RESULT...." + createResult)
 			//for each file in the file list, store image to correct folder and 
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
@@ -329,9 +332,9 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 					console.log("file uploaded!")
 				});
 				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
-				updateList.website.push(imgSrc);
+				createResult.website.push(imgSrc);
 			}
-			serviceFulfiller.updateLaunchInfo(result).then(
+			serviceFulfiller.updateLaunchInfo(createResult).then(
 			function(result){
 				res.status(200).json(result);
 			},

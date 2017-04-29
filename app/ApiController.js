@@ -372,6 +372,18 @@ router.post('/deleteLaunch', function(req, res){
 			console.log(JSON.stringify(result));
 		});
 });
+
+router.post('/addComment', function (req, res) {
+	console.log("addComment service requested: " + JSON.stringify(req.body));
+	serviceFulfiller.addComment(req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+	});
+})
+
  
 //===========================================
 //PROFILE RELATED SERVICES.....

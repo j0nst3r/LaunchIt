@@ -30,6 +30,7 @@ service.createLaunch = createLaunch;
 service.deleteLaunch = deleteLaunch;
 service.updateLaunchInfo = updateLaunchInfo;
 service.castVote = castVote;
+service.addComment = addComment;
 
 
 module.exports = service;
@@ -353,6 +354,19 @@ function castVote(result, ballot){
 		return Promise.resolve(result);
 }
 
+function addComment(reqData){
+	console.log("IN ADD COMMENT..." + reqData)
+	launch.findOne({_id:reqData.launchId}, function(err, result){
+		console.log(result);
+		if(err) return console.error(err);
+		result.comments.push(reqData.newComment);
+		launch.update({_id:reqData.launchId},{$set: result}, function(err, result){
+			if(err) return console.error(err);
+			console.log(result);
+		})
+	})
+	return Promise.resolve({message:"ok"});
+}
 
 
 /*

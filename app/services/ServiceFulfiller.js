@@ -18,6 +18,7 @@ service.removeFromFavorites = removeFromFavorites;
 service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
+service.updateProfileInfo = updateProfileInfo;
 
 
 service.getAllLaunches = getAllLaunches;
@@ -204,6 +205,18 @@ function getProfile(reqData){
 	});
 }
 
+function updateProfileInfo(basicProfile){
+	var data = JSON.stringify(basicProfile);
+	console.log("IN updateBasicProfile: " + data);
+
+	var query = {_id:basicProfile.userId};
+	delete basicProfile.userId;
+	profile.update(query, {$set: basicProfile}, function(err, result){
+		if(err) return console.err(err);
+		return console.log(result);
+	});
+	return Promise.resolve({message:"OK"});
+}
 //==========================================
 //LAUNCH RELATED SERVICES...................
 //==========================================

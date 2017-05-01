@@ -19,6 +19,7 @@ service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
 service.updateProfileInfo = updateProfileInfo;
+service.getDisplayName = getDisplayName;
 
 
 service.getAllLaunches = getAllLaunches;
@@ -132,6 +133,14 @@ function createProfile(reqData, userId){
 				lastName : reqData.lastName
 			});
 	newProfile.save(function (err, result) {
+		if (err) return console.error(err);
+		return console.log(result);			
+	});
+}
+
+function getDisplayName(userId){
+	console.log("IN getDisplayName service: "  + reqData + "," + userId);
+	return user.findOne({_id:userId}, 'displayName', function (err, result) {
 		if (err) return console.error(err);
 		return console.log(result);			
 	});

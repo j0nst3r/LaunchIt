@@ -35,10 +35,13 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			templateUrl: 'views/profile.html',
 			controller: 'ProfileController'	
 		})
+		.when('/profile/:id', {
+			templateUrl: 'views/profile.html',
+			controller: 'ProfileController'	
+		})
 		
 		.when('/launches', {
 			templateUrl: 'views/launches.html',
-
 			controller: 'LaunchesController'	
 		})
 

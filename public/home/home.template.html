@@ -1,0 +1,72 @@
+<style>
+	md-card {
+		position: relative;
+	}
+	
+	md-card:hover figcaption {
+		opacity: 1;
+		top: 100%;
+		transition: .4s;
+	}
+
+	.inside {
+		position: absolute;
+		bottom: 0;
+
+		width: 100%;
+		text-align: center;
+
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: flex-end;
+		justify-content: center;
+
+		background-color: rgba(200, 200, 200, .5);
+	}
+
+	.hiddenn {
+		opacity: 0;
+		transition: .4s;
+	}
+
+	md-card:hover .hiddenn {
+		opacity: 1;
+		transition: .4s;
+	}
+</style>
+
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+<div class="jumbotron">
+	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
+		<div layout="row">
+			<div ng-repeat="curColumn in $ctrl.columnSpec">
+				<div layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
+    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.view(launch)">
+					
+					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->
+					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="Washed Out">
+					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate ? 'Click to Edit' : undefined}}" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
+
+						<div>
+							<p>{{launch.description}}</p>
+							<p>{{launch.yays}}</p>
+						</div>
+						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
+						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
+						
+					</div>
+	        		<md-card-content layout="row" layout-align="start center">
+          				<hr>
+						  <p>{{launch.name}}</p>
+						<hr>
+        			</md-card-content>
+      			</md-card>
+      			</div>
+			</div>
+    </md-content>
+</div>

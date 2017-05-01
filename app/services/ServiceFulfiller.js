@@ -139,8 +139,8 @@ function createProfile(reqData, userId){
 }
 
 function getDisplayName(userId){
-	console.log("IN getDisplayName service: "  + reqData + "," + userId);
-	return user.findOne({_id:userId}, 'displayName', function (err, result) {
+	console.log("IN getDisplayName service: " + userId);
+	return profile.findOne({_id:userId}, 'displayName', function (err, result) {
 		if (err) return console.error(err);
 		return console.log(result);			
 	});

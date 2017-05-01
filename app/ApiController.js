@@ -145,6 +145,7 @@ router.get('/getDisplayName/:id', function(req, res, next){
 	console.log("getDisplayName service requested...");
 	serviceFulfiller.getDisplayName(userId).then(
 		function(result){
+			console.log(result);
 			res.status(200).json(result);
 		},
 		function(err){

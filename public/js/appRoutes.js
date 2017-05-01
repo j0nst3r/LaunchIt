@@ -4,8 +4,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		// home page
 		.when('/', {
-			templateUrl: 'views/home.html',
-			controller: 'MainController'
+			template: '<home></home>'
 		})
 
 		.when('/login',{
@@ -37,7 +36,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 		
 		.when('/launches', {
-			templateUrl: 'views/launches.html',
+			templateUrl: 'home/home.html',
 
 			controller: 'LaunchesController'	
 		})

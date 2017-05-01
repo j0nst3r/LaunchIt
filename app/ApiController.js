@@ -8,15 +8,18 @@ var pathExists = require('path-exists');
 var mongoose = require('mongoose');
 var multer = require('multer');
 var upload = multer({dest:'app/tempImg/'})
+var busboy =require('busboy');
 
 //===========================================
 //IMAGE UPLOAD API.....
 //===========================================
 router.post('/uploadProfileImage/:id', function(req, res) {
-	console.log(req);
+	var _busboy = new busboy({headers:req.headers});
+	console.log(_busboy);
     var fstream;
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
+	req.pipe(_busboy);
+
+    _busboy.on('file', function (fieldname, file, filename) {
         console.log("Uploading: " + filename); 
         fstream = fs.createWriteStream(__dirname + '/profileImage/' + req.params.id + '.png');
         file.pipe(fstream);
@@ -442,7 +445,7 @@ router.post('/addComment', function (req, res) {
 router.post('/getProfileById', function(req, res){
 	console.log("getProfileById service requested : " + JSON.stringify(req.body));
 	
-	serviceFulfiller.getProfileById(req.body.userId).then(
+	serviceFulfiller.getProfile({userId:req.body.userId}).then(
 		function(result){
 			res.status(200).json(result);
 		},

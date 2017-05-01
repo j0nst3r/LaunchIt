@@ -5,7 +5,7 @@ var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var passport	   = require('passport');
-var social		   = require('./app/passport/passport')(app, passport);
+var social		   = require('./app/passport/passport.js')(app, passport);
 
 // configuration ===========================================
 config = require('./config/property.js');

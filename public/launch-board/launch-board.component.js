@@ -30,9 +30,11 @@ angular
 						
 							this.launches[i].yay = function () {
 									dataService.castVote('up', sessionStorage.getItem('userId'), launches[i]._id)
+										.then(launch => this.yays = launch.voteYay.length - launch.voteNay.length)
 								}
 							this.launches[i].nay = function () {
-									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id) 
+									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id)
+										.then(launch => this.yays = launch.voteYay.length - launch.voteNay.length)
 								}
 						}
 					})

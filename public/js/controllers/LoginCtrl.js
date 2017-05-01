@@ -23,6 +23,18 @@ angular.module('LoginCtrl', [])
 	$scope.authenticate = function(platform){
 		
 		switch(platform){
+			case 'facebook':
+				console.log("FACEBOOK AUTHEN...");
+				window.location.href = "/auth/facebook";
+				break;			
+			case 'twitter':
+				console.log("TWITTER AUTHEN...");
+				window.location.href = "/auth/twitter";
+				break;
+			case 'linkedin':
+				console.log("LINKEDIN AUTHEN...");
+				window.location.href = "/auth/linkedin";
+				break;
 			case 'google':
 				console.log("GOOGLE AUTHEN...");
 				window.location.href = "/auth/google";

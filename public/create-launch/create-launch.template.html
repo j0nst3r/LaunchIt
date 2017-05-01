@@ -1,3 +1,26 @@
+<style>
+.dropbox{
+    outline: 2px dashed grey;
+    outline-offset: 0%;
+    background: lightcyan;
+    color: dimgray;
+    padding: 10% 10%;
+    min-height: 20%;
+    position: relative;
+    cursor: pointer;
+}
+.dropbox:hover {
+    background: lightblue
+}
+input[type='file'] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+</style>
+
 <div class="jumbotron text-center">
 	<h1>Create That Launch Component!</h1>
     <md-content layout-padding>
@@ -15,17 +38,17 @@
 		<md-input-container class="md-block">
         <div>
             <label for="website">Content URL</label>
-            <input type="url" name="website" id='website' value="" ng-model='launch.website' required>
+            <input type="url" name="website" id='website' value="" ng-model='launch.website'>
         </div>
 		<div ng-messages="projectForm.clientName.$error">
             <div ng-message="required">This is required.</div>
         </div>
 		</md-input-container>
         
-        <!--type input doesn't play well with md-input-->
-        <!--Removed file upload from frontend for now since backend isn't functional-->
-        <!--<input type="file" accept='.png, .jpg, .jpeg' name="fileUpload" value='' ng-model='launch.file'>-->
-		
+        <div class='dropbox'>
+             <input id="uploads" class="upload-file" type="file" accept='.png, .jpg, .jpeg, .gif' name="fileUpload" value='' ng-model='launch.file' multiple/>
+             <div id='preview'>Please upload up to 5 images</div>
+        </div>
 		<md-input-container class="md-block">
         <div>
             <label for="description">Description</label>
@@ -39,12 +62,13 @@
 		<md-input-container class="md-block">
         <div>
             <label for="tags">Tags Separated with comma(,)</label>
-            <input type="text" name="tags" value="" ng-model='launch.tags'>
+            <input type="text" name="tags" value="" ng-model='launch.tags' required>
         </div>
 		</md-input-container>
 		
         <div>
-            <input type="button" ng-click='create(launch)' value='Create'/>
+            <input type="button" ng-click='create(launch)' value='Create' ng-disabled='createLaunch.name.$invalid || createLaunch.description.$invalid || createLaunch.tags.$invalid'/>
+            <input type="button" ng-click='cancel()' value="Cancel">
         </div>
     </form>
 </div>

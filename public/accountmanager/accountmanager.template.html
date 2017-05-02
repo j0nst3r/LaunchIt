@@ -6,8 +6,7 @@
 	.jumbotron{padding-top: 5%;}
 	.img-responsive{display: inline-block;}
 	.img-responsive img {
-		width:150px;
-		height:200px;
+		width:100%;
 	}
 	.jumbotron .content{margin-top:-20px;}
 	.jumbotron .nav-pills li a{color:#000;}
@@ -15,18 +14,33 @@
 	.jumbotron md-content{background-color: #eee;}
 </style>
 <div class="jumbotron">
-	<div class="img-responsive" ><img ng-src="{{imgURL}}" err-src="../image/avatar.jpg" alt=""></div><div style="text-align: center; display: inline-block;width: 50%;font-size: 45px;;font-weight: bold;">{{firstName+' '+lastName}}</div>
+	<div class="row">
+		<div class="col-md-3 img-responsive">
+			<img ng-src="{{imgURL}}" alt="Profile Image">
+		</div>
+		<div class="col-md-9">
+			<div style="text-align: center; display: inline-block;width: 50%;font-size: 45px;;font-weight: bold;">{{userData.displayName}}</div>
+			<div style="text-align: center; display: inline-block;width: 50%;font-size: 45px;;font-weight: bold;">{{userData.firstName+' '+userData.lastName}}</div>
+			<div style="text-align: center; display: inline-block;width: 50%;font-size: 20px;">{{userData.userBios}}</div>
+		</div>
+	</div>
+	</br>
 	<div class="row">
 		<div class="col-md-3">
 			<div class="nav nav-pills nav-stacked">
-				<li><a name="profile"  class="" ng-click="switchTab('profile')">Profile</a></li>
-				<li><a name="updateEmail"  class="active" ng-click="switchTab('updateEmail')">Update Email</a></li>
-				<li><a name="changePassword"  class="presentation" ng-click="switchTab('changePassword')">Change Password</a></li>
-				<li><a name="linkPaypal"  class="" ng-click="switchTab('linkPaypal')">Link Paypal</a></li>
-				<li><a name="disableAccount"   ng-click="switchTab('disableAccount')" >Disable Account</a></li>
-				<li><a name="deleteAccount"   ng-click="switchTab('deleteAccount')">Delete Account</a></li>
+				<li><a name="profile"  class="" ng-if="isPrivate" ng-click="switchTab('profile')">Profile</a></li>
+				<li><a name="updateEmail"  ng-if="isPrivate" class="active" ng-click="switchTab('updateEmail')">Update Email</a></li>
+				<li><a name="changePassword" ng-if="isPrivate" class="presentation" ng-click="switchTab('changePassword')">Change Password</a></li>
+				<li><a name="linkPaypal"  class="" ng-if="isPrivate" ng-click="switchTab('linkPaypal')">Link Paypal</a></li>
+				<li><a name="viewFollowing"  class="" ng-if="isPrivate" ng-click="switchTab('viewFollowing')">Following List</a></li>
+				<li><a name="Follow"  class="" ng-if="!isPrivate" ng-show="isFollowing" ng-click = "toggleFollow()">Start Stalking</a></li>
+				<li><a name="UnFollow"  class="" ng-if="!isPrivate" ng-hide="isFollowing" ng-click = "toggleFollow()">Stop Stalking</a></li>
+				<li><a name="viewBoard"  class="" ng-if="!isPrivate" ng-click="goToUserBoard()">View LaunchBoard</a></li>
+				<!--<li><a name="disableAccount"   ng-click="switchTab('disableAccount')" >Disable Account</a></li>
+				<li><a name="deleteAccount"   ng-click="switchTab('deleteAccount')">Delete Account</a></li>-->
 			</div>
 		</div>
+
 		<div class="col-md-9" ng-switch="showTabIndex">
 			<!--Update Email-->
 			<div class="content" ng-switch-when="updateEmail">
@@ -114,35 +128,46 @@
 				<md-content layout-padding>
 					<form name="profileForm" role="form" >
 						<md-input-container class="md-block">
-							<div ng-class="{ 'has-error': profileForm.firstName.$pristine || (profileForm.firstName.$dirty && profileForm.firstName.$error.required) || profileForm.firstName.$invalid||firstNameFailed}">
-								<label for="password">First Name</label>
-								<input style="width:60%; margin-top:10px;" type="text" name="firstName" id="firstName"  ng-model="user.firstName" placeholder="First Name" required
-									   pattern="[a-zA-Z]{1,20}" ng-model-options="{updateOn: 'default', debounce: 200 }"/>
-								<img ng-src="{{profileForm.firstName.$error.pattern || profileForm.firstName.$error.required  ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
+							<div>
+								<label for="displayName">Display Name</label>
+								<input style="width:60%; margin-top:10px;" type="text" name="dispolayName" id="displayName"  ng-model="user.displayName" placeholder="Display Name"
+									   pattern="[a-zA-Z]{1,20}"/>
 							</div>
 						</md-input-container>
-
 						</br></br>
-
 						<md-input-container class="md-block">
-							<div ng-class="{ 'has-error': profileForm.lastName.$pristine || (profileForm.lastName.$dirty && profileForm.lastName.$error.required) || profileForm.lastName.$invalid ||lastNameFailed}">
-								<label for="password">Last Name</label>
-								<input style="width:60%; margin-top:10px;" type="text" name="lastName" id="lastName"  ng-model="user.lastName" placeholder="Last Name"
-									   pattern="[a-zA-Z]{1,20}" required ng-model-options="{updateOn: 'default', debounce: 200 }"/>
-								<img ng-src="{{ profileForm.lastName.$error.pattern || profileForm.lastName.$error.required ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>
-
+							<div ng-class="{ 'has-error': profileForm.firstName.$pristine || (profileForm.firstName.$dirty && profileForm.firstName.$error.required) || profileForm.firstName.$invalid}">
+								<label for="firstName">First Name</label>
+								<input style="width:60%; margin-top:10px;" type="text" name="firstName" id="firstName"  ng-model="user.firstName" placeholder="First Name" required
+									   pattern="[a-zA-Z]{1,20}"/>
 							</div>
 						</md-input-container>
-
 						</br></br>
+						<md-input-container class="md-block">
+							<div ng-class="{ 'has-error': profileForm.lastName.$pristine || (profileForm.lastName.$dirty && profileForm.lastName.$error.required) || profileForm.lastName.$invalid}">
+								<label for="lastName">Last Name</label>
+								<input style="width:60%; margin-top:10px;" type="text" name="lastName" id="lastName"  ng-model="user.lastName" placeholder="Last Name"
+									   pattern="[a-zA-Z]{1,20}"/>
+							</div>
+						</md-input-container>
+						</br></br>
+						<md-input-container class="md-block">
+							<div ng-class="{ 'has-error': profileForm.userBios.$pristine || (profileForm.userBios.$dirty && profileForm.userBios.$error.required) || profileForm.userBios.$invalid}">
+								<label for="bios">Biography</label>
+								<textarea ng-model="user.userBios" md-maxlenght="500" rows="5" md-select-on-focus>
+								</textarea> 
+							</div>
+						</md-input-container>
 					</form>
 					<form method="post" enctype="multipart/form-data" action="{{'/api/uploadProfileImage/' + curUser }}" name="myForm">
 						<input type="file" name="file">
 						<button type="submit" name="upload">Upload</button>
 					</form>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newPasswordForm.$invalid " ng-click="updateProfile()">SAVE CHANGES</button>
+					
+					<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="update()">SAVE CHANGES</button>
 				</md-content>
 			</div>
+
 			<!--disable account-->
 			<div class="content" ng-switch-when="disableAccount">
 				<h3>DISABLE ACCOUNT</h3>
@@ -168,6 +193,7 @@
 					</button>
 				</md-content>
 			</div>
+
 			<!--delete account-->
 			<div class="content" ng-switch-when="deleteAccount">
 				<h3>DELETE ACCOUNT</h3>
@@ -180,7 +206,15 @@
 				</md-content>
 			</div>
 
-			<div class="content" ng-switch-when="linkPaypal" style="{height:50%}">
+			<!--following list-->
+			<div class="content" ng-switch-when="viewFollowing">
+				<h3>Secretly Stalking....</h3>
+				<div>
+			</div>
+
+			<div class="content" ng-switch-when="linkPaypal"></div>
+
+			<div class="content" ng-switch-when="default">
 			</div>
 		</div>
 	</div>

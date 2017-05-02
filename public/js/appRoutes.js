@@ -27,17 +27,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'NotificationController'	
 		})
 		
-		.when('/account', {
+		.when('/account/:id?', {
 			template: '<accountmanager></accountmanager>',
-		})
-		
-		.when('/profile', {
-			templateUrl: 'views/profile.html',
-			controller: 'ProfileController'	
-		})
-		.when('/profile/:id', {
-			templateUrl: 'views/profile.html',
-			controller: 'ProfileController'	
 		})
 		
 		.when('/launches', {

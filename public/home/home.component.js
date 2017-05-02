@@ -79,7 +79,6 @@ angular
                             title: launch.name
                         },
                         fields: {
-                            name: ['text', 'Name'],
                             description: ['text', 'Description']
                         },
                         data: launch,

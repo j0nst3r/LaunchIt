@@ -20,6 +20,7 @@ angular
 
 			this.reload = function () {
 				this.isEditable = true
+				console.log("in reload() isEditable = " + this.isEditable)
 				dataService.getLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
@@ -68,6 +69,7 @@ angular
 
 			this.viewFavorites = function() {
 				this.isEditable = false
+				console.log("in viewFavorites() isEditable = " + this.isEditable)
 				dataService.getFavoriteLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches

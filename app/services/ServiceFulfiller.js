@@ -277,7 +277,7 @@ function getLaunches(ownerId){
 
 
 function createLaunch(launchInfo){
-    let tags = []
+    var tags = []
     if(launchInfo.tags !=null) {
         tags = launchInfo.tags.split(",")
     }

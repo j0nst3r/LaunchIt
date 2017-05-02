@@ -19,10 +19,8 @@ angular
             // call on dataService to all the launches and then
             // store each launch object into $scope.launches
             angular.element($window).bind('resize', function() {
-                console.log($window.innerWidth)
                 this.columnSpec = uiController.setup($window.innerWidth)
-                $scope.$apply();
-                console.log(this.columnSpec)
+                $scope.$apply()
             });
             this.launches = []
             this.$onInit = function() {

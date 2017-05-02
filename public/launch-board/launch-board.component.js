@@ -20,6 +20,7 @@ angular
 
 			this.reload = function () {
 				this.isEditable = true
+				console.log("in reload() isEditable = " + this.isEditable)
 				dataService.getLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches
@@ -45,18 +46,10 @@ angular
 
 			this.view = function (launch, edit) {
 				$uibModal.open({
-					component: 'edit',
+					component: 'launch',
 					resolve: {
-						meta: {
-							title: (edit ? "Edit " : "") + launch.name
-						},
-						fields: {
-							name: ['text', 'Name'],
-							description: ['text', 'Description'],
-							tags: ['text', 'Tags']
-						},
-						data: launch,
-						readonly: !edit
+						launch: launch,
+						edit: edit
 					}
 				}).result.then(result => {
 					
@@ -76,6 +69,7 @@ angular
 
 			this.viewFavorites = function() {
 				this.isEditable = false
+				console.log("in viewFavorites() isEditable = " + this.isEditable)
 				dataService.getFavoriteLaunches(this.userId)
 					.then(launches => {
 						this.launches = launches

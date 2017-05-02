@@ -124,6 +124,9 @@ angular
                 if($scope.showTabIndex!=index){
                     $scope.showTabIndex=index;
                 }
+                if(index == 'viewFollowing'){
+                    dataService.getFollowerInfo($scope.follower)
+                }
             };
 
             $scope.toggleFollow = function(){

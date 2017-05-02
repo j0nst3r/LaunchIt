@@ -8,9 +8,10 @@ angular
 			userId: '<'
 		},
 
-        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController',
-        function($uibModal, dataService, $window, $scope, uiController) {
-            this.columnSpec = uiController.setup($window.innerWidth)
+        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route',
+        function($uibModal, dataService, $window, $scope, uiController, $route) {
+            this.columnSpec = uiController.setup($window.innerWidth);
+            
 
             $scope.getIfStatement = function(blah, cardIndex){
                 return (cardIndex % blah.ngif.col == blah.ngif.rem);
@@ -21,6 +22,9 @@ angular
             angular.element($window).bind('resize', function() {
                 console.log($window.innerWidth)
                 this.columnSpec = uiController.setup($window.innerWidth)
+                //window.location.reload(false); //<-- temp solution but REALLY SLOW
+                $route.reload();
+                $rootScope.$apply();
                 $scope.$apply();
                 console.log(this.columnSpec)
             });
@@ -33,7 +37,6 @@ angular
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
 
                 this.reload()
-                
             }
 
             this.reload = function() {

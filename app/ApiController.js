@@ -140,6 +140,20 @@ router.post('/createAccount', function(req, res){
 		})
 });
 
+router.get('/getDisplayName/:id', function(req, res, next){
+	var userId = req.params.id;
+	console.log("getDisplayName service requested...");
+	serviceFulfiller.getDisplayName(userId).then(
+		function(result){
+			console.log(result);
+			res.status(200).json(result);
+		},
+		function(err){
+			if(err) console.error(err);
+			res.status(500).json(err);
+		});
+})
+
 //===========================================
 //LAUNCH RELATED SERVICES.....
 //===========================================
@@ -349,9 +363,47 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	});
 })
 
-router.post('/updateLaunchInfo', function(req, res){
-	console.log("updateLaunchInfo service requested : " + JSON.stringify(req.body));
-	
+router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) {
+	var fileList = req.files
+	var data = JSON.parse(req.body.body)
+	var updatedList;
+	console.log(data);
+	console.log(fileList);
+	console.log("updateLaunchInfo service requested : ", data, fileList);
+
+	//wipe directory of old picture and clear imageList
+	data.website = [];
+	var permaDir = __dirname.concat('/launchImage/').concat(data._id).concat('/');
+	fsExtra.remove(permaDir)
+		.then(() => {
+			//move new picture into folder
+			for(var a = 0; a < fileList.length; a++){
+				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
+				var permaDir = __dirname.concat('/launchImage/').concat(data._id).concat('/');
+				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
+				if (err) return console.error(err)
+					console.log("file uploaded!")
+				});
+				//building new img source links
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
+				data.website.push(imgSrc);
+			}
+			serviceFulfiller.updateLaunchInfo().then(
+			function(result){
+				res.status(200).json(result);
+			},
+			function(result){
+				console.log(JSON.stringify(result));
+			});
+		})
+		.catch(err => {
+			console.error(err);
+		})
+
+
+
+	//updateLaunchInfo
+
 	serviceFulfiller.updateLaunchInfo(req.body).then(
 		function(result){
 			res.status(200).json(result);

@@ -232,11 +232,12 @@ function updateProfileInfo(basicProfile){
 //==========================================
 function getAllLaunches() {
     console.log("In ServiceFulfiller: getAllLaunches");
-    return launch.find({}, function(err, result){
+    var temp = launch.find({}, function(err, result){
         if(err) return console.error(err);
         console.log(result);
         return result;
     });
+    return Promise.resolve(temp);
 }
 
 function getLaunchesById(launchIdList){

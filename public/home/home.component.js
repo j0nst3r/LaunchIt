@@ -10,8 +10,9 @@ angular
 
         controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route',
         function($uibModal, dataService, $window, $scope, uiController, $route) {
-            this.columnSpec = uiController.setup($window.innerWidth);
             
+            $scope.columnSpec = uiController.setup($window.innerWidth);
+            $scope.columnNum = $scope.columnSpec.length;
 
             $scope.getIfStatement = function(blah, cardIndex){
                 return (cardIndex % blah.ngif.col == blah.ngif.rem);
@@ -20,20 +21,17 @@ angular
             // call on dataService to all the launches and then
             // store each launch object into $scope.launches
             angular.element($window).bind('resize', function() {
-                console.log($window.innerWidth)
-                this.columnSpec = uiController.setup($window.innerWidth)
-                //window.location.reload(false); //<-- temp solution but REALLY SLOW
-                $route.reload();
-                $rootScope.$apply();
-                $scope.$apply();
-                console.log(this.columnSpec)
+                $scope.$apply(function(){
+                    $scope.columnSpec = uiController.setup($window.innerWidth);
+                    $scope.columnNum = $scope.columnSpec.length;
+                });
             });
+            
             this.launches = []
             this.$onInit = function() {
                 console.log("HomeViewController initialization")
                 this.isPrivate = this.userId == undefined
                 this.dataService = dataService
-
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
 
                 this.reload()

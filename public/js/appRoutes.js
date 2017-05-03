@@ -26,19 +26,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'NotificationController'	
 		})
 		
-		.when('/account', {
+		.when('/account/:id?', {
 			template: '<accountmanager></accountmanager>',
 		})
 		
-		.when('/profile', {
-			templateUrl: 'views/profile.html',
-			controller: 'ProfileController'	
-		})
-		
 		.when('/launches', {
-			templateUrl: 'home/home.html',
-
-			controller: 'LaunchesController'	
+			template: '<home></home>'
 		})
 
 		.when('/create-launch', {

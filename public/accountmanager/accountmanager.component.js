@@ -4,7 +4,22 @@ angular
     .module('accountpage')
     .component('accountmanager', {
         templateUrl: 'accountmanager/accountmanager.template.html',
-        controller : function($uibModal, $scope, $rootScope, dataService) {
+        controller : function($location, $route, $uibModal, $scope, $rootScope, dataService) {
+            
+            var visitorId = $route.current.params.id
+            $scope.isPrivate =  visitorId == undefined
+            
+            
+
+            /*$scope.userData = 
+            {
+                displayName : "ClubSoda",
+                firstName: "Jon",
+                lastName: "Chen",
+                userBios: "4th Year Software Engineer. #LazyPotatoe",
+                following: ["test"]
+            };*/
+
 
             $scope.modalHeader = '';
             $scope.editBody = '';
@@ -64,55 +79,64 @@ angular
                         dataToSubmit.email = data.email.$viewValue;
                         console.log("updating email...");
                         dataService.updateEmail(dataToSubmit);
+                        $scope.showTabIndex = 'default';
                         break;
                     case 'changePassword':
                         dataToSubmit._id = sessionStorage.getItem('userId');
                         dataToSubmit.password = data.newPassword.$viewValue;
                         console.log("updating password...");
                         dataService.resetPassword(dataToSubmit);
+                        $scope.showTabIndex = 'default';
                         break;
+                    case 'profile':
+                        var params = {
+                            "userId" : $scope.curUser,
+                            "displayName" : $scope.user.displayName,
+                            "firstName": $scope.user.firstName,
+                            "lastName": $scope.user.lastName,
+                            "userBios": $scope.user.userBios
+                        }
+                        console.log(params);
+                        dataService.updateProfile(params).then(function(data){});
+                        $scope.showTabIndex = 'default';
+                        break;  
                     default:
                         console.log("not supported...");
                         break;
                 }
             };
 
-            $scope.showTabIndex='updateEmail';
+            $scope.showTabIndex = 'default';
 
             $scope.curUser = sessionStorage.getItem('userId');
             $scope.imgURL = 'http://localhost:8080/api/userImage/' + $scope.curUser;
-            $scope.user = {};
-
+            
             dataService.getProfile({'userId': $scope.curUser}).then(function(data){
-
-                $scope.firstName = data.firstName||'';
-                $scope.lastName= data.lastName||'';
+                $scope.userData = data;
+                $scope.isFollowing = $scope.userData.following.indexOf(visitorId) !== -1;
+                $scope.user = $scope.userData;
             });
+            
+            
+
 
             $scope.switchTab=function(index){
                 if($scope.showTabIndex!=index){
                     $scope.showTabIndex=index;
                 }
-            };
-
-            $scope.updateProfile=function(){
-                var params = {
-                    "userId" : $scope.curUser,
-                    "firstName": $scope.user.firstName,
-                    "lastName": $scope.user.lastName
+                if(index == 'viewFollowing'){
+                    dataService.getFollowerInfo($scope.follower)
                 }
-                console.log(params);
-                dataService.updateProfile(params).then(function(data){
-                    console.log(params)
-                    console.log('ok');
-                    dataService.getProfile({'userId': $scope.curUser}).then(function(data){
-
-                        $scope.firstName = data.firstName||'';
-                        $scope.lastName= data.lastName||'';
-                    });
-
-                });
             };
+
+            $scope.toggleFollow = function(){
+                console.log($scope.isFollowing);
+                $scope.isFollowing = !$scope.isFollowing;
+            }
+
+            $scope.goToUserBoard = function(){
+                $location.path('/launch-board/' + $route.current.params.id);
+            }
         }
     })
     .directive('errSrc', function() {

@@ -46,18 +46,10 @@ angular
 
 			this.view = function (launch, edit) {
 				$uibModal.open({
-					component: 'edit',
+					component: 'launch',
 					resolve: {
-						meta: {
-							title: (edit ? "Edit " : "") + launch.name
-						},
-						fields: {
-							name: ['text', 'Name'],
-							description: ['text', 'Description'],
-							tags: ['text', 'Tags']
-						},
-						data: launch,
-						readonly: !edit
+						launch: launch,
+						edit: edit
 					}
 				}).result.then(result => {
 					

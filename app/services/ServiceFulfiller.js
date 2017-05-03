@@ -19,6 +19,7 @@ service.addToFollowing = addToFollowing;
 service.removeFromFollowing = removeFromFollowing;
 service.getProfile = getProfile;
 service.updateProfileInfo = updateProfileInfo;
+service.getDisplayName = getDisplayName;
 
 
 service.getAllLaunches = getAllLaunches;
@@ -137,6 +138,14 @@ function createProfile(reqData, userId){
     });
 }
 
+function getDisplayName(userId){
+	console.log("IN getDisplayName service: " + userId);
+	return profile.findOne({_id:userId}, 'displayName', function (err, result) {
+		if (err) return console.error(err);
+		return console.log(result);			
+	});
+}
+
 function addToFavorites(favList, reqData){
     console.log("In ServiceFulfiller addToFavorites: " + JSON.stringify(reqData));
     var query = {_id: reqData.userId};
@@ -223,11 +232,12 @@ function updateProfileInfo(basicProfile){
 //==========================================
 function getAllLaunches() {
     console.log("In ServiceFulfiller: getAllLaunches");
-    return launch.find({}, function(err, result){
+    var temp = launch.find({}, function(err, result){
         if(err) return console.error(err);
         console.log(result);
         return result;
     });
+    return Promise.resolve(temp);
 }
 
 function getLaunchesById(launchIdList){

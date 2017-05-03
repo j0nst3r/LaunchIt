@@ -8,9 +8,10 @@ angular
 			userId: '<'
 		},
 
-        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController',
-        function($uibModal, dataService, $window, $scope, uiController) {
-            this.columnSpec = uiController.setup($window.innerWidth)
+        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route',
+        function($uibModal, dataService, $window, $scope, uiController, $route) {
+            
+            $scope.columnSpec = uiController.setup($window.innerWidth);
 
             $scope.getIfStatement = function(blah, cardIndex){
                 return (cardIndex % blah.ngif.col == blah.ngif.rem);
@@ -19,19 +20,19 @@ angular
             // call on dataService to all the launches and then
             // store each launch object into $scope.launches
             angular.element($window).bind('resize', function() {
-                this.columnSpec = uiController.setup($window.innerWidth)
-                $scope.$apply()
+                $scope.$apply(function(){
+                    $scope.columnSpec = uiController.setup($window.innerWidth);
+                });
             });
+            
             this.launches = []
             this.$onInit = function() {
                 console.log("HomeViewController initialization")
                 this.isPrivate = this.userId == undefined
                 this.dataService = dataService
-
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
 
                 this.reload()
-                
             }
 
             this.reload = function() {

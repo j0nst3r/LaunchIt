@@ -76,8 +76,7 @@
 <div class="jumbotron">
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
-			<div ng-repeat="curColumn in $ctrl.columnSpec">
-				<div layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
+				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
     	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.view(launch)">
 					
 					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->
@@ -86,10 +85,10 @@
 						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/><br>
 							<div class= "card-social">
 								<i class="follow">Share</i>	
-								<a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="alert('button click'); $event.stopPropagation()"><i class="fa fa-facebook"></i></a>
-								<a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="alert('button click'); $event.stopPropagation()"><i class="fa fa-twitter"></i></a>
-								<a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="alert('button click'); $event.stopPropagation()"><i class="fa fa-linkedin"></i></a>
-								<a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="alert('button click'); $event.stopPropagation()"><i class="fa fa-google-plus"></i></a>
+								<a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-facebook"></i></a>
+								<a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-twitter"></i></a>
+								<a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-linkedin"></i></a>
+								<a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-google-plus"></i></a>
 							</div>
 						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
 						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>

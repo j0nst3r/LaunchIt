@@ -1,0 +1,21 @@
+<style>
+	launch .btn-danger {
+		float: right;
+	}
+</style>
+
+<h1>{{$ctrl.title()}}</h1>
+
+<form ng-submit="$ctrl.ok()">
+	<div class="form-group">
+		<input class="form-control" type="text" ui-tooltip="Name" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.name">
+		<input class="form-control" type="text" ui-tooltip="Description" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.description">
+		<ul>
+			<li ng-repeat="tag in $ctrl.launch.tags">{{tag}}</li>
+		</ul>
+	</div>
+
+	<input class="btn btn-success" type="submit" value="Apply" ng-if="$ctrl.edit">
+	<input class="btn btn-primary" type="button" value="Cancel" ng-click="$ctrl.dismiss()" ng-if="$ctrl.edit">
+	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit">
+</form>

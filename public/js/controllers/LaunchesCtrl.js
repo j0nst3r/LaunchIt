@@ -12,6 +12,7 @@ angular.module('LaunchesCtrl', ['edit','ui.bootstrap']).controller('LaunchesCont
 		for (i in launchArray) { 
 			// create launchObj, copy all the launchArray[i] attributes to launchObj
 			var launchObj = { 	
+					id:				launchArray[i]._id,
 					owner:	 		launchArray[i].owner,
         			name:	 		launchArray[i].name,
         			tags: 			launchArray[i].tags,

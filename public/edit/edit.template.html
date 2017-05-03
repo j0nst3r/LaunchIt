@@ -8,7 +8,7 @@
 
 <form ng-submit="$ctrl.ok()">
 	<!-- Select appropriate input type -->
-	<input ng-if="['text', 'password', 'email'].indexOf(type[0]) >= 0" class="form-control" type="{{type[0]}}" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly" ng-repeat-start="(property, type) in $ctrl.fields">
+<!--	<input ng-if="['text', 'password', 'email'].indexOf(type[0]) >= 0" class="form-control" type="{{type[0]}}" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly" ng-repeat-start="(property, type) in $ctrl.fields">
 	<textarea ng-if="type[0] === 'textarea'" class="form-control" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly"></textarea>
 	<input ng-if="type[0] === 'checkbox'" class="btn btn-primary" type="button" value="{{type[1]}}" uib-btn-checkbox ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly">
 	<input ng-if="type[0] === 'number'" class="form-control" type="number" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly">
@@ -16,5 +16,14 @@
 
 	<input class="btn btn-success" type="submit" value="Apply" ng-if="!$ctrl.readonly">
 	<input class="btn btn-primary" type="button" value="Cancel" ng-click="$ctrl.dismiss()"  ng-if="!$ctrl.readonly">
-	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit && !$ctrl.readonly">
+	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit && !$ctrl.readonly">-->
+
+
+    
+ <p ng-repeat="cmt in $ctrl.LaunchComments track by $index" class="form-control">
+        {{cmt}}
+        <br>
+    </p>
+
+
 </form>

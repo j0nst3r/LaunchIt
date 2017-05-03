@@ -87,8 +87,8 @@
 						  <p>{{launch.name}}</p>
 						<hr>
 						<md-card-content-actions ng-disabled="!$root.isUserLoggedIn">
-							<i class="material-icons" ng-if="launch.isFavorite" ng-click="$ctrl.toggleFavorite(); $event.stopPropagation()">favorite</i>
-							<i class="material-icons" ng-if="!launch.isFavorite" ng-click="$ctrl.toggleFavorite(); $event.stopPropagation()">favorite_border</i>
+							<i class="material-icons" ng-if="launch.isFavorite" ng-click="$ctrl.toggleFavorite(launch); $event.stopPropagation()">favorite</i>
+							<i class="material-icons" ng-if="!launch.isFavorite" ng-click="$ctrl.toggleFavorite(launch); $event.stopPropagation()">favorite_border</i>
 							<i class="material-icons" ng-click="!launch.isYayed ? launch.yay() : undefined; $event.stopPropagation()">thumb_down</i>
 							<i class="material-icons" ng-click="launch.isYayed ? launch.nay() : undefined; $event.stopPropagation()">thumb_up</i>
 						</md-card-content-actions>

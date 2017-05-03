@@ -76,9 +76,7 @@
 <div class="jumbotron">
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
-			<div>{{columnNum}}</div>
-			<div ng-repeat="curColumn in columnSpec track by $index">
-				<div layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
+				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
     	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.view(launch)">
 					
 					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->

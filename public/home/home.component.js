@@ -12,7 +12,6 @@ angular
         function($uibModal, dataService, $window, $scope, uiController, $route) {
             
             $scope.columnSpec = uiController.setup($window.innerWidth);
-            $scope.columnNum = $scope.columnSpec.length;
 
             $scope.getIfStatement = function(blah, cardIndex){
                 return (cardIndex % blah.ngif.col == blah.ngif.rem);
@@ -23,7 +22,6 @@ angular
             angular.element($window).bind('resize', function() {
                 $scope.$apply(function(){
                     $scope.columnSpec = uiController.setup($window.innerWidth);
-                    $scope.columnNum = $scope.columnSpec.length;
                 });
             });
             

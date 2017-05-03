@@ -31,7 +31,7 @@ angular
                 this.isPrivate = this.userId == undefined
                 this.dataService = dataService
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
-
+                this.favoriteLaunches = this.dataService.getFavoriteLaunches(this.userId)
                 this.reload()
             }
 
@@ -39,38 +39,83 @@ angular
                 console.log("In reload");
                 dataService.getAllLaunches().then( launchArray => {
                     this.launches = launchArray
-                    console.log(launchArray)
                     // set launches as an array
                     for (let i = 0; i < this.launches.length; i++) {
                         
                         this.launches[i].nay = function(){
-                            this.dataService.castVote('down', sessionStorage.getItem('userId'), this.launches[i]._id);
+                            let nayVoters = this.launches[i].voteNay
+                            let userId = sessionStorage.getItem('userId')
+                            for (let i = 0; i < nayVoters.length; i++) {
+                                if (userId == nayVoters[i]) {
+                                    this.dataService.uncastVote('down', userId, this.launches[i]._id);
+                                    return
+                                }
+                            }
+                            this.dataService.castVote('down', userId, this.launches[i]._id);
                         }
             
                         this.launches[i].yay = function(){
-                            this.dataService.castVote('up', sessionStorage.getItem('userId'), this.launches[i]._id);
-                        }
-
-                        this.launches[i].toggleFavorite = function(){
-                            // if launch is favorited, remove from user's favorite list and return, else add to user's favorite list
-                            for (let i = 0; i < this.favoriteLaunches.length; i++) {
-                                if (this.favoriteLaunches[i]._id == this._id) {
-                                    index = this.launches.indexOf(this.favoriteLaunches[i])
-                                    if (this.favoriteLaunches[i].isFavorite) {
-                                        this.dataService.removeFromFavorites(sessionStorage.getItem('userId'), this.favoriteLaunches[i])
-                                        this.favoriteLaunches.splice(i, 1)
-                                        this.launches[index].isFavorite =  false
-                                    } else {
-                                        this.dataService.addToFavorites(sessionStorage.getItem('userId'), this.favoriteLaunches[i])
-                                        this.launches[index].isFavorite = true
-                                    }
+                            let yayVoters = this.launches[i].voteYay
+                            let userId = sessionStorage.getItem('userId')
+                            for (let i = 0; i < yayVoters.length; i++) {
+                                if (userId == yayVoters[i]) {
+                                    this.dataService.uncastVote('up', userId, this.launches[i]._id);
+                                    return
                                 }
                             }
-                        }   
+                            this.dataService.castVote('up', userId, this.launches[i]._id);
+                        }
+
+                        this.launches[i].isFavorite = false
+                            // if launch is favorited, remove from user's favorite list and return, else add to user's favorite list
+
+                        this.launches[i].isFavoriteLaunch = function() {
+                            return this.launches[i].isFavorite
+                        }
+
+                        this.launches[i].isYayed = function() {
+                            let voters = this.launches[i].voteYay
+                            let userId = sessionStorage.getItem('userId')
+                            for (let i = 0; i < voters.length; i++) {
+                                if (userId == voters[i]) {
+                                    return false
+                                }
+                            }
+                        }
                     }
                     this.setFavoriteLaunches()
                 }
             )}
+
+             this.toggleFavorite = function(launch){
+                console.log("in toggleFavorite()")
+                this.dataService.getFavoriteLaunches(this.userId).then( favs => {
+                    this.favoriteLaunches = favs
+                    for (let i = 0; i < this.favoriteLaunches.length; i++) {
+                        if (this.favoriteLaunches[i]._id == launches[i]._id && this.favoriteLaunches[i].isFavorite) {
+                            let index = this.launches.indexOf(this.favoriteLaunches[i])
+                            console.log("it is a favorite, unfavoriting")
+                            this.dataService.removeFromFavorites(sessionStorage.getItem('userId'), this.favoriteLaunches[i])
+                            this.favoriteLaunches.splice(i, 1)
+                            this.launches[index].isFavorite =  false
+                            return
+                        }
+                    }
+                })
+                this.dataService.getAllLaunches(this.userId).then( launches => {
+                    for (let i = 0; i < launches.length; i++) {
+                        console.log(launches[i])
+                        if (launches[i]._id == launches[i]._id && !launches[i].isFavorite) {
+                            console.log("it is a not favorite, favoriting")
+                            let index = this.launches.indexOf(launches[i])
+                            console.log("index = " + index)
+                            this.dataService.addToFavorites(sessionStorage.getItem('userId'), launches[i])
+                            this.launches[index].isFavorite = true
+                            return
+                        }
+                    }
+                })
+             }
 
             this.view = function (launch) {
                 $uibModal.open({
@@ -91,12 +136,13 @@ angular
             this.setFavoriteLaunches = function() {
                 this.dataService.getFavoriteLaunches(this.userId).then( favs => {
                     this.favoriteLaunches = favs
+                    let j = 0
                     for (let i = 0; i < this.favoriteLaunches.length; i++) {
-                        console.log(this.launches[i])
-                        if (this.favoriteLaunches[i]._id == this.launches[i]._id) {
-                            this.launches[i].isFavorite = true
-                        } else {
-                            this.launches[i].isFavorite = false
+                        for (j = 0; j < this.launches.length; j++) {
+                            if (this.favoriteLaunches[i]._id == this.launches[j]._id) {
+                                this.launches[j].isFavorite = true
+                                break
+                            }
                         }
                     }
                 })

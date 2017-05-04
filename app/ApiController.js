@@ -363,6 +363,17 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	});
 })
 
+router.get('/getLaunchById/:launchId', function(req, res, next){
+	var launchId = req.params.launchId;
+	serviceFulfiller.getLaunchById(launchId).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(err){
+			console.err(err);
+		});
+})
+
 router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) {
 	var fileList = req.files
 	var data = JSON.parse(req.body.body)

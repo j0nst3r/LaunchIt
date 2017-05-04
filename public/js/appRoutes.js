@@ -47,6 +47,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 				}]
 			}
 		})
+
+		.when('/view/:launchId', {
+			template: '<social-share launch-id="$resolve.launchId"></social-share>',
+			resolve: {
+				userId: ['$route', function ($route) {
+					return $route.current.params.launchId
+				}]
+			}
+		})
 		
 	$locationProvider.html5Mode(true);
 

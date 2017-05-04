@@ -145,6 +145,10 @@ angular
                 console.log("in goToUserBoard")
                 $location.path('/launch-board/' + $scope.userId);
             }
+
+            $scope.goToProfile = function(id){
+                $location.path('/account/' + id);
+            }
         }
     })
     .directive('errSrc', function() {

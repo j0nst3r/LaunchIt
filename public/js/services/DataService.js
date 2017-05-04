@@ -28,6 +28,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.updateLaunch = updateLaunch;
     dataService.deleteLaunch = deleteLaunch;
     dataService.castVote = castVote;
+    dataService.uncastVote = uncastVote;
     dataService.uploadImage = uploadImage;
     dataService.addToFavorites = addToFavorites;
     dataService.getFavoriteLaunches = getFavoriteLaunches;
@@ -78,6 +79,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     }
 
     function castVote(vote, caster, launch){
+        console.log("voting")
         return $http({
             method:'POST',
             url: urlBase + '/castVote',
@@ -96,7 +98,28 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
                 return $q.reject(res.data)
             }
         );
+    }
 
+    function uncastVote(vote, caster, launch){
+        console.log("unvoting")
+        return $http({
+            method:'POST',
+            url: urlBase + '/uncastVote',
+            data:	{
+                type: vote,
+                userId: caster,
+                launchId: launch
+            }
+        }).then(
+            function(res){
+                console.log(res.data);
+                return res.data
+            },
+            function(res){
+                console.log(res.data);
+                return $q.reject(res.data)
+            }
+        );
     }
 
     function addToFavorites(user, launch) {

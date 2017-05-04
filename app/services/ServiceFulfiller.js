@@ -32,6 +32,7 @@ service.createLaunch = createLaunch;
 service.deleteLaunch = deleteLaunch;
 service.updateLaunchInfo = updateLaunchInfo;
 service.castVote = castVote;
+service.uncastVote = uncastVote;
 service.addComment = addComment;
 
 
@@ -355,6 +356,40 @@ function castVote(result, ballot){
             break;
         case "up":
             newYayList.push(ballot.userId);
+            break;
+        default:
+            console.log("STOP TRYING TO BREAK API...")
+            return;
+    }
+
+    result.voteNay = newNayList;
+    result.voteYay = newYayList;
+
+    console.log(result);
+
+    launch.findOneAndUpdate({_id:ballot.launchId},{$set: result}, {new: true}, function(err, result){
+        if(err) return console.error(err);
+        console.log(result);
+        return result;
+    })
+    return Promise.resolve(result);
+}
+
+function uncastVote(result, ballot){
+    //clears the list of the old vote
+    console.log(result);
+    var newNayList = result.voteNay.filter(function(data){
+        return (data != ballot.userId);
+    })
+    var newYayList = result.voteYay.filter(function(data){
+        return (data != ballot.userId);
+    })
+    switch(ballot.type){
+        case "down":
+            newNayList.remove(ballot.userId);
+            break;
+        case "up":
+            newYayList.remove(ballot.userId);
             break;
         default:
             console.log("STOP TRYING TO BREAK API...")

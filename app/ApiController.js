@@ -197,6 +197,23 @@ router.post('/castVote', function(req, res){
 	});
 })
 
+router.post('/uncastVote', function(req, res){
+	console.log("user uncasting vote..." + JSON.stringify(req.body));
+	serviceFulfiller.getLaunchById(req.body.launchId).then(
+		function(result){
+			serviceFulfiller.uncastVote(result, req.body).then(
+			function(result){
+				res.status(200).json(result);
+			},
+			function(result){
+				console.log(JSON.stringify(result));
+			});
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+	});
+})
+
 router.post('/addToFavorites', function (req, res) {
 	console.log("addToFavorites service requested: " + JSON.stringify(req.body));
 	

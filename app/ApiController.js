@@ -507,6 +507,21 @@ router.post('/updateProfileInfo', function(req, res){
 		});
 });
 
+router.post('/getFollowingStatus', function (req, res) {
+	console.log("getFollowingStatus service requested: " + JSON.stringify(req.body));
+	//get loggedInUser's profile and then check if the following list contains publicUser.
+	var data = {};
+	data.userId = req.body.loggedInUser
+	serviceFulfiller.getProfile(data).then(
+		function(result){
+			console.log("returning from getProfile", result);
+			console.log((result.following.indexOf(req.body.publicUser) === -1));
+			res.status(200).json({"status": (result.following.indexOf(req.body.publicUser) != -1)});
+		},
+		function(result){
+			console.error(result);
+		})
+})
 
 
 

@@ -18,10 +18,11 @@ angular
                 $scope.user = $scope.userData;
             });
 
-            /*dataService.getFollowingStatus({"loggedInUser": sessionStorage.getItem('userId'), "publicUser":$scope.userId}).then(
+            dataService.getFollowingStatus({"loggedInUser": sessionStorage.getItem('userId'), "publicUser":$scope.userId}).then(
                 function(result){
-                    $scope.isFollowing = result;
-                })*/
+                    $scope.isFollowing = result.status;
+                    console.log($scope.isFollowing);
+                })
             
             
 
@@ -142,9 +143,15 @@ angular
             };
 
             $scope.toggleFollow = function(){
-                console.log($scope.isFollowing);
-                
+                //was following, checked unfollow
+                if($scope.isFollowing){
+                    dataService.updateFollowing("stop", sessionStorage.getItem('userId'), $scope.userId);
+                }else{
+                    //was not following, checked follow
+                    dataService.updateFollowing("start", sessionStorage.getItem('userId'), $scope.userId);
+                }
                 $scope.isFollowing = !$scope.isFollowing;
+                
             }
 
             $scope.goToUserBoard = function(){

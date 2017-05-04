@@ -38,9 +38,55 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.getProfile = getProfile;
     dataService.updateProfile = updateProfile;
     dataService.getFollowerInfo = getFollowerInfo;
+    dataService.getFollowingStatus = getFollowingStatus;
+    dataService.updateFollowing = updateFollowing;
 
     return dataService;
 
+    function updateFollowing(type, loggedUser, otherUser){
+
+        var apiUrl = {};
+        var data = {};
+        data.userId = loggedUser;
+        data.followId = otherUser;
+
+        if(type == 'start'){
+            apiUrl = urlBase + '/addToFollowing'
+        }else{
+            apiUrl = urlBase + '/removeFromFollowing'
+        }
+
+        return $http({
+            method: 'POST',
+            url: apiUrl,
+            data: data
+        }).then(
+            function(res){
+                console.log(res);
+            },
+            function(res){
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
+    function getFollowingStatus(data){
+        return $http({
+            method: 'POST',
+            url: urlBase + '/getFollowingStatus',
+            data: data
+        }).then(
+            function(res){
+                console.log(res);
+                return res.data
+            },
+            function(res){
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
 
     function getImageUrl(profileId){
         return urlBase.concat('/userImage/').concat(profileId);

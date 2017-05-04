@@ -33,8 +33,8 @@
 				<li><a name="changePassword" ng-if="isPrivate" class="presentation" ng-click="switchTab('changePassword')">Change Password</a></li>
 				<li><a name="linkPaypal"  class="" ng-if="isPrivate" ng-click="switchTab('linkPaypal')">Link Paypal</a></li>
 				<li><a name="viewFollowing"  class="" ng-if="isPrivate" ng-click="switchTab('viewFollowing')">Following List</a></li>
-				<li><a name="Follow"  class="" ng-if="!isPrivate" ng-show="isFollowing" ng-click = "toggleFollow()">Start Stalking</a></li>
-				<li><a name="UnFollow"  class="" ng-if="!isPrivate" ng-hide="isFollowing" ng-click = "toggleFollow()">Stop Stalking</a></li>
+				<li><a name="Follow"  class="" ng-if="!isPrivate" ng-hide="isFollowing" ng-click = "toggleFollow()">Start Stalking</a></li>
+				<li><a name="UnFollow"  class="" ng-if="!isPrivate" ng-show="isFollowing" ng-click = "toggleFollow()">Stop Stalking</a></li>
 				<li><a name="viewBoard"  class="" ng-if="!isPrivate" ng-click="goToUserBoard()">View LaunchBoard</a></li>
 				<!--<li><a name="disableAccount"   ng-click="switchTab('disableAccount')" >Disable Account</a></li>
 				<li><a name="deleteAccount"   ng-click="switchTab('deleteAccount')">Delete Account</a></li>-->

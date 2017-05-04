@@ -42,6 +42,7 @@ angular
                         let launch = this.launches[i]
 
                         this.launches[i].nay = function(){
+                            toastr.success('Thank You for casting your vote');
                             let userId = sessionStorage.getItem('userId')
                             let yayVoters = launch.voteYay
 
@@ -63,6 +64,8 @@ angular
                         }
             
                         this.launches[i].yay = function(){
+                            
+                            toastr.success('Thank You for casting your vote');
                             // if userId is in launch.voteNay, remove from launch.voteNay
                             // add userId to launch.voteYay
                             let userId = sessionStorage.getItem('userId')

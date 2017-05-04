@@ -11,6 +11,17 @@ angular
 
 
             $scope.isPrivate =  $route.current.params.id === undefined
+
+        "58f67409fa5a90d82c5d8c61"
+            dataService.getProfile({'userId': $scope.userId}).then(function(data){
+                $scope.userData = data;
+                $scope.user = $scope.userData;
+            });
+
+            /*dataService.getFollowingStatus({"loggedInUser": sessionStorage.getItem('userId'), "publicUser":$scope.userId}).then(
+                function(result){
+                    $scope.isFollowing = result;
+                })*/
             
             
 
@@ -114,12 +125,6 @@ angular
 
             $scope.imgUrl = dataService.getImageUrl($scope.userId);
 
-            dataService.getProfile({'userId': $scope.userId}).then(function(data){
-                $scope.userData = data;
-                $scope.isFollowing = $scope.userData.following.indexOf($scope.userId) !== -1;
-                $scope.user = $scope.userData;
-            });
-
             $scope.switchTab=function(index){
                 if($scope.showTabIndex!=index){
                     $scope.showTabIndex=index;
@@ -138,6 +143,7 @@ angular
 
             $scope.toggleFollow = function(){
                 console.log($scope.isFollowing);
+                
                 $scope.isFollowing = !$scope.isFollowing;
             }
 

@@ -152,14 +152,8 @@ angular
                 $uibModal.open({
                     component: 'launch',
                     resolve: {
-                        meta: {
-                            title: launch.name
-                        },
-                        fields: {
-                            description: ['text', 'Description']
-                        },
-                        data: launch,
-                        readonly: true
+                        launch: launch,
+                        edit: false
                     }
                 })
             }

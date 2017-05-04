@@ -36,6 +36,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 
     dataService.getProfile = getProfile;
     dataService.updateProfile = updateProfile;
+    dataService.getFollowerInfo = getFollowerInfo;
 
     return dataService;
     function uploadProfileImage(params){
@@ -357,5 +358,21 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
                 console.log(JSON.stringify(res.data));
                 return $q.reject(res.data);
             });
+    }
+
+    function getFollowerInfo(followingList){
+        return $http({
+            method: 'POST',
+            url : urlBase + '/getFollowerInfo',
+            data: followingList
+        }).then(
+            function(body){
+                console.log(body);
+                return body.data;
+            },
+            function(res){
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);    
+        })
     }
 }]);

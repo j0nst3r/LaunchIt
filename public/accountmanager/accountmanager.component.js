@@ -125,7 +125,10 @@ angular
                     $scope.showTabIndex=index;
                 }
                 if(index == 'viewFollowing'){
-                    dataService.getFollowerInfo($scope.follower)
+                    //get the list of followers to render on UI
+                    dataService.getFollowerInfo($scope.follower).then(function(result){
+                        $scope.followerInfo = angular.copy(result);
+                    })
                 }
             };
 

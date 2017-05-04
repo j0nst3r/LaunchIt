@@ -71,6 +71,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     }
 
     function castVote(vote, caster, launch){
+        console.log("voting")
         return $http({
             method:'POST',
             url: urlBase + '/castVote',
@@ -92,6 +93,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     }
 
     function uncastVote(vote, caster, launch){
+        console.log("unvoting")
         return $http({
             method:'POST',
             url: urlBase + '/uncastVote',

@@ -27,7 +27,6 @@ angular
             
             this.launches = []
             this.$onInit = function() {
-                console.log("HomeViewController initialization")
                 this.isPrivate = this.userId == undefined
                 this.dataService = dataService
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
@@ -36,51 +35,77 @@ angular
             }
 
             this.reload = function() {
-                console.log("In reload");
                 dataService.getAllLaunches().then( launchArray => {
                     this.launches = launchArray
                     // set launches as an array
                     for (let i = 0; i < this.launches.length; i++) {
-                        
+                        let launch = this.launches[i]
+
                         this.launches[i].nay = function(){
-                            let nayVoters = this.launches[i].voteNay
                             let userId = sessionStorage.getItem('userId')
+                            let yayVoters = launch.voteYay
+
+                            // if userId is in launch.voteYay, remove from launch.voteYay
+                            for (let i = 0; i < yayVoters.length; i++) {
+                                if (userId == yayVoters[i]) {
+                                    dataService.uncastVote('up', userId, launch._id);
+                                }
+                            }
+                            let nayVoters = launch.voteNay
+
+                            // add userId to launch.voteNay
                             for (let i = 0; i < nayVoters.length; i++) {
                                 if (userId == nayVoters[i]) {
-                                    this.dataService.uncastVote('down', userId, this.launches[i]._id);
                                     return
                                 }
                             }
-                            this.dataService.castVote('down', userId, this.launches[i]._id);
+                            dataService.castVote('down', userId, launch._id);
                         }
             
                         this.launches[i].yay = function(){
-                            let yayVoters = this.launches[i].voteYay
+                            // if userId is in launch.voteNay, remove from launch.voteNay
+                            // add userId to launch.voteYay
                             let userId = sessionStorage.getItem('userId')
+                            let nayVoters = launch.voteNay
+                            for (let i = 0; i < nayVoters.length; i++) {
+                                if (userId == nayVoters[i]) {
+                                    dataService.uncastVote('down', userId, launch._id);
+                                }
+                            }
+                            let yayVoters = launch.voteYay
                             for (let i = 0; i < yayVoters.length; i++) {
                                 if (userId == yayVoters[i]) {
-                                    this.dataService.uncastVote('up', userId, this.launches[i]._id);
                                     return
                                 }
                             }
-                            this.dataService.castVote('up', userId, this.launches[i]._id);
+                            dataService.castVote('up', userId, launch._id)
                         }
 
                         this.launches[i].isFavorite = false
-                            // if launch is favorited, remove from user's favorite list and return, else add to user's favorite list
-
-                        this.launches[i].isFavoriteLaunch = function() {
-                            return this.launches[i].isFavorite
-                        }
 
                         this.launches[i].isYayed = function() {
+                            console.log(this.launches[i])
                             let voters = this.launches[i].voteYay
-                            let userId = sessionStorage.getItem('userId')
                             for (let i = 0; i < voters.length; i++) {
-                                if (userId == voters[i]) {
-                                    return false
+                                if (this.userId == voters[i]) {
+                                    return true
                                 }
                             }
+                            return false
+                        }
+
+                        this.launches[i].isNayed = function() {
+                            let voters = this.launches[i].voteNay
+                            for (let i = 0; i < voters.length; i++) {
+                                if (this.userId == voters[i]) {
+                                    return true
+                                }
+                            }
+                            return false
+                        }
+
+                        this.launches[i].getHeart = function() {
+                            return this.isFavorite ? "favorite" : "favorite_border"
                         }
                     }
                     this.setFavoriteLaunches()
@@ -92,7 +117,7 @@ angular
                 for (let i = 0; i < this.favoriteLaunches.length; i++) {
                     if (this.favoriteLaunches[i]._id == launch._id) {
                         let index = this.launches.indexOf(this.favoriteLaunches[i])
-                        this.dataService.removeFromFavorites(sessionStorage.getItem('userId'), launch._id)
+                        this.dataService.removeFromFavorites(this.userId, launch._id)
                         this.favoriteLaunches.splice(i, 1)
                         launch.isFavorite =  false
                         return
@@ -105,7 +130,7 @@ angular
                 for (let i = 0; i < this.launches.length; i++) {
                     if (this.launches[i]._id == launch._id && !this.launches[i].isFavorite) {
                         let index = this.launches.indexOf(this.launches[i])
-                        this.dataService.addToFavorites(sessionStorage.getItem('userId'), launch._id)
+                        this.dataService.addToFavorites(this.userId, launch._id)
                         this.favoriteLaunches.push(launch)
                         this.launches[index].isFavorite = true
                         return
@@ -125,7 +150,7 @@ angular
 
             this.view = function (launch) {
                 $uibModal.open({
-                    component: 'edit',
+                    component: 'launch',
                     resolve: {
                         meta: {
                             title: launch.name

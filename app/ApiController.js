@@ -466,6 +466,18 @@ router.post('/getProfileById', function(req, res){
 		});
 });
 
+router.post('/getFollowerInfo', function (req, res) {
+	console.log("getFollowerInfo service requested: " + JSON.stringify(req.body));
+	
+	serviceFulfiller.getFollowerProfile(req.body).then(
+		function(result){
+			res.status(200).json(result);
+		},
+		function(result){
+			console.log(JSON.stringify(result));
+		});
+})
+
 router.post('/updateProfileInfo', function(req, res){
 	console.log("updateProfileInfo service requested : " + JSON.stringify(req.body));
 	

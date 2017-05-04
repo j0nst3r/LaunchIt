@@ -6,8 +6,11 @@ angular
         templateUrl: 'accountmanager/accountmanager.template.html',
         controller : function($location, $route, $uibModal, $scope, $rootScope, dataService) {
             
-            var visitorId = $route.current.params.id
-            $scope.isPrivate =  visitorId == undefined
+            $scope.userId = ($route.current.params.id === undefined ? sessionStorage.getItem('userId') : $route.current.params.id)
+            console.log($scope.userId);
+
+
+            $scope.isPrivate =  $route.current.params.id === undefined
             
             
 
@@ -75,14 +78,14 @@ angular
 
                 switch($scope.showTabIndex){
                     case 'updateEmail':
-                        dataToSubmit._id = sessionStorage.getItem('userId');
+                        dataToSubmit._id = $scope.userId;
                         dataToSubmit.email = data.email.$viewValue;
                         console.log("updating email...");
                         dataService.updateEmail(dataToSubmit);
                         $scope.showTabIndex = 'default';
                         break;
                     case 'changePassword':
-                        dataToSubmit._id = sessionStorage.getItem('userId');
+                        dataToSubmit._id = $scope.userId;
                         dataToSubmit.password = data.newPassword.$viewValue;
                         console.log("updating password...");
                         dataService.resetPassword(dataToSubmit);
@@ -90,7 +93,7 @@ angular
                         break;
                     case 'profile':
                         var params = {
-                            "userId" : $scope.curUser,
+                            "userId" : $scope.userId,
                             "displayName" : $scope.user.displayName,
                             "firstName": $scope.user.firstName,
                             "lastName": $scope.user.lastName,
@@ -108,17 +111,14 @@ angular
 
             $scope.showTabIndex = 'default';
 
-            $scope.curUser = sessionStorage.getItem('userId');
-            $scope.imgURL = 'http://localhost:8080/api/userImage/' + $scope.curUser;
-            
-            dataService.getProfile({'userId': $scope.curUser}).then(function(data){
+
+            $scope.imgUrl = dataService.getImageUrl($scope.userId);
+
+            dataService.getProfile({'userId': $scope.userId}).then(function(data){
                 $scope.userData = data;
-                $scope.isFollowing = $scope.userData.following.indexOf(visitorId) !== -1;
+                $scope.isFollowing = $scope.userData.following.indexOf($scope.userId) !== -1;
                 $scope.user = $scope.userData;
             });
-            
-            
-
 
             $scope.switchTab=function(index){
                 if($scope.showTabIndex!=index){
@@ -126,8 +126,12 @@ angular
                 }
                 if(index == 'viewFollowing'){
                     //get the list of followers to render on UI
-                    dataService.getFollowerInfo($scope.follower).then(function(result){
+                    dataService.getFollowerInfo($scope.userData.following).then(function(result){
                         $scope.followerInfo = angular.copy(result);
+                        $scope.followerInfo.forEach(function(element) {
+                            element.imgUrl = dataService.getImageUrl(element._id)
+                        }, this);
+                        console.log($scope.followerInfo);
                     })
                 }
             };
@@ -138,7 +142,8 @@ angular
             }
 
             $scope.goToUserBoard = function(){
-                $location.path('/launch-board/' + $route.current.params.id);
+                console.log("in goToUserBoard")
+                $location.path('/launch-board/' + $scope.userId);
             }
         }
     })

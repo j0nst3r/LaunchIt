@@ -16,7 +16,7 @@
 <div class="jumbotron">
 	<div class="row">
 		<div class="col-md-3 img-responsive">
-			<img ng-src="{{imgURL}}" alt="Profile Image">
+			<img ng-src="{{imgUrl}}">
 		</div>
 		<div class="col-md-9">
 			<div style="text-align: center; display: inline-block;width: 50%;font-size: 45px;;font-weight: bold;">{{userData.displayName}}</div>
@@ -28,7 +28,7 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="nav nav-pills nav-stacked">
-				<li><a name="profile"  class="" ng-if="isPrivate" ng-click="switchTab('profile')">Update Info</a></li>
+				<li><a name="profile"  class="" ng-if="isPrivate" ng-click="switchTab('profile')">Update Profile Info</a></li>
 				<li><a name="updateEmail"  ng-if="isPrivate" class="active" ng-click="switchTab('updateEmail')">Update Email</a></li>
 				<li><a name="changePassword" ng-if="isPrivate" class="presentation" ng-click="switchTab('changePassword')">Change Password</a></li>
 				<li><a name="linkPaypal"  class="" ng-if="isPrivate" ng-click="switchTab('linkPaypal')">Link Paypal</a></li>
@@ -124,7 +124,7 @@
 
 			<!--Profile-->
 			<div class="content" ng-switch-when="profile">
-				<h3>PROFILE</h3>
+				<h3>Update Profile Info</h3>
 				<md-content layout-padding>
 					<form name="profileForm" role="form" >
 						<md-input-container class="md-block">
@@ -209,7 +209,15 @@
 			<!--following list-->
 			<div class="content" ng-switch-when="viewFollowing">
 				<h3>Secretly Stalking....</h3>
-				<div>
+				<md-content layout-padding>
+						<div class="col-md-3 img-responsive">
+						<img ng-src="{{imgUrl}}">
+						</div>
+						<div class="col-md-9">
+							<div style="font-size: 20px;;font-weight: bold;">{{userData.displayName}}</div>
+							<div style="font-size: 20px;">{{userData.userBios}}</div>
+						</div>
+				</md-content>
 			</div>
 
 			<div class="content" ng-switch-when="linkPaypal"></div>
@@ -218,173 +226,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<!-- update email modal -->
-	<!--<div class="modal fade" id="updateEmailModal" role="dialog" ng-cloak>-->
-	<!--<div class="modal-dialog">-->
-	<!--<div class="modal-content">-->
-	<!--<div class="modal-header">-->
-	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-	<!--<h4 class="modal-title">Update Email</h4>-->
-	<!--</div>-->
-	<!--<div class="modal-body">-->
-	<!--<md-content layout-padding>-->
-	<!--<form name="newEmailForm" role="form">-->
-	<!--<md-input-container class="md-block">-->
-	<!--<div ng-class="{ 'has-error': form.email.$pristine || (form.email.$dirty && form.email.$error.required) || form.email.$invalid}">-->
-	<!--<label for="Email">New Email</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="text" name="email" id="email"  ng-model="email" placeholder="Email"-->
-	<!--pattern="[a-zA-Z0-9._+-]{1,63}@([a-zA-Z0-9_]{1,63}){1,5}\.[a-zA-Z/-_]{2,10}" ng-change="validateEmail(newEmailForm.email)" required ng-model-options="{updateOn: 'default', debounce: 500 }"/>-->
-	<!--<img ng-src="{{( newEmailForm.email.$error.pattern || newEmailForm.email.$error.required || emailFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>-->
-	<!--</div>-->
-	<!--</md-input-container>-->
-	<!---->
-	<!--</br></br>-->
-	<!---->
-	<!--<md-input-container class="md-block">-->
-	<!--<div>-->
-	<!--<label for="password">Password</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="password" name="password" id="password"  ng-model="password" placeholder="Password" required-->
-	<!--ng-change="validatePassword(newEmailForm.password)" ng-model-options="{updateOn: 'default', debounce: 500 }"/>-->
-	<!--<img ng-src="{{(newEmailForm.password.$error.required || passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>-->
-	<!--</div>-->
-	<!--</md-input-container>-->
-	<!--</form>-->
-	<!--</md-content>-->
-	<!--</div>-->
-	<!--<div class="modal-footer">-->
-	<!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>-->
-	<!--<button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newEmailForm.$invalid || checkNewEmailForm()" ng-click="update(newEmailForm)">Save changes</button>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!---->
-	<!--</br>-->
-
-	<!-- Change Password modal -->
-	<!--<div class="modal fade" id="changePasswordModal" role="dialog">-->
-	<!--<div class="modal-dialog">-->
-	<!--<div class="modal-content">-->
-	<!--<div class="modal-header">-->
-	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-	<!--<h4 class="modal-title">Change Password</h4>-->
-	<!--</div>-->
-	<!--<div class="modal-body">-->
-	<!--<md-content layout-padding>-->
-	<!--<form name="newPasswordForm" role="form">-->
-	<!--<md-input-container class="md-block">-->
-	<!--<div>-->
-	<!--<label for="password">Old Password</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="password" name="oldPass" id="oldPass"  ng-model="oldPass" placeholder="Old Password" required-->
-	<!--ng-change="validatePassword(newPasswordForm.oldPass)" ng-model-options="{updateOn: 'default', debounce: 500 }"/>-->
-	<!--<img ng-src="{{(newPasswordForm.oldPass.$error.required || passwordFailed) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>-->
-	<!--</div>-->
-	<!--</md-input-container>-->
-	<!---->
-	<!--</br></br>-->
-	<!---->
-	<!--<md-input-container class="md-block">-->
-	<!--<div ng-class="{ 'has-error': newPasswordForm.password.$pristine || (newPasswordForm.password.$dirty && newPasswordForm.password.$error.required) || form.password.$invalid}">-->
-	<!--<label for="password">New Password</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="password" name="newPassword" id="newPassword"  ng-model="newPassword" placeholder="New Password"-->
-	<!--pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>-->
-	<!--<img ng-src="{{( newPasswordForm.newPassword.$error.pattern || newPasswordForm.newPassword.$error.required) ? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>-->
-
-	<!--</div>-->
-	<!--</md-input-container>-->
-
-	<!--</br></br>-->
-	<!---->
-	<!--<md-input-container class="md-block">-->
-	<!--<div ng-class="{ 'has-error': newPasswordForm.passwordConf.$pristine || (newPasswordForm.passwordConf.$dirty && newPasswordForm.passwordConf.$error.required) || newPasswordForm.passwordConf.$invalid}">-->
-	<!--<label for="passwordConf">New Password Confirmation</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="password" name="passwordConf" id="passwordConf"  ng-model="passwordConf" placeholder="New Password Confirmation"-->
-	<!--pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\[$&+,:;=?@#|'<>.\-^*()%!\]]).{6,18}" required/>-->
-	<!--<img ng-src="{{(newPasswordForm.passwordConf.$error.pattern || newPasswordForm.passwordConf.$error.required || validatePasswordConfirmation(newPasswordForm.newPassword, newPasswordForm.passwordConf))? './image/invalidField.png' : './image/validField.png'}}" width=20 height=20>-->
-	<!--</div>-->
-	<!--</md-input-container>-->
-	<!--<div>-->
-	<!--<li>minimum 8 characters long</li>-->
-	<!--<li>At least one lower case letter</li>-->
-	<!--<li>At least one upper case letter</li>-->
-	<!--<li>At least one numeric character</li>-->
-	<!--<li>At least one special character</li>-->
-	<!--<li>Password and Password Confirmation must match</li>-->
-	<!--</div>-->
-	<!--</form>-->
-	<!--</md-content>-->
-	<!--</div>-->
-	<!--<div class="modal-footer">-->
-	<!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>-->
-	<!--<button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="newPasswordForm.$invalid || validatePasswordConfirmation(newPasswordForm.newPassword, newPasswordForm.passwordConf) || passwordFailed" ng-click="update(newPasswordForm)">Submit</button>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-
-	<!--<br />-->
-
-	<!-- Link Paypal modal -->
-	<!--<div class="modal fade" id="linkPaypalModal" role="dialog">-->
-	<!--<div class="modal-dialog">-->
-	<!--<div class="modal-content">-->
-	<!--<div class="modal-header">-->
-	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-	<!--<h4 class="modal-title">Link Paypal</h4>-->
-	<!--</div>-->
-	<!--<div class="modal-body">-->
-	<!--<a class="btn btn-primary social-login-btn social-paypal" ng-click="authenticate('paypal')"><i class="fa fa-paypal"></i></a>-->
-	<!--</div>-->
-	<!--<div class="modal-footer">-->
-	<!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>-->
-	<!--&lt;!&ndash;<button ng-click="resetPassword(user)" title="Missing or Invalid Required Field(s) Value." class="btn btn-primary">-->
-	<!--</t><span>Submit</span>-->
-	<!--</button>&ndash;&gt;-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-
-	<!--&lt;!&ndash; Disable Account modal &ndash;&gt;-->
-	<!--<div class="modal fade" id="disableAccountModal" role="dialog">-->
-	<!--<div class="modal-dialog">-->
-	<!--<div class="modal-content">-->
-	<!--<div class="modal-header">-->
-	<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-	<!--<h4 class="modal-title">Disable Account</h4>-->
-	<!--</div>-->
-	<!--<div class="modal-body">-->
-	<!--<p>Some instruction, warning and notifications</p>-->
-	<!--<form name="disbaleAccountform" role="form">-->
-	<!--<div class="form-group" ng-show="disableAccountRequested">-->
-	<!--<label for="password">Old Password</label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="password" name="oldpass" id="password"  ng-model="password" placeholder="Password" required/>-->
-	<!--</div>-->
-
-	<!--<div class="form-group" ng-class="{ 'has-error': form.password.$pristine || (form.password.$dirty && form.password.$error.required) || form.password.$invalid}">-->
-	<!--<label>enter "YES" if you really wish to disable account :( </label>-->
-	<!--<input style="width:60%; margin-top:10px;" type="text" name="disableConf" id="disableConf"  ng-model="disableAccount" placeholder="enter YES to confirm disableing account" required/>-->
-	<!--</div>-->
-
-
-	<!--</form>-->
-	<!--</div>-->
-	<!--<div class="modal-footer">-->
-	<!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>-->
-	<!--<button ng-click="disableUserAccount(user)" title="Missing or Invalid Required Field(s) Value."-->
-	<!--ng-disabled="form.$invalid" class="btn btn-primary">-->
-	<!--<span>Submit</span>-->
-	<!--</button>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-	<!--</div>-->
-
-	<!-- Delete Account modal -->
-
 
 </div>

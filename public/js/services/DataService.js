@@ -7,6 +7,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     $http.defaults.headers.post["Content-Type"] = 'application/JSON';
     var dataService = {};
 
+    dataService.getImageUrl = getImageUrl;
+
 	/*
 	 LOGIN SERVICE CALLS
 	 */
@@ -17,7 +19,6 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.createAccount = createAccount;
     dataService.resetPassword = resetPassword;
     dataService.performLoginOperation = performLoginOperation;
-
 	/*
 	 LAUNCH SERVICE CALLS
 	 */
@@ -38,6 +39,12 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.getFollowerInfo = getFollowerInfo;
 
     return dataService;
+
+
+    function getImageUrl(profileId){
+        return urlBase.concat('/userImage/').concat(profileId);
+    }
+
     function uploadProfileImage(params){
         return $http({
             method: 'POST',

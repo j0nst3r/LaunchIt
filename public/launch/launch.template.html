@@ -18,4 +18,10 @@
 	<input class="btn btn-success" type="submit" value="Apply" ng-if="$ctrl.edit">
 	<input class="btn btn-primary" type="button" value="Cancel" ng-click="$ctrl.dismiss()" ng-if="$ctrl.edit">
 	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit">
+
+	<p ng-if="!$ctrl.edit" ng-repeat="cmt in $ctrl.launch.comments track by $index" class="form-control">
+         {{cmt}}
+         <br>
+    </p>
+
 </form>

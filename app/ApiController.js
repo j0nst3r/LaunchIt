@@ -361,6 +361,8 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	serviceFulfiller.createLaunch(launchObj).then(
 		function(createResult){	
 			//for each file in the file list, store image to correct folder and 
+			console.log("debuggin EC2 POS....#1" + createResult);
+
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
 				var permaDir = __dirname.concat('/launchImage/').concat(createResult._id).concat('/');

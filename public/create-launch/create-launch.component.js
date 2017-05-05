@@ -56,6 +56,7 @@ angular.
 					}
 					console.log(JSON.stringify(newLaunch))
 					dataService.createLaunch(formData)
+					window.location = '/launch-board'
 			}
 		}
 	})

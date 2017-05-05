@@ -15,7 +15,7 @@ angular
 				this.launch = angular.copy(this.resolve.launch)
 				this.edit = this.resolve.edit
 
-				this.title = function () { return (this.edit ? "Edit " : "") + this.launch.name }
+				this.title = (this.edit ? "Edit " : "") + this.launch.name
 				
 			}
 

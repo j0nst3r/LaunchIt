@@ -1,6 +1,15 @@
 <style>
-	launch h1 {
+	launch > * {
+		margin: auto;
+		padding: .4em;
 		text-align: center;
+	}
+
+	launch img {
+		display: block;
+
+		max-width: 480px;
+		max-height: 480px;
 	}
 	
 	launch .btn-danger {
@@ -8,7 +17,10 @@
 	}
 </style>
 
-<h1>{{$ctrl.title()}}</h1>
+<h1>{{$ctrl.title}}</h1>
+<h5>By <a href="#">{{$ctrl.launch.owner}}</a></h5>
+
+<img src="{{$ctrl.launch.website[0]}}" alt="No image">
 
 <form ng-submit="$ctrl.ok()">
 	<div class="form-group">
@@ -21,7 +33,7 @@
 	</div>
 	<label for="tags">Tags</label>
 	<ul class="list-inline" id="tags">
-		<li ng-repeat="tag in $ctrl.launch.tags">{{tag}}</li>
+		<li ng-repeat="tag in $ctrl.launch.tags">"{{tag}}"</li>
 	</ul>
 	</div>
 

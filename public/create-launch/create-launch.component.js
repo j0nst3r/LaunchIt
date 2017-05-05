@@ -56,10 +56,10 @@ angular.
 					}
 					console.log(JSON.stringify(newLaunch))
 					dataService.createLaunch(formData)
-						.then(setTimeout(()=> {
-            				window.location = '/launch-board'
-        					}, 2000)
-						)
+						// .then(setTimeout(()=> {
+            			// 	window.location = '/launch-board'
+        				// 	}, 2000)
+						// )
 			}
 		}
 	})

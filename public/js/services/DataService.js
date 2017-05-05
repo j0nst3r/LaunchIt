@@ -292,6 +292,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     // }
 
     function createLaunch(formData) {
+
         return $.ajax({
             url : urlBase + "/createLaunch",
             dataType : 'json',
@@ -302,15 +303,21 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
             processData : false,
             beforeSend : function() {
                 console.log(JSON.stringify(formData))
-            }.bind(this),
+            },
             success : function (response) {
                 console.log(response)
-            }.bind(this),
+            },
             error : function (xhr, status, err) {
                 console.log("Error: " + err)
-            }.bind(this)
+            }
 
-        }).then( () => window.location = '/launch-board')
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
+            console.log(res.data)
+            return $q.reject(res)
+        })
     }
     function uploadImage(newLaunch){
         console.log(newLaunch)

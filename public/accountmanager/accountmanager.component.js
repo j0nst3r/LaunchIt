@@ -11,8 +11,6 @@ angular
 
 
             $scope.isPrivate =  $route.current.params.id === undefined
-
-        "58f67409fa5a90d82c5d8c61"
             dataService.getProfile({'userId': $scope.userId}).then(function(data){
                 $scope.userData = data;
                 $scope.user = $scope.userData;

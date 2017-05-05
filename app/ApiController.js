@@ -360,23 +360,23 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 
 	console.log(launchObj);
 	serviceFulfiller.createLaunch(launchObj).then(
-		function(createResult){	
+		function(launchId){	
 			//for each file in the file list, store image to correct folder and 
-			console.log("debuggin EC2 POS....#1" + createResult);
-
+			console.log("debuggin EC2 POS....#1 : " + launchId);
+			launchObj._id = launchId
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
-				var permaDir = __dirname.concat('/launchImage/').concat(createResult._id).concat('/');
+				var permaDir = __dirname.concat('/launchImage/').concat(launchId).concat('/');
 				console.log("tempDir = "+ tempDir, "permaDir =" + permaDir);
 				
 				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
 					if (err) return console.error(err)
 						console.log("file uploaded!")
 					});
-				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(createResult._id).concat('/').concat(fileList[a].originalname);
-				createResult.website.push(imgSrc);
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(launchId).concat('/').concat(fileList[a].originalname);
+				launchObj.website.push(imgSrc);
 			}
-			serviceFulfiller.updateLaunchInfo(createResult).then(
+			serviceFulfiller.updateLaunchInfo(launchObj).then(
 			function(result){
 				res.status(200).json(result);
 			},

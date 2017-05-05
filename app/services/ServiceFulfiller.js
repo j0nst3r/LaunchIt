@@ -298,10 +298,12 @@ function createLaunch(launchInfo){
         tags : tags
     })
 
-    return newLaunch.save(function (err, result) {
+    newLaunch.save(function (err, result) {
         if(err) return console.error(err);
         return console.log(result);
     })
+
+    return Promise.resolve(newLaunch._id);
 }
 
 function updateLaunchInfo(launchInfo){

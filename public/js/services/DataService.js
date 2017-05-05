@@ -279,16 +279,38 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
                 });
     }
 
-    function createLaunch(newLaunch){
-        return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
-            .then(function(body){
-                    console.log(body);
-                    return body;
-                },
-                function(res){
-                    console.log(JSON.stringify(res.data));
-                    return $q.reject(res.data);
-                });
+    // function createLaunch(newLaunch){
+    //     return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
+    //         .then(function(body){
+    //                 console.log(body);
+    //                 return body;
+    //             },
+    //             function(res){
+    //                 console.log(JSON.stringify(res.data));
+    //                 return $q.reject(res.data);
+    //             });
+    // }
+
+    function createLaunch(formData) {
+        return $.ajax({
+            url : urlBase + "/createLaunch",
+            dataType : 'json',
+            type : 'POST',
+            data : formData,
+            contentType : false,
+            cache : false,
+            processData : false,
+            beforeSend : function() {
+                console.log(JSON.stringify(formData))
+            }.bind(this),
+            success : function (response) {
+                console.log(response)
+            }.bind(this),
+            error : function (xhr, status, err) {
+                console.log("Error: " + err)
+            }.bind(this)
+
+        }).then( () => window.location = '/launch-board')
     }
     function uploadImage(newLaunch){
         console.log(newLaunch)

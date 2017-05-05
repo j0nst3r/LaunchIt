@@ -28,6 +28,6 @@ angular
 				})
 			}
 			this.ok = function () { this.return() }
-			this.delete = function () { this.return(false) }
+			this.delete = function () { this.return(true) }
 		}]
 	})

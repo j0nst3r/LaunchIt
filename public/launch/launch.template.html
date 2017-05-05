@@ -1,4 +1,8 @@
 <style>
+	launch h1 {
+		text-align: center;
+	}
+	
 	launch .btn-danger {
 		float: right;
 	}
@@ -8,11 +12,17 @@
 
 <form ng-submit="$ctrl.ok()">
 	<div class="form-group">
-		<input class="form-control" type="text" ui-tooltip="Name" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.name">
-		<input class="form-control" type="text" ui-tooltip="Description" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.description">
-		<ul>
-			<li ng-repeat="tag in $ctrl.launch.tags">{{tag}}</li>
-		</ul>
+		<label for="name">Name</label>
+		<input class="form-control" id="name" type="text" ui-tooltip="Name" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.name">
+	</div>
+	<div class="form-group">
+		<label for="description">Description</label>
+		<input class="form-control" id="description" type="text" ui-tooltip="Description" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.description">
+	</div>
+	<label for="tags">Tags</label>
+	<ul class="list-inline" id="tags">
+		<li ng-repeat="tag in $ctrl.launch.tags">{{tag}}</li>
+	</ul>
 	</div>
 
 	<input class="btn btn-success" type="submit" value="Apply" ng-if="$ctrl.edit">
@@ -20,8 +30,8 @@
 	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit">
 
 	<p ng-if="!$ctrl.edit" ng-repeat="cmt in $ctrl.launch.comments track by $index" class="form-control">
-         {{cmt}}
-         <br>
-    </p>
+		{{cmt}}
+		<br>
+	</p>
 
 </form>

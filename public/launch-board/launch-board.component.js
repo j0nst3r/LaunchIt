@@ -52,7 +52,6 @@ angular
 						edit: edit
 					}
 				}).result.then(result => {
-					
 					const launch = result.data
 					console.log(result.data.tags)
 					if(result.data.tags.length !== 0){

@@ -1,4 +1,4 @@
-angular.module('DataService', []).factory('dataService', ['$http', '$q', function($http, $q) {
+angular.module('DataService', []).factory('dataService', ['$http', '$q', function ($http, $q) {
     var urlBase = '';
     $http.get('application.properties').then(function(response){
         console.log(response);
@@ -296,21 +296,38 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 
     }
     function updateLaunch(launch) {
-        return $http({method: 'POST', url: urlBase + '/updateLaunchInfo', data: launch})
-                .then(body => {
-                console.log(body)
-        return body
-    }, res => {
-            console.log(JSON.stringify(res.data))
+        const formData = new FormData()
+        formData.append('body', JSON.stringify(launch))
+
+        return $.ajax({
+            method: 'POST',
+            url: urlBase + '/updateLaunchInfo',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            beforeSend: () => console.log(JSON.stringify(formData)),
+            success: response => console.log(response),
+            error: (xhr, status, err) => console.log("ERROR: " + err)
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
+            console.log(res.data)
             return $q.reject(res)
         })
     }
     function deleteLaunch(launch) {
-        return $http({method: 'POST', url: urlBase + '/deleteLaunch', data: launch})
-                .then(body => {
-                console.log(body)
-        return body
-    }, res => {
+        return $http({
+            method: 'POST',
+            url: urlBase + '/deleteLaunch', 
+            data: launch
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
             console.log(JSON.stringify(res.data))
             return $q.reject(res)
         })

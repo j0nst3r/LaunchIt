@@ -402,8 +402,7 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 	//wipe directory of old picture and clear imageList
 	data.website = [];
 	var permaDir = __dirname.concat('/launchImage/').concat(data._id).concat('/');
-	fsExtra.remove(permaDir)
-		.then(() => {
+	fsExtra.remove(permaDir,() => {
 			//move new picture into folder
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
@@ -416,7 +415,7 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
 				data.website.push(imgSrc);
 			}
-			serviceFulfiller.updateLaunchInfo().then(
+			serviceFulfiller.updateLaunchInfo(data).then(
 			function(result){
 				res.status(200).json(result);
 			},
@@ -424,11 +423,6 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 				console.log(JSON.stringify(result));
 			});
 		})
-		.catch(err => {
-			console.error(err);
-		})
-
-
 
 	//updateLaunchInfo
 

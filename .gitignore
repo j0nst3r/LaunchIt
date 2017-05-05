@@ -12,7 +12,7 @@ public/libs/
 
 #Properties
 application.properties
-app/common.js
+config/property.js
 
 # Misc
 *.log

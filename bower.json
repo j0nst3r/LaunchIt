@@ -16,5 +16,8 @@
   "homepage": "https://github.com/j0nst3r/f17cmpe165.git",
   "description": "",
   "main": "",
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "angular": "1.6.4"
+  }
 }

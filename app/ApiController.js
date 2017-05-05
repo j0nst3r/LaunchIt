@@ -346,26 +346,31 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	var fileList = req.files
 	var data = JSON.parse(req.body.body)
 	var updatedList;
+	var baseUrl = req.headers.host;
 	console.log(data);
 	console.log(fileList);
 	
 	var launchObj = JSON.parse(req.body.body)
 	var websiteList = [];
-	websiteList.push(launchObj.website);
+	if(launchObj.websites != undefined){
+		websiteList.push(launchObj.website)
+	}
 	launchObj.website = websiteList;
+
 	console.log(launchObj);
 	serviceFulfiller.createLaunch(launchObj).then(
 		function(createResult){	
-			console.log("RESULT...." + createResult)
 			//for each file in the file list, store image to correct folder and 
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
-				var permaDir = __dirname.concat('/launchImage/').concat(result._id).concat('/');
+				var permaDir = __dirname.concat('/launchImage/').concat(createResult._id).concat('/');
+				console.log("tempDir = "+ tempDir, "permaDir =" + permaDir);
+				
 				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
-				if (err) return console.error(err)
-					console.log("file uploaded!")
-				});
-				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
+					if (err) return console.error(err)
+						console.log("file uploaded!")
+					});
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(createResult._id).concat('/').concat(fileList[a].originalname);
 				createResult.website.push(imgSrc);
 			}
 			serviceFulfiller.updateLaunchInfo(createResult).then(
@@ -395,6 +400,7 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 	var fileList = req.files
 	var data = JSON.parse(req.body.body)
 	var updatedList;
+	var baseUrl = req.headers.host;
 	console.log(data);
 	console.log(fileList);
 	console.log("updateLaunchInfo service requested : ", data, fileList);
@@ -412,7 +418,7 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 					console.log("file uploaded!")
 				});
 				//building new img source links
-				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(result._id).concat('/').concat(fileList[a].originalname);
+				var imgSrc = 'http://'.concat(baseUrl).concat('/api/launchImage/').concat(data._id).concat('/').concat(fileList[a].originalname);
 				data.website.push(imgSrc);
 			}
 			serviceFulfiller.updateLaunchInfo(data).then(

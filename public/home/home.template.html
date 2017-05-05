@@ -93,10 +93,10 @@
 					<div class="inside hiddenn" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 						<div class= "card-social">
 							<i class="follow">Share</i>	
-							<a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-facebook"></i></a>
-							<a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-twitter"></i></a>
-							<a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-linkedin"></i></a>
-							<a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="$window.alert('button click'); $event.stopPropagation()"><i class="fa fa-google-plus"></i></a>
+                                <a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="share('facebook'); $event.stopPropagation()"><i class="fa fa-facebook"></i></a>
+                                <a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="share('twitter'); $event.stopPropagation()"><i class="fa fa-twitter"></i></a>
+                                <a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="share('linkedin'); $event.stopPropagation()"><i class="fa fa-linkedin"></i></a>
+                                <a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="share('google'); $event.stopPropagation()"><i class="fa fa-google-plus"></i></a>
 						</div> <br>
 						<div>
 							<md-card-actions ng-disabled="!$root.isUserLoggedIn">

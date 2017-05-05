@@ -22,6 +22,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	/*
 	 LAUNCH SERVICE CALLS
 	 */
+    dataService.getLaunchById = getLaunchById;
     dataService.getAllLaunches = getAllLaunches;
     dataService.getLaunches = getLaunches;
     dataService.createLaunch = createLaunch;
@@ -107,6 +108,24 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
             }
         )
     }
+
+    function getLaunchById(){
+        return $http({
+            method: 'GET',
+            url: urlBase + '/getLaunchById/:launchId',
+        }).then(
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return res.data;
+            },
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
+
     // get all of the launches in the database and return them
     function getAllLaunches(){
         return $http({

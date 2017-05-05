@@ -25,6 +25,38 @@ angular
                 });
             });
             
+            $scope.share = function(platform){
+            switch(platform){
+                case 'facebook':
+                    console.log("FACEBOOK SHARE...");
+                    // window.location.href = "/view/:launchId";
+                    // var share = require('social-share');
+                    // var url = share('twitter', {
+                    //     title:'share it'
+                    // });
+                    break;         
+                case 'twitter':
+                    console.log("TWITTER SHARE...");
+                    // window.location.href = "/view/:launchId"
+                    // var share = require('social-share');
+                    // var url = share('twitter', {
+                    //     title:'share it'
+                    // });
+                    break;
+                case 'linkedin':
+                    console.log("LINKEDIN SHARE...");
+                    break;
+                case 'google':
+                    console.log("GOOGLE SHARE...");
+                    break;
+                default:
+                    break;
+                }         
+            }
+
+
+
+
             this.launches = []
             this.$onInit = function() {
                 this.isPrivate = this.userId == undefined

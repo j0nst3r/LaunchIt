@@ -57,11 +57,8 @@ angular
 					if(result.data.tags.length !== 0){
 						launch.tags = result.data.tags
 					}
-					console.log(launch)
-					// launch.tags = result.data.tags.split(',') Dis borked on delete
-					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch))
-
-					result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch)
+					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch));
+					(result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch))
 						.then(() => this.reload())
 				})
 			}

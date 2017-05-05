@@ -132,10 +132,9 @@ router.post('/resetPassword', function(req, res){
 
 router.post('/createAccount', function(req, res){
 	console.log("createAccount service requested: " + JSON.stringify(req.body));
-	serviceFulfiller.createAccount(req.body).then( function(accountResult){ 
+	serviceFulfiller.createAccount(req.body).then( function(userId){ 
 		// finished with creatingAccount, will need to createProfile
-		console.log(accountResult);
-		serviceFulfiller.createProfile(req.body, accountResult._id).then(function(profileResult){
+		serviceFulfiller.createProfile(req.body, userId).then(function(profileResult){
 			res.status(200).json({message:"OK"});
 			})
 		})
@@ -366,10 +365,10 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 			launchObj._id = launchId
 			for(var a = 0; a < fileList.length; a++){
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
-				var permaDir = __dirname.concat('/launchImage/').concat(launchId).concat('/');
+				var permaDir = __dirname.concat('/launchImage/').concat(launchId).concat('/').concat(fileList[a].originalname);
 				console.log("tempDir = "+ tempDir, "permaDir =" + permaDir);
 				
-				fsExtra.move(tempDir, permaDir.concat(fileList[a].originalname), function(err) {
+				fsExtra.move(tempDir, permaDir, function(err) {
 					if (err) return console.error(err)
 						console.log("file uploaded!")
 					});

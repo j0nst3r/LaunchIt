@@ -71,10 +71,12 @@ function createAccount(accountInfo){
         password : accountInfo.password
     });
 
-    return newUser.save(function(err, result){
+    newUser.save(function(err, result){
         if(err) return console.error(err);
         return console.log(result);
     });
+
+    return Promise.resolve(newUser._id);
 }
 
 function validateEmail(userEmail){

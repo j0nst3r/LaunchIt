@@ -291,39 +291,26 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     //             });
     // }
 
-    function createLaunch(formData) {
+    function createLaunch(launch) {
 
         return $.ajax({
-            url : urlBase + "/createLaunch",
-            dataType : 'json',
-            type : 'POST',
-            data : formData,
-            contentType : false,
-            cache : false,
-            processData : false,
-            beforeSend : function() {
-                console.log(JSON.stringify(formData))
-            },
-            success : function (response) {
-                console.log(response)
-            },
-            error : function (xhr, status, err) {
-                console.log("Error: " + err)
-            }
-
-        }).then(body => {
-            console.log(body)
-            return body
-        }, res => {
-            console.log(res.data)
-            return $q.reject(res)
+            method: 'POST',
+            url: urlBase + '/createLaunch',
+            dataType: 'json',
+            data: launch,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: response => console.log(response),
+            error: (xhr, status, err) => console.log("ERROR: " + err)
         })
     }
+
     function uploadImage(newLaunch){
         console.log(newLaunch)
         return $http({method: 'POST', url : urlBase + '/uploadImage/' + newLaunch.owner})
-
     }
+
     function updateLaunch(launch) {
         const formData = new FormData()
         formData.append('body', JSON.stringify(launch))

@@ -134,6 +134,7 @@ router.post('/createAccount', function(req, res){
 	console.log("createAccount service requested: " + JSON.stringify(req.body));
 	serviceFulfiller.createAccount(req.body).then( function(accountResult){ 
 		// finished with creatingAccount, will need to createProfile
+		console.log(accountResult);
 		serviceFulfiller.createProfile(req.body, accountResult._id).then(function(profileResult){
 			res.status(200).json({message:"OK"});
 			})

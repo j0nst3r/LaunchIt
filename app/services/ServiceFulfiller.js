@@ -71,14 +71,9 @@ function createAccount(accountInfo){
         password : accountInfo.password
     });
 
-    newUser.save(function(err, result){
+    return newUser.save(function(err, result){
         if(err) return console.error(err);
         return console.log(result);
-    });
-
-    return user.findOne({email: accountInfo.email},function(err, result){
-        if(err) return console.error(err);
-        return result;
     });
 }
 
@@ -134,7 +129,7 @@ function createProfile(reqData, userId){
         firstName : reqData.firstName,
         lastName : reqData.lastName
     });
-    newProfile.save(function (err, result) {
+    return newProfile.save(function (err, result) {
         if (err) return console.error(err);
         return console.log(result);
     });
@@ -303,15 +298,10 @@ function createLaunch(launchInfo){
         tags : tags
     })
 
-    newLaunch.save(function (err, result) {
+    return newLaunch.save(function (err, result) {
         if(err) return console.error(err);
         return console.log(result);
     })
-
-    return launch.findOne(newLaunch,function(err, result){
-        if(err) return console.error(err);
-        return result;
-    });
 }
 
 function updateLaunchInfo(launchInfo){

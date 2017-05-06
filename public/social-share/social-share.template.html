@@ -1,3 +1,5 @@
+<body ng-app="app">
+<script src="src/js/angular-socialshare.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -5,8 +7,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div class="jumbotron text-center">
-	<h2>Social Share</h2>
-  <label for="name" ng-model="displayName">Share Name{{displayName()}}</label>
+	<h2>{{launchObject.name}}</h2>
+  <a ng-click="accountRedirect()" href="{{'/account/' + launchObject.owner}}" >Some Name</a>
 
 
 
@@ -16,16 +18,12 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="../image/home/meeting.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="{{launchObject.website[0]}}" style="width:100%;">
+      </div>
+       <div class="item" ng-repeat="site in launchObject.website" ng-if="$index!=0">
+        <img src="{{site}}"  style="width:100%;">
       </div>
 
-      <div class="item">
-        <img src="../image/home/computer.jpeg" alt="Chicago" style="width:100%;">
-      </div>
-    
-      <div class="item">
-        <img src="../image/home/writing.jpg" alt="New york" style="width:100%;">
-      </div>
     </div>
 
     <!-- Left and right controls -->
@@ -40,18 +38,15 @@
   </div>
 </div>
 
+        <div>
+            <label for="description" >{{launchObject.description}}</label>
+        </div>
 
-		<md-input-container class="md-block">
-        <div>
-            <label for="description">Description</label>
+        <div ng-repeat="tag in launchObject.tags">
+            <label >{{tag}}</label>
         </div>
-		</md-input-container>
-		
-		<md-input-container class="md-block">
-        <div>
-            <label for="tags">Tags</label>
-        </div>
-		</md-input-container>
+
 		
     </form>
 </div>
+</body>

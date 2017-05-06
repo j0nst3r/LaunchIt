@@ -109,10 +109,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
         )
     }
 
-    function getLaunchById(){
+    function getLaunchById(launchId){
         return $http({
             method: 'GET',
-            url: urlBase + '/getLaunchById/:launchId',
+            url: urlBase + '/getLaunchById/' + launchId,
         }).then(
             function(res) {
                 console.log(JSON.stringify(res.data));

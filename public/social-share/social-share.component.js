@@ -7,32 +7,28 @@ angular.
 		bindings: {
 			launchId: '<'
 		},
+		//dataService.getDisplayName/:id
 		controller: function($scope, $rootScope, $location, dataService, $route) {
 			var launchId = $route.current.params.launchId;
-			this.launchObject = {
-				"_id": "5902260cf7b6c130ac446e44",
-				"owner": "590220dbbab41c222c23b830",
-				"name": "test",
-				"description": "test",
-				"voteNay": [],
-				"voteYay": ["58cef1b035ada1ee41bca10a","58bf7026287c9ac02813c4fe"],
-    			"website": ["https://media.tenor.co/images/e1d470401940172b3ddc7765ddca69c2/tenor.gif"],
-				"comments": [
-					"testing adding comment",
-					"testing adding comment",
-					"testing adding comment",
-					"testing adding comment",
-        			"testing adding comment",
-        			"adding new comment api test"],
-    			"tags": ["test"]
-			}; //temp to work with for now
-
-
-			// /getLaunchById/launchId
+			dataService.getLaunchById(launchId).then(function(data){
+				console.log(data);
+				$scope.launchObject = data;
+				
+				// dataService.getDisplayName(data.owner).then(function(meName) {
+				// 	console.log(meName);
+				// 	}
+				// )
 			
-			//dataService.getLaunchById(this.launchId).then(function(data){
+		});
 
-            //});
+			
+			// /getLaunchById/launchId
+		var accountRedirect = function() {
+			
+			window.location.href = "/account/" + launchObject.owner;
+		}
+
 
 			}
-	})
+	}
+	)

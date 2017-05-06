@@ -16,6 +16,7 @@
     "test-init": "karma init"
   },
   "dependencies": {
+    "angular-socialshare": "^2.3.8",
     "body-parser": "~1.4.2",
     "busboy": "^0.2.14",
     "connect-busboy": "0.0.2",

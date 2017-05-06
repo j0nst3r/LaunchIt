@@ -8,7 +8,7 @@ angular
 			userId: '<'
 		},
 
-        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route',
+        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route', 
         function($uibModal, dataService, $window, $scope, uiController, $route) {
             
             $scope.columnSpec = uiController.setup($window.innerWidth);
@@ -25,36 +25,6 @@ angular
                 });
             });
             
-            $scope.share = function(platform){
-            switch(platform){
-                case 'facebook':
-                    console.log("FACEBOOK SHARE...");
-                    // window.location.href = "/view/:launchId";
-                    // var share = require('social-share');
-                    // var url = share('twitter', {
-                    //     title:'share it'
-                    // });
-                    break;         
-                case 'twitter':
-                    console.log("TWITTER SHARE...");
-                    // window.location.href = "/view/:launchId"
-                    // var share = require('social-share');
-                    // var url = share('twitter', {
-                    //     title:'share it'
-                    // });
-                    break;
-                case 'linkedin':
-                    console.log("LINKEDIN SHARE...");
-                    break;
-                case 'google':
-                    console.log("GOOGLE SHARE...");
-                    break;
-                default:
-                    break;
-                }         
-            }
-
-
 
 
             this.launches = []

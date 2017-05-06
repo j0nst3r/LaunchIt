@@ -55,7 +55,7 @@ angular.
 					dataService.createLaunch(formData)
 						.then(setTimeout(()=> {
             				window.location = '/launch-board'
-        					}, 2000)
+        					}, 500)
 						)
 			}
 		}

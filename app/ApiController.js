@@ -352,7 +352,7 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	
 	var launchObj = JSON.parse(req.body.body)
 	var websiteList = [];
-	if(launchObj.websites != undefined){
+	if(launchObj.website != undefined){
 		websiteList.push(launchObj.website)
 	}
 	launchObj.website = websiteList;

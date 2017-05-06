@@ -104,7 +104,7 @@
 		<li ng-repeat="tag in $ctrl.launch.tags">"{{tag}}"</li>
 	</ul>
 	<div class='dropbox'>
-		<input id="uploads" class="upload-file" type="file" accept='.png, .jpg, .jpeg, .gif' name="fileUpload" value='' ng-model='launch.file' multiple/>
+		<input id="uploads" class="upload-file" ng-readonly="!$ctrl.edit" type="file" accept='.png, .jpg, .jpeg, .gif' name="fileUpload" value='' ng-model='launch.file' multiple/>
 		<div id='preview'>Please upload up to 5 images</div>
 	</div>
 

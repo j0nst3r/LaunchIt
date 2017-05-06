@@ -1,19 +1,24 @@
 <style>
-	launch > * {
+	launch>* {
 		margin: auto;
 		padding: .4em;
 	}
-	launch > :not(form) {
+	launch> :not(form) {
 		text-align: center;
+	}
+
+	launch h1 {
+		overflow-x: hidden;
+		text-overflow: ellipsis;
 	}
 
 	launch img {
 		display: block;
-		
+
 		max-width: 100%;
 		max-height: 100%;
 	}
-	
+
 	launch .btn-danger {
 		float: right;
 	}
@@ -27,11 +32,11 @@
 <form ng-submit="$ctrl.ok()">
 	<div class="form-group">
 		<label for="name">Name</label>
-		<input class="form-control" id="name" type="text" ui-tooltip="Name" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.name">
+		<input class="form-control" id="name" type="text" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.name">
 	</div>
 	<div class="form-group">
 		<label for="description">Description</label>
-		<input class="form-control" id="description" type="text" ui-tooltip="Description" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.description">
+		<input class="form-control" id="description" type="text" ng-readonly="!$ctrl.edit" ng-model="$ctrl.launch.description">
 	</div>
 	<label for="tags">Tags</label>
 	<ul class="list-inline" id="tags">

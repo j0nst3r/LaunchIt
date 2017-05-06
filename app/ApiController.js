@@ -352,7 +352,7 @@ router.post('/createLaunch', upload.array('file'), function(req, res, next) {
 	
 	var launchObj = JSON.parse(req.body.body)
 	var websiteList = [];
-	if(launchObj.websites != undefined){
+	if(launchObj.website != undefined){
 		websiteList.push(launchObj.website)
 	}
 	launchObj.website = websiteList;
@@ -407,8 +407,8 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 	console.log(fileList);
 	console.log("updateLaunchInfo service requested : ", data, fileList);
 
-	//wipe directory of old picture and clear imageList
-	data.website = [];
+	//wipe directory of old picture and clear imageList IF NO NEW IMAGES
+	if (fileList.length > 0) data.website = [];
 	var permaDir = __dirname.concat('/launchImage/').concat(data._id).concat('/');
 	fsExtra.remove(permaDir,() => {
 			//move new picture into folder
@@ -431,16 +431,6 @@ router.post('/updateLaunchInfo', upload.array('file'), function(req, res, next) 
 				console.log(JSON.stringify(result));
 			});
 		})
-
-	//updateLaunchInfo
-
-	serviceFulfiller.updateLaunchInfo(req.body).then(
-		function(result){
-			res.status(200).json(result);
-		},
-		function(result){
-			console.log(JSON.stringify(result));
-		});
 });
 
 router.post('/deleteLaunch', function(req, res){

@@ -13,11 +13,10 @@ angular
 		controller: ['dataService', function (dataService) {
 			this.$onInit = function () {
 				this.launch = angular.copy(this.resolve.launch)
-				this.launch.files = $("input[type=file]")[0].files	// Add files container
-				console.log(this.launch.files)
 
 				this.edit = this.resolve.edit
 
+				if(this.edit) this.launch.files = $("input[type=file]")[0].files	// Add files container
 				this.title = (this.edit ? "Edit: " : "") + this.launch.name
 
 				initFileListener()
@@ -37,7 +36,8 @@ angular
 	})
 	function initFileListener() {
 		var fileUpload = document.getElementById('uploads')
-		fileUpload.onchange = function () {
+		if(fileUpload != null) {
+			fileUpload.onchange = function () {
 			var preview = document.getElementById('preview')
 			if (fileUpload.files.length > 5) {
 				alert("Please select no more than 5 images")
@@ -65,4 +65,7 @@ angular
 				}
 			}
 		}
+
+		}
+
 	}

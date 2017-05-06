@@ -57,9 +57,22 @@
 		}
 	}
 
+	launch-board h3 {
+		padding: 1px;
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+	}
 	launch-board img {
 		max-width: 100%;
 		max-height: 100%;
+	}
+	launch-board span {
+		margin: auto;
+	}
+
+	.button-box>* {
+		float: right;
+		clear: both;
 	}
 	
 	.deckgrid[deckgrid]::before {
@@ -118,8 +131,8 @@
 		text-align: center;
 		display: flex;
 		flex-flow: row nowrap;
-		align-items: flex-end;
 		justify-content: space-between;
+		align-items: flex-end;
 		background-color: rgba(200, 200, 200, .5);
 	}
 	
@@ -132,25 +145,22 @@
 <div class="jumbotron">
 	<div class="tab">
 		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
-		<button class="tablinks" ng-click="$ctrl.viewFavorites()">My Favorites</button>
+		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
 	</div>
 	<input class="btn btn-primary" ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!"
 	 ng-click="$ctrl.create()" />
 
 	<div deckgrid class="deckgrid" source="$ctrl.launches">
-		<div class="card" ng-click="mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? mother.$ctrl.view(card, true) : mother.$ctrl.view(card)">
+		<div class="card" uib-tooltip="{{mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}" ng-click="mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? mother.$ctrl.view(card, true) : mother.$ctrl.view(card)">
 			<h3>{{card.name}}</h3>
 			<img src="{{card.website[0]}}" alt="No image">
 
-			<div class="inside hiddenn" uib-tooltip="{{mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
+			<div class="inside hiddenn">
 				<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="card.nay(); $event.stopPropagation()" />
-				<ul>
-					<li>{{card.description}}</li>
-					<li>{{card.yays}}</li>
-				</ul>
-				<div>
-					<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable" type="button" value="<3" title="I favre DIS" ng-click="$event.stopPropagation(); card.toggleFavorite()" />
-					<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="card.yay(); $event.stopPropagation()" />
+				<span class="btn btn-info" title="Score">{{card.yays}}</span>
+				<div class="button-box" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable">
+					<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" type="button" value="<3" title="I favre DIS" ng-click="$event.stopPropagation(); card.toggleFavorite()" />
+					<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" type="button" value="+" title="I LIEK DIS" ng-click="card.yay(); $event.stopPropagation()" />
 				</div>
 			</div>
 		</div>

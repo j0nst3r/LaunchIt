@@ -7,8 +7,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div class="jumbotron text-center">
-	<h2>{{launchObject.name}}</h2>
-  <a ng-click="accountRedirect()" href="{{'/account/' + launchObject.owner}}" >Some Name</a>
+	<h2 style="font-size:60px; text-transform: uppercase;font-weight: 700;">{{launchObject.name}}</h2>
+  <a ng-click="accountRedirect()" href="{{'/account/' + launchObject.owner}}" >{{fullName.displayName}}</a>
 
 
 
@@ -39,14 +39,13 @@
 </div>
 
         <div>
-            <label for="description" >{{launchObject.description}}</label>
+            <label style="font-size: 30px;margin-bottom: 30px;" for="description" >Description:<label style="font-weight: 300;">{{launchObject.description}}</label></label>
         </div>
 
         <div ng-repeat="tag in launchObject.tags">
-            <label >{{tag}}</label>
+            <label >Tags:<label style="font-weight: 400">{{tag}}</label></label>
         </div>
 
-		
-    </form>
+
 </div>
 </body>

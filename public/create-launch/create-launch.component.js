@@ -42,10 +42,7 @@ angular.
 			}
 
 			$scope.create = function(launch){
-				// SHouldn't need this check anymore because it is handled in the file upload process
-				// if($('input[type=file]')[0].files.length > 5) {
-				// 	alert("Cannot select more than 5 files")
-				// }
+
 					var newLaunch = launch;
 					var userId = sessionStorage.getItem('userId');
 					newLaunch.owner = userId

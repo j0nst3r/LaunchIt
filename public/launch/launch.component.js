@@ -16,13 +16,14 @@ angular
 
 				this.edit = this.resolve.edit
 
-				if(this.edit) this.launch.files = $("input[type=file]")[0].files	// Add files container
 				this.title = (this.edit ? "Edit: " : "") + this.launch.name
 
 				initFileListener()
 			}
 
 			this.return = function (del) {
+				this.launch.files = $("input[type=file]")[0].files	// Add files container
+				
 				this.close({
 					$value: {
 						data: this.launch,

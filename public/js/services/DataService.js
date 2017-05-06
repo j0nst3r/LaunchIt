@@ -320,6 +320,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
         const formData = new FormData()
         formData.append('body', JSON.stringify(launch))
 
+        if (launch.files && launch.files.length > 0) {
+            for (let i = 0; i < launch.files.length; i++) formData.append('file', launch.files[i])
+        }
+
         return $.ajax({
             method: 'POST',
             url: urlBase + '/updateLaunchInfo',

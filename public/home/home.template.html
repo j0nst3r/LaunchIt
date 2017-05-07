@@ -168,6 +168,14 @@
     border: 0;
     box-shadow: none;
 }
+
+loadingButton{
+    margin: -20px -50px; 
+    position:relative;
+    top:50%; 
+    left:50%;
+}
+
 </style>
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -188,8 +196,8 @@
     </div>
 
 	<div class="tab" ng-if="!$ctrl.isHome">
-		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
-		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
+		<button class="tablinks" ng-click="$ctrl.changeBoard('myBoard')">My Launches</button>
+		<button class="tablinks" ng-click="$ctrl.changeBoard('myFavorite')">Favorites</button>
 	</div>
 	</br>
 
@@ -214,7 +222,7 @@
 						<hr>
         			</md-card-content>
 					<div ng-if="$index != 0 || !$ctrl.isEditable">
-					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="No Image">
+					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="No Image" style="width: 100%;">
 
 					<div class="inside hiddenn" style="background-color: rgba(200, 200, 200, .5);" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 					<div class= "card-social-follow">
@@ -236,4 +244,5 @@
       			</div>
 			</div>
     </md-content>
+	<div class="row" style="text-align:center;"><button class="loadingButton" value="Load more Launches" ng-hide="$ctrl.noMore" ng-click="$ctrl.loadMoreLaunches()">Load More Launches</button></div>
 </div>

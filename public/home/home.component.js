@@ -24,27 +24,27 @@ angular
                     $scope.columnSpec = uiController.setup($window.innerWidth);
                 });
             });
-            
-            $(window).scroll(function() {
-            if($(window).scrollTop() == $(document).height() - $(window).height()) {
-                // ajax call get data from server and append to the div
-                }
-            });
-
 
             this.launches = []
             this.$onInit = function() {
+                this.pageIndex = 0;this.noMore = false;
                 this.isPrivate = this.userId == undefined
                 this.isHome = true
                 this.dataService = dataService
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
                 this.favoriteLaunches = this.dataService.getFavoriteLaunches(this.userId)
-                this.reload()
+                this.reload(this.pageIndex);
             }
 
-            this.reload = function() {
-                dataService.getAllLaunches().then( launchArray => {
-                    this.launches = launchArray
+            this.loadMoreLaunches = function(){
+                this.reload(this.pageIndex)
+            }
+
+            this.reload = function(pageIndex) {
+                dataService.getAllLaunches(pageIndex).then( data => {
+                    this.launches = this.launches.concat(data.launches);
+                    this.pageIndex++;
+                    this.noMore = data.noMore;
                     // set launches as an array
                     for (let i = 0; i < this.launches.length; i++) {
                         let launch = this.launches[i]

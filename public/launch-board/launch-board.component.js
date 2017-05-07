@@ -12,7 +12,6 @@ angular
 		controller: ["$location", "$uibModal", "dataService", '$window', '$scope', 'uiController', '$route',  
 		function ($location, $uibModal, dataService, $window, $scope, uiController, $route) {
 			$scope.columnSpec = uiController.setup($window.innerWidth);
-
 			$scope.getIfStatement = function(blah, cardIndex){
 				return (cardIndex % blah.ngif.col == blah.ngif.rem);
 			}
@@ -31,23 +30,45 @@ angular
 			
 			this.$onInit = function () {
 				this.isPrivate = this.userId == undefined
-
+				this.launches = [];
+				this.pageIndex = 0;this.noMore = false;
+				this.curBoard = 'myBoard';
 				if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
 
-				this.reload()
+				this.reload(this.pageIndex)
 			}
 
-			this.reload = function () {
+			this.loadMoreLaunches = function(){
+                this.reload(this.pageIndex)
+            }
+
+			this.changeBoard = function(boardType){
+				if(this.curBoard == boardType){
+					return
+				}else{
+					this.curBoard = boardType;
+					this.launches = [];
+					this.pageIndex = 0;
+					if(boardType == 'myBoard')
+						this.reload(0)
+					else
+						this.viewFavorites()
+				}
+			}
+
+			this.reload = function (pageIndex) {
 				this.isEditable = true
 				console.log("in reload() isEditable = " + this.isEditable)
-				dataService.getLaunches(this.userId)
-					.then(launches => {
-						this.launches = launches
-
-						if (this.isEditable) {
+				dataService.getLaunches(this.userId, pageIndex)
+					.then(data => {
+						if (this.isEditable && pageIndex == 0) {
 							this.launches.unshift(this.createLaunchCard)
 						}
 
+						this.launches = this.launches.concat(data.launches);
+                    	this.pageIndex++;
+                    	this.noMore = data.noMore;
+						console.log(launches);
 						for (let i = 1; i < this.launches.length; i++) {
 							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						

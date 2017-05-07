@@ -144,10 +144,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     }
 
     // get all of the launches in the database and return them
-    function getAllLaunches(){
+    function getAllLaunches(pageIndex){
         return $http({
             method: 'GET',
-            url: urlBase + '/getAllLaunches',
+            url: urlBase + '/getAllLaunches/' + pageIndex,
         }).then(
             function(res) {
                 console.log(JSON.stringify(res.data));
@@ -272,8 +272,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
             });
     }
 
-    function getLaunches(owner) {
-        return $http({method: 'POST', url: urlBase + '/getLaunches', data: { owner: owner }})
+    function getLaunches(owner, pageIndex) {
+        return $http({method: 'POST', url: urlBase + '/getLaunches/'+ pageIndex, data: { owner: owner }})
             .then(function (res) {
                     console.log(res.data);
                     return res.data;

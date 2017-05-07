@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var multer = require('multer');
 var upload = multer({ dest: 'app/tempImg/' })
 var busboy = require('busboy');
+var countPerPage = 10;
 
 //===========================================
 //IMAGE UPLOAD API.....
@@ -157,23 +158,45 @@ router.get('/getDisplayName/:id', function (req, res, next) {
 //===========================================
 //LAUNCH RELATED SERVICES.....
 //===========================================
-router.get('/getAllLaunches', function (req, res) {
+router.get('/getAllLaunches/:pageIndex', function (req, res) {
 	console.log("getAllLaunches service requested : " + JSON.stringify(req.body));
-
+	var page = Number(req.params.pageIndex);
 	serviceFulfiller.getAllLaunches().then(
 		function (result) {
-			res.status(200).json(result);
+			var data = {}
+			var resultLen = result.length
+			if(resultLen > (page+1)*countPerPage-1){
+				console.log("more pages left....")
+				data.launches = result.slice(page*countPerPage, (page+1)*countPerPage)
+				data.noMore = false;
+			}else{
+				console.log("no more pages left....")
+				data.launches = result.slice(page*countPerPage)
+				data.noMore = true;
+			}
+			res.status(200).json(data);
 		},
 		function (result) {
 			console.log(JSON.stringify(result));
 		});
 });
 
-router.post('/getLaunches', function (req, res) {
+router.post('/getLaunches/:pageIndex', function (req, res) {
 	console.log("getLaunches service requested: " + JSON.stringify(req.body));
+	var page = Number(req.params.pageIndex);
 	serviceFulfiller.getLaunches(req.body).then(
 		function (result) {
-			res.status(200).json(result);
+			var data = {}
+			var resultLen = result.length
+			if(resultLen > (page+1)*countPerPage-1){
+				data.launches = result.slice(page*countPerPage, (page+1)*countPerPage)
+				data.noMore = false;
+			}else{
+				data.launches = result.slice(page*countPerPage)
+				data.noMore = true;
+			}
+			console.log(data)
+			res.status(200).json(data);
 		},
 		function (result) {
 			console.log(JSON.stringify(result));

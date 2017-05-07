@@ -8,7 +8,13 @@ body, html{
 .main{
  	margin-top: 70px;
 }
-
+.jumbo{
+	padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: rgba(238, 238, 238, 0.57);
+}
 h1.title { 
 	font-size: 50px;
 	font-family: 'Passion One', cursive; 

@@ -176,7 +176,7 @@
 					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->
 					<div  ng-if="$index != 0 || !$ctrl.isEditable">
 					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="Washed Out">
-					<div class="inside hiddenn" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+					<div class="inside hiddenn" style="background-color: rgba(200, 200, 200, .5);" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 
 						<div class= "card-social-follow">
 							<a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="$window.alert('button click'); $event.stopPropagation()" style="margin-right: 3px;"><i class="fa fa-facebook"></i></a>

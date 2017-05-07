@@ -3,13 +3,32 @@
 angular
 	.module('launchBoard')
 	.component('launchBoard', {
-		templateUrl: "launch-board/launch-board.template.html",
+		templateUrl: "../home/home.template.html",
 
 		bindings: {
 			userId: '<'
 		},
 
-		controller: ["$location", "$uibModal", "dataService", function ($location, $uibModal, dataService) {
+		controller: ["$location", "$uibModal", "dataService", '$window', '$scope', 'uiController', '$route',  
+		function ($location, $uibModal, dataService, $window, $scope, uiController, $route) {
+			$scope.columnSpec = uiController.setup($window.innerWidth);
+
+			$scope.getIfStatement = function(blah, cardIndex){
+				return (cardIndex % blah.ngif.col == blah.ngif.rem);
+			}
+
+			// call on dataService to all the launches and then
+			// store each launch object into $scope.launches
+			angular.element($window).bind('resize', function() {
+				$scope.$apply(function(){
+					$scope.columnSpec = uiController.setup($window.innerWidth);
+				});
+			});
+
+			this.createLaunchCard = {
+				isCreate: true
+			}
+			
 			this.$onInit = function () {
 				this.isPrivate = this.userId == undefined
 
@@ -25,7 +44,11 @@ angular
 					.then(launches => {
 						this.launches = launches
 
-						for (let i = 0; i < this.launches.length; i++) {
+						if (this.isEditable) {
+							this.launches.unshift(this.createLaunchCard)
+						}
+
+						for (let i = 1; i < this.launches.length; i++) {
 							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						
 							this.launches[i].yay = function () {
@@ -45,6 +68,10 @@ angular
 			}
 
 			this.view = function (launch, edit) {
+				if (launch.isCreate) {
+					this.create()
+					return
+				}
 				$uibModal.open({
 					component: 'launch',
 					resolve: {

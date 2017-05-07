@@ -1,23 +1,36 @@
 <style>
-.dropbox{
+create-launch .dropbox{
     outline: 2px dashed grey;
     outline-offset: 0%;
     background: lightcyan;
     color: dimgray;
-    padding: 10% 10%;
+    padding: 2em;
     min-height: 20%;
     position: relative;
     cursor: pointer;
 }
-.dropbox:hover {
+create-launch .dropbox:hover {
     background: lightblue
 }
-input[type='file'] {
-    opacity: 0;
+create-launch input[type='file'] {
+   	position: absolute;
+    top: 0;
+    left: 0;
+
     width: 100%;
     height: 100%;
-    position: absolute;
+
+    opacity: 0;
+
     cursor: pointer;
+}
+
+create-launch .dropbox #preview {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
 }
 </style>
 

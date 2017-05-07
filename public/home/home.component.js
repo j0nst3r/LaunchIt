@@ -30,6 +30,7 @@ angular
             this.launches = []
             this.$onInit = function() {
                 this.isPrivate = this.userId == undefined
+                this.isHome = true
                 this.dataService = dataService
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
                 this.favoriteLaunches = this.dataService.getFavoriteLaunches(this.userId)

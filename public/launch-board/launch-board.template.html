@@ -1,205 +1,168 @@
 <style>
-	md-card {
-		position: relative;
-		float: left;
-
-
-		z-index: 0;
+	/* Style the tab */
+	div.tab {
+		overflow: hidden;
+		border: 1px solid #ccc;
+		background-color: #f1f1f1;
+		margin-top: 30px;
 	}
-
-	md-card-content {
+	/* Style the buttons inside the tab */
+	div.tab button {
+		background-color: inherit;
+		float: left;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		padding: 14px 16px;
+		transition: 0.3s;
+	}
+	/* Change background color of buttons on hover */
+	div.tab button:hover {
 		background-color: #ccc;
 	}
-	.caption {
-		position: absolute;
-		z-index: -1;
-
-		opacity: 0;
-		top: 0;
-		transition: .4s;
+	/* Create an active/current tablink class */
+	div.tab button.active {
+		background-color: #ccc;
 	}
-	md-card:hover .caption {
-		opacity: 1;
-		top: 100%;
-		transition: .4s;
+	/* Style the tab content */
+	
+	.tabcontent {
+		display: none;
+		padding: 6px 12px;
+		border: 1px solid #ccc;
+		border-top: none;
+	}
+	
+	.tabcontent {
+		-webkit-animation: fadeEffect 1s;
+		animation: fadeEffect 1s;
+		/* Fading effect takes 1 second */
+	}
+	
+	@-webkit-keyframes fadeEffect {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	
+	@keyframes fadeEffect {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
-	img {
-		max-width: 512px;
-		max-height: 512px;
+	launch-board h3 {
+		padding: 1px;
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+	}
+	launch-board img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+	launch-board span {
+		margin: auto;
 	}
 
-	textarea {
-		position: absolute;
-		top: 100%;
+	.button-box>* {
+		float: right;
+		clear: both;
+	}
+	
+	.deckgrid[deckgrid]::before {
+		content: '3 .column.column-1-3';
+		font-size: 0;
+		visibility: hidden;
+	}
+	@media (max-width: 760px) {
+		.deckgrid[deckgrid]::before {
+			content: '2 .column.column-1-2';
+		}
+	}
+	@media (max-width: 480px) {
+		.deckgrid[deckgrid]::before {
+			content: '1 .column.column-1-1';
+			background-color: black;
+		}
+	}
+
+	.deckgrid .column {
+		float: left;
+		padding: .2em;
+	}
+
+	.deckgrid .column-1-1 {
+		width: 100%;
+	}
+	.deckgrid .column-1-2 {
+		width: 50%;
+	}
+	.deckgrid .column-1-3 {
+		width: 33%;
+	}
+
+	.card {
+		position: relative;
 
 		width: 100%;
-		resize: none;
-	}
+		margin: .2em;
 
-	h3 {
-		margin: 0;
-	}
+		background-color: #ccc;
 
-	p {
-		margin-bottom: 0;
+		border: 1px solid #bbb;
+		border-radius: 4px;
+		text-align: center;
 	}
-
-	.md-padding {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-between;
-		align-items: flex-start;
+	.card:hover .hiddenn {
+		opacity: 1;
+		transition: .4s;
 	}
 
 	.inside {
 		position: absolute;
 		bottom: 0;
-
 		width: 100%;
 		text-align: center;
-
 		display: flex;
 		flex-flow: row nowrap;
+		justify-content: space-between;
 		align-items: flex-end;
-		justify-content: center;
-
 		background-color: rgba(200, 200, 200, .5);
 	}
-
+	
 	.hiddenn {
 		opacity: 0;
 		transition: .4s;
 	}
-
-	md-card:hover .hiddenn {
-		opacity: 1;
-		transition: .4s;
-	}
-
-	/* Style the tab */
-div.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-	margin-top: 30px;
-}
-
-/* Style the buttons inside the tab */
-div.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-div.tab button:hover {
-    background-color: #ccc;
-}
-
-/* Create an active/current tablink class */
-div.tab button.active {
-    background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
-.tabcontent {
-    -webkit-animation: fadeEffect 1s;
-    animation: fadeEffect 1s; /* Fading effect takes 1 second */
-}
-
-@-webkit-keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
 </style>
 
 <div class="jumbotron">
 	<div class="tab">
 		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
-  		<button class="tablinks" ng-click="$ctrl.viewFavorites()">My Favorites</button>	
+		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
 	</div>
-	<input class="btn btn-primary" ng-if="$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="Launch a Project!" ng-click="$ctrl.create()"/>
+	<input class="btn btn-primary" ng-if="$ctrl.isPrivate" type="button" value="+" title="Launch a Project!"
+	 ng-click="$ctrl.create()" />
 
-	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
-		<div layout="row">
-			<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 0" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-					<md-card-content layout="row" layout-align="start center">
-          				<hr>
-						  <p>{{launch.name}}</p>
-						<hr>
-        			</md-card-content>
-					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
-					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
-						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
+	<div deckgrid class="deckgrid" source="$ctrl.launches">
+		<div class="card" uib-tooltip="{{mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}" ng-click="mother.$ctrl.isPrivate && mother.$ctrl.isEditable ? mother.$ctrl.view(card, true) : mother.$ctrl.view(card)">
+			<h3>{{card.name}}</h3>
+			<img src="{{card.website[0]}}" alt="No image">
 
-						<div>
-							<p>{{launch.description}}</p>
-							<p>{{launch.yays}}</p>
-						</div>
-
-						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
-						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
-						
-					</div>
-	        		
-      			</md-card>
-      		</div>
-      		<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 1" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-					<md-card-content layout="row" layout-align="start center">
-          				<hr>
-						  <p>{{launch.name}}</p>
-						<hr>
-        			</md-card-content>
-					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
-					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
-						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
-						<div>
-							<p>{{launch.description}}</p>
-							<p>{{launch.yays}}</p>
-						</div>
-						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
-						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
-					</div>
-      			</md-card>
-      		</div>
-      		<div layout="column" flex-xs flex-gt-xs="33">
-    	  		<md-card ng-repeat="launch in $ctrl.launches | filter:searchText" ng-if="$index % 3 == 2" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)">
-					<md-card-content layout="row" layout-align="start center">
-          				<hr>
-						  <p>{{launch.name}}</p>
-						<hr>
-        			</md-card-content>
-					<img ng-src="{{launch.website}}" class="md-card-image" alt="Washed Out">
-					<div class="inside hiddenn" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? 'Click to Edit' : 'Click to View'}}">
-						<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="launch.nay(); $event.stopPropagation()"/>
-						<div>
-							<p>{{launch.description}}</p>
-							<p>{{launch.yays}}</p>
-						</div>
-						<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="Favorite" title="I favre DIS" ng-click="$event.stopPropagation(); launch.toggleFavorite()"/>
-						<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" ng-if="!$ctrl.isPrivate && $ctrl.isEditable" type="button" value="+" title="I LIEK DIS" ng-click="launch.yay(); $event.stopPropagation()"/>
-						
-					</div>
-      			</md-card>
-      		</div>
-    </md-content>
+			<div class="inside hiddenn">
+				<input class="btn btn-danger" ng-disabled="!$root.isUserLoggedIn" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable" type="button" value="-" title="I H8 DIS" ng-click="card.nay(); $event.stopPropagation()" />
+				<span class="btn btn-info" title="Score">{{card.yays}}</span>
+				<div class="button-box" ng-show="!mother.$ctrl.isPrivate || !mother.$ctrl.isEditable">
+					<input class="btn btn-info" ng-disabled="!$root.isUserLoggedIn" type="button" value="<3" title="I favre DIS" ng-click="$event.stopPropagation(); card.toggleFavorite()" />
+					<input class="btn btn-success" ng-disabled="!$root.isUserLoggedIn" type="button" value="+" title="I LIEK DIS" ng-click="card.yay(); $event.stopPropagation()" />
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

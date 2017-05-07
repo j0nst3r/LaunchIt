@@ -1,4 +1,4 @@
-angular.module('DataService', []).factory('dataService', ['$http', '$q', function($http, $q) {
+angular.module('DataService', []).factory('dataService', ['$http', '$q', function ($http, $q) {
     var urlBase = '';
     $http.get('application.properties').then(function(response){
         console.log(response);
@@ -6,6 +6,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     });
     $http.defaults.headers.post["Content-Type"] = 'application/JSON';
     var dataService = {};
+
+    dataService.getImageUrl = getImageUrl;
 
 	/*
 	 LOGIN SERVICE CALLS
@@ -21,6 +23,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	/*
 	 LAUNCH SERVICE CALLS
 	 */
+    dataService.getLaunchById = getLaunchById;
     dataService.getAllLaunches = getAllLaunches;
     dataService.getLaunches = getLaunches;
     dataService.createLaunch = createLaunch;
@@ -37,8 +40,61 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.getProfile = getProfile;
     dataService.updateProfile = updateProfile;
     dataService.getFollowerInfo = getFollowerInfo;
+    dataService.getFollowingStatus = getFollowingStatus;
+    dataService.updateFollowing = updateFollowing;
+    dataService.getDisplayName = getDisplayName;
 
     return dataService;
+
+    function updateFollowing(type, loggedUser, otherUser){
+
+        var apiUrl = {};
+        var data = {};
+        data.userId = loggedUser;
+        data.followId = otherUser;
+
+        if(type == 'start'){
+            apiUrl = urlBase + '/addToFollowing'
+        }else{
+            apiUrl = urlBase + '/removeFromFollowing'
+        }
+
+        return $http({
+            method: 'POST',
+            url: apiUrl,
+            data: data
+        }).then(
+            function(res){
+                console.log(res);
+            },
+            function(res){
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
+    function getFollowingStatus(data){
+        return $http({
+            method: 'POST',
+            url: urlBase + '/getFollowingStatus',
+            data: data
+        }).then(
+            function(res){
+                console.log(res);
+                return res.data
+            },
+            function(res){
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
+    function getImageUrl(profileId){
+        return urlBase.concat('/userImage/').concat(profileId);
+    }
+
     function uploadProfileImage(params){
         return $http({
             method: 'POST',
@@ -54,6 +110,39 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
             }
         )
     }
+
+    function getLaunchById(launchId){
+        return $http({
+            method: 'GET',
+            url: urlBase + '/getLaunchById/' + launchId,
+        }).then(
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return res.data;
+            },
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
+    function getDisplayName(ownerId){
+        return $http({
+            method: 'GET',
+            url: urlBase + '/getDisplayName/' + ownerId,
+        }).then(
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return res.data;
+            },
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
+
     // get all of the launches in the database and return them
     function getAllLaunches(){
         return $http({
@@ -207,38 +296,63 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
                 });
     }
 
-    function createLaunch(newLaunch){
-        return $http({method: 'POST', url : urlBase + '/createLaunch', data: newLaunch})
-            .then(function(body){
-                    console.log(body);
-                    return body;
-                },
-                function(res){
-                    console.log(JSON.stringify(res.data));
-                    return $q.reject(res.data);
-                });
+    function createLaunch(launch) {
+
+        return $.ajax({
+            method: 'POST',
+            url: urlBase + '/createLaunch',
+            dataType: 'json',
+            data: launch,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: response => console.log(response),
+            error: (xhr, status, err) => console.log("ERROR: " + err)
+        })
     }
+
     function uploadImage(newLaunch){
         console.log(newLaunch)
         return $http({method: 'POST', url : urlBase + '/uploadImage/' + newLaunch.owner})
-
     }
+
     function updateLaunch(launch) {
-        return $http({method: 'POST', url: urlBase + '/updateLaunchInfo', data: launch})
-                .then(body => {
-                console.log(body)
-        return body
-    }, res => {
-            console.log(JSON.stringify(res.data))
+        const formData = new FormData()
+        formData.append('body', JSON.stringify(launch))
+
+        if (launch.files && launch.files.length > 0) {
+            for (let i = 0; i < launch.files.length; i++) formData.append('file', launch.files[i])
+        }
+
+        return $.ajax({
+            method: 'POST',
+            url: urlBase + '/updateLaunchInfo',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            beforeSend: () => console.log(JSON.stringify(formData)),
+            success: response => console.log(response),
+            error: (xhr, status, err) => console.log("ERROR: " + err)
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
+            console.log(res.data)
             return $q.reject(res)
         })
     }
     function deleteLaunch(launch) {
-        return $http({method: 'POST', url: urlBase + '/deleteLaunch', data: launch})
-                .then(body => {
-                console.log(body)
-        return body
-    }, res => {
+        return $http({
+            method: 'POST',
+            url: urlBase + '/deleteLaunch', 
+            data: launch
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
             console.log(JSON.stringify(res.data))
             return $q.reject(res)
         })

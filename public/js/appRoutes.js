@@ -47,6 +47,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 				}]
 			}
 		})
+
+		.when('/view/:launchId', {
+			template: '<social-share></social-share>',
+		})
 		
 	$locationProvider.html5Mode(true);
 

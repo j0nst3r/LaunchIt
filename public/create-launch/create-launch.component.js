@@ -42,10 +42,7 @@ angular.
 			}
 
 			$scope.create = function(launch){
-				// SHouldn't need this check anymore because it is handled in the file upload process
-				// if($('input[type=file]')[0].files.length > 5) {
-				// 	alert("Cannot select more than 5 files")
-				// }
+
 					var newLaunch = launch;
 					var userId = sessionStorage.getItem('userId');
 					newLaunch.owner = userId
@@ -55,25 +52,11 @@ angular.
 						formData.append('file', $('input[type=file]')[0].files[i]); 
 					}
 					console.log(JSON.stringify(newLaunch))
-					$.ajax({
-						url : 'http://localhost:8080/api/createLaunch',
-						dataType : 'json',
-						type : 'POST',
-						data : formData,
-						contentType : false,
-						cache : false,
-						processData : false,
-						beforeSend : function() {
-							console.log(JSON.stringify(formData))
-						}.bind(this),
-						success : function (response) {
-							console.log(response)
-						}.bind(this),
-						error : function (xhr, status, err) {
-							console.log("Error: " + err)
-						}.bind(this)
-
-					}).then( () => window.location = '/launch-board')
+					dataService.createLaunch(formData)
+						.then(setTimeout(()=> {
+            				window.location = '/launch-board'
+        					}, 500)
+						)
 			}
 		}
 	})

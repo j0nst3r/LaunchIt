@@ -1,2 +1,2 @@
 "use strict"
-angular.module('launchBoard', ['ui.bootstrap', 'DataService', 'edit'])
+angular.module('launchBoard', ['ui.bootstrap', 'akoenig.deckgrid', 'DataService'])

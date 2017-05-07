@@ -8,7 +8,7 @@ angular
 			userId: '<'
 		},
 
-        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route',
+        controller: ['$uibModal', 'dataService', '$window', '$scope', 'uiController', '$route', 
         function($uibModal, dataService, $window, $scope, uiController, $route) {
             
             $scope.columnSpec = uiController.setup($window.innerWidth);
@@ -25,9 +25,12 @@ angular
                 });
             });
             
+
+
             this.launches = []
             this.$onInit = function() {
                 this.isPrivate = this.userId == undefined
+                this.isHome = true
                 this.dataService = dataService
                 if (this.isPrivate) this.userId = sessionStorage.getItem('userId')	// Apply logged-in user's ID
                 this.favoriteLaunches = this.dataService.getFavoriteLaunches(this.userId)
@@ -42,6 +45,7 @@ angular
                         let launch = this.launches[i]
 
                         this.launches[i].nay = function(){
+                            toastr.success('Thank You for casting your vote');
                             let userId = sessionStorage.getItem('userId')
                             let yayVoters = launch.voteYay
 
@@ -63,6 +67,8 @@ angular
                         }
             
                         this.launches[i].yay = function(){
+                            
+                            toastr.success('Thank You for casting your vote');
                             // if userId is in launch.voteNay, remove from launch.voteNay
                             // add userId to launch.voteYay
                             let userId = sessionStorage.getItem('userId')

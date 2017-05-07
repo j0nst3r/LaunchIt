@@ -10,16 +10,18 @@ angular
 			close: '&',
 			dismiss: '&'
 		},
-		controller: [function () {
+		controller: ["dataService", function (dataService) {
 			this.$onInit = function () {
 				this.title = this.resolve.meta.title
 
 				this.fields = this.resolve.fields
 				this.placeholders = {}
 
+
 				this.edit = this.resolve.data ? true : false
 				this.data = this.edit ? angular.copy(this.resolve.data) : {}	// Edit if binding, create otherwise
 
+				this.LaunchComments = this.data.comments
 				this.readonly = this.resolve.readonly
 			}
 
@@ -31,7 +33,11 @@ angular
 					}
 				})
 			}
-			this.ok = function () { this.return() }
+			this.ok = function (id, comments) {
+				console.log("Test   : %s  ::  %s", id, comments);
+				dataService.addComment(id, comments);
+
+			}
 			this.delete = function () { this.return(true) }
 		}]
 	})

@@ -7,7 +7,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     var dataService = {};
 
     /*
-      LOGIN SERVICE CALLS 
+      LOGIN SERVICE CALLS
     */
 	dataService.validateEmail = validateEmail;
 	dataService.updateEmail = updateEmail;
@@ -16,9 +16,9 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.createAccount = createAccount;
 	dataService.resetPassword = resetPassword;
 	dataService.performLoginOperation = performLoginOperation;
-	
+
 	dataService.getAllLaunches = getAllLaunches;
-	
+
 	/*
 	  LAUNCH SERVICE CALLS
 	*/
@@ -27,8 +27,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 	dataService.updateLaunch = updateLaunch;
 	dataService.deleteLaunch = deleteLaunch;
 
-	return dataService;	
-	
+	dataService.addComment = addComment;
+
+	return dataService;
+
 	// get all of the launches in the database and return them
 	function getAllLaunches(){
 		return $http({
@@ -116,7 +118,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
-	
+
 	function validatePassword(data){
 		return $http({
 			method: 'POST',
@@ -191,7 +193,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
-	
+
 	function updateEmail(accountInfo){
 		return $http({
 			method: 'POST',
@@ -207,7 +209,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
-	
+
 	function resetPassword(accountInfo){
 		return $http({
 			method: 'POST',
@@ -240,8 +242,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			});
 	}
 
-		
-	function performLoginOperation(userIn, passIn){ 
+
+	function performLoginOperation(userIn, passIn){
 		return $http({
 				method: 'POST',
 				url: urlBase + '/login',
@@ -257,8 +259,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
-	
-	function getProfile(profileID){ 
+
+	function getProfile(profileID){
 		console.log(profileID);
 		return $http({
 				method: 'POST',
@@ -274,8 +276,8 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 				return $q.reject(res.data);
 			});
 	}
-	
-	function updateProfile(data){ 
+
+	function updateProfile(data){
 		console.log(data);
 		return $http({
 				method: 'POST',
@@ -285,6 +287,24 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
 			function(body) { //what to on on success call
 				console.log(body);
 				return body.data;
+			},
+			function(res){
+				console.log(JSON.stringify(res.data));
+				return $q.reject(res.data);
+			});
+	}
+
+
+	function addComment(forumId, forumComments){
+		console.log(forumId, forumComments)
+		return $http({
+			method: 'POST',
+			url: urlBase + '/updateComment',
+			data: {_id: forumId, newComment: forumComments}
+		}).then(
+			function(body) { //what to on on success call
+				console.log(body);
+				return body;
 			},
 			function(res){
 				console.log(JSON.stringify(res.data));

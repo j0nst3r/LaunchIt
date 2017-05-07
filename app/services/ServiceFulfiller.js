@@ -17,6 +17,7 @@ service.getAllLaunches = getAllLaunches;
 service.createLaunch = createLaunch;
 service.deleteLaunch = deleteLaunch;
 service.updateLaunchInfo = updateLaunchInfo;
+service.updateComment = updateComment;
 
 module.exports = service;
 
@@ -52,12 +53,12 @@ function createAccount(accountInfo){
 		email : accountInfo.email,
 		password : accountInfo.password
 	});
-	
+
 	newUser.save(function(err, result){
 		if(err) return console.error(err);
 		return console.log(result);
 	});
-	
+
 	return user.findOne({email: accountInfo.email},function(err, result){
 		if(err) return console.error(err);
 		return result;
@@ -118,7 +119,7 @@ function createProfile(reqData, userId){
 			});
 	return newProfile.save(function (err, result) {
 		if (err) return console.error(err);
-		return console.log(result);			
+		return console.log(result);
 	});
 }
 
@@ -127,7 +128,7 @@ function createProfile(reqData, userId){
 //==========================================
 function getAllLaunches() {
 	console.log("In ServiceFulfiller: getAllLaunches");
-	return launch.find({}, function(err, result){ 
+	return launch.find({}, function(err, result){
 		if(err) return console.error(err);
 		console.log(result);
 		return result;
@@ -564,16 +565,19 @@ function createForumPost(forumData){
 			return {message:"OK"};
 	});
 }
+ */
 
-function updateForum(forumData){
-	console.log("IN updateForumPost : " + JSON.stringify(forumData));
-	
-	var query = {_id:forumData._id};
-	delete forumData_id;
-	forum.update(query, {$set: forumData}, function(err, result){
-		if(err) return console.err(err);
-		return console.log(result);
-	});
-	return Promise.resolve({message:"OK"});
+function updateComment(reqData){
+	console.log("IN ADD COMMENT..." + reqData)
+	launch.findOne({_id:reqData._id}, function(err, result){
+		console.log(result);
+		if(err) return console.error(err);
+		result.comments.push(reqData.newComment);
+		launch.update({_id:reqData._id},{$set: result}, function(err, result){
+			if(err) return console.error(err);
+			console.log(result);
+		})
+	})
+	return Promise.resolve({message:"ok"});
 }
-*/
+

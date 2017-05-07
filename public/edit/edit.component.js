@@ -10,7 +10,7 @@ angular
 			close: '&',
 			dismiss: '&'
 		},
-		controller: [function () {
+		controller: ["dataService", function (dataService) {
 			this.$onInit = function () {
 				this.title = this.resolve.meta.title
 
@@ -33,7 +33,11 @@ angular
 					}
 				})
 			}
-			this.ok = function () { this.return() }
+			this.ok = function (id, comments) {
+				console.log("Test   : %s  ::  %s", id, comments);
+				dataService.addComment(id, comments);
+
+			}
 			this.delete = function () { this.return(true) }
 		}]
 	})

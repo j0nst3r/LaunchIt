@@ -6,7 +6,7 @@
 
 <h1>{{$ctrl.title}}</h1>
 
-<form ng-submit="$ctrl.ok()">
+<form ng-submit="$ctrl.ok($ctrl.data.id, launches.comments)">
 	<!-- Select appropriate input type -->
 <!--	<input ng-if="['text', 'password', 'email'].indexOf(type[0]) >= 0" class="form-control" type="{{type[0]}}" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly" ng-repeat-start="(property, type) in $ctrl.fields">
 	<textarea ng-if="type[0] === 'textarea'" class="form-control" placeholder="{{type[1]}}" uib-tooltip="{{type[1]}}" ng-model="$ctrl.data[property]" ng-readonly="$ctrl.readonly" ng-required="!$ctrl.readonly"></textarea>
@@ -19,11 +19,20 @@
 	<input class="btn btn-danger" type="button" value="Delete" ng-click="$ctrl.delete()" ng-if="$ctrl.edit && !$ctrl.readonly">-->
 
 
-    
+    <input type="text" class="form-control" name="comment" ng-model="launches.comments">
+
  <p ng-repeat="cmt in $ctrl.LaunchComments track by $index" class="form-control">
         {{cmt}}
         <br>
     </p>
+
+
+
+    <br/>
+    <button class="btn btn-primary">
+         <span>Submit</span>
+     </button>
+    <br/>
 
 
 </form>

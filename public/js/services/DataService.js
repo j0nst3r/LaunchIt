@@ -19,6 +19,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.createAccount = createAccount;
     dataService.resetPassword = resetPassword;
     dataService.performLoginOperation = performLoginOperation;
+
 	/*
 	 LAUNCH SERVICE CALLS
 	 */
@@ -41,6 +42,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     dataService.getFollowerInfo = getFollowerInfo;
     dataService.getFollowingStatus = getFollowingStatus;
     dataService.updateFollowing = updateFollowing;
+    dataService.getDisplayName = getDisplayName;
 
     return dataService;
 
@@ -125,6 +127,21 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
         )
     }
 
+    function getDisplayName(ownerId){
+        return $http({
+            method: 'GET',
+            url: urlBase + '/getDisplayName/' + ownerId,
+        }).then(
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return res.data;
+            },
+            function(res) {
+                console.log(JSON.stringify(res.data));
+                return $q.reject(res.data);
+            }
+        )
+    }
 
     // get all of the launches in the database and return them
     function getAllLaunches(){
@@ -302,6 +319,10 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
     function updateLaunch(launch) {
         const formData = new FormData()
         formData.append('body', JSON.stringify(launch))
+
+        if (launch.files && launch.files.length > 0) {
+            for (let i = 0; i < launch.files.length; i++) formData.append('file', launch.files[i])
+        }
 
         return $.ajax({
             method: 'POST',

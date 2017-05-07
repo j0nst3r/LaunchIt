@@ -29,7 +29,7 @@ angular.module('uiController', []).factory('uiController', [function() {
 
 			var columnObj = {};
 			columnObj.size = 33;
-			columnObj.ngif = {"col" : 2, "rem": 1}
+			columnObj.ngif = {"col" : 3, "rem": 1}
 			columnSpec.push(columnObj);
 
 			var columnObj = {};

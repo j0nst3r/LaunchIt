@@ -19,12 +19,12 @@ angular
 				this.title = (this.edit ? "Edit: " : "") + this.launch.name
 
 				$document.ready(() => {
-					this.launch.files = $("input[type=file]")[0].files	// Add files container
 					initFileListener()
 				})
 			}
 
 			this.return = function (del) {
+				this.launch.files = $("input[type=file]")[0].files
 				this.close({
 					$value: {
 						data: this.launch,

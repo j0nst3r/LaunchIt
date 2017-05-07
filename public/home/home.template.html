@@ -57,7 +57,7 @@
 		}
 	}
 	div.layout-row{
-		padding-top: 10px;
+		padding-top: 20px;
 	}
 	md-card {
 		position: relative;
@@ -152,17 +152,25 @@
 
 <div class="jumbotron">
 
+	<div class="searchBar">
+		<form>
+			<input type="text" ng-model="searchText" placeholder="Search..."/>
+		</form>
+	</div>
+
 	<div class="tab" ng-if="!$ctrl.isHome">
 		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
 		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
 	</div>
-	
+	</br>
 
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
 				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
-    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
-					<md-card-content class="create" layout="row" layout-align="start center" ng-if="$index == 0 && $ctrl.isEditable">
+    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText"
+				  ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" 
+				  uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
+					<md-card-content class="create" layout="row" layout-align="start center" ng-if="$index == 0 && $ctrl.isEditable && $ctrl.isPrivate">
           				<hr>
 						  <h2>Create New Launch</h3>
 						<hr>
@@ -173,7 +181,6 @@
 						  <h3>{{launch.name}}</h3>
 						<hr>
         			</md-card-content>
-					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->
 					<div  ng-if="$index != 0 || !$ctrl.isEditable">
 					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="Washed Out">
 

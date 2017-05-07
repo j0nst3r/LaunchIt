@@ -1,4 +1,64 @@
 <style>
+	/* Style the tab */
+	div.tab {
+		overflow: hidden;
+		border: 1px solid #ccc;
+		background-color: #f1f1f1;
+		margin-top: 30px;
+	}
+	/* Style the buttons inside the tab */
+	div.tab button {
+		background-color: inherit;
+		float: left;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		padding: 14px 16px;
+		transition: 0.3s;
+	}
+	/* Change background color of buttons on hover */
+	div.tab button:hover {
+		background-color: #ccc;
+	}
+	/* Create an active/current tablink class */
+	div.tab button.active {
+		background-color: #ccc;
+	}
+	/* Style the tab content */
+	
+	.tabcontent {
+		display: none;
+		padding: 6px 12px;
+		border: 1px solid #ccc;
+		border-top: none;
+	}
+	
+	.tabcontent {
+		-webkit-animation: fadeEffect 1s;
+		animation: fadeEffect 1s;
+		/* Fading effect takes 1 second */
+	}
+	
+	@-webkit-keyframes fadeEffect {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	
+	@keyframes fadeEffect {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	div.layout-row{
+		padding-top: 10px;
+	}
 	md-card {
 		position: relative;
 	}
@@ -11,6 +71,19 @@
 		opacity: 1;
 		top: 100%;
 		transition: .4s;
+	}
+
+	md-card h3 {
+		padding: 1px;
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+	}
+	md-card img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+	md-card span {
+		margin: auto;
 	}
 
 	.inside {
@@ -37,6 +110,7 @@
 		opacity: 1;
 		transition: .4s;
 	}
+<<<<<<< HEAD
 	.card-follow{
 		float:left;
 
@@ -48,6 +122,8 @@
 	.rightlove{
 		padding-left: 4em;
 	}
+=======
+>>>>>>> feedb697b8e7d9b0e8bbb11444d8e2d9009e6405
 	.follow{
 		padding-top: 1px;
 		float: left;
@@ -55,6 +131,7 @@
 	#so-fa{
 		float: right;
 		size: 10%;
+		
 	}
 	#so-tw{
 		float: right;
@@ -68,6 +145,10 @@
 		float: right;
 		size: 10%;
 	}
+	md-card-content.create{
+		background-color: #000;
+		color: ghostwhite;
+	}
 </style>
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -75,24 +156,46 @@
 
 
 <div class="jumbotron">
+
+	<div class="tab" ng-if="!$ctrl.isHome">
+		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
+		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
+	</div>
+	
+
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
 				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
-    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.view(launch)">
-					<md-card-content layout="row" layout-align="start center">
+    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
+					<md-card-content class="create" layout="row" layout-align="start center" ng-if="$index == 0 && $ctrl.isEditable">
           				<hr>
-						  <p>{{launch.name}}</p>
+						  <h2>Create New Launch</h3>
 						<hr>
-						
+						<i class="material-icons" ng-if="$index == 0 && $ctrl.isPrivate && $ctrl.isEditable">add</i>
+        			</md-card-content>
+					<md-card-content layout="row" layout-align="start center" ng-if="$index != 0 || !$ctrl.isEditable">
+          				<hr>
+						  <h3>{{launch.name}}</h3>
+						<hr>
         			</md-card-content>
 					<!--<iframe width="100%"  src="https://www.youtube.com/embed/o53i0kL6-Jw" frameborder="0" allowfullscreen></iframe>-->
+					<div  ng-if="$index != 0 || !$ctrl.isEditable">
 					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="Washed Out">
 					<div class="inside hiddenn" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
+<<<<<<< HEAD
 						<div class= "card-social-follow">
 							<a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="$window.alert('button click'); $event.stopPropagation()" style="margin-right: 3px;"><i class="fa fa-facebook"></i></a>
 							<a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="$window.alert('button click'); $event.stopPropagation()" style="margin-right: 3px"><i class="fa fa-twitter"></i></a>
 							<a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="$window.alert('button click'); $event.stopPropagation()" style="margin-right: 3px"><i class="fa fa-linkedin"></i></a>
 							<a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="$window.alert('button click'); $event.stopPropagation()" style="margin-right: 3px"><i class="fa fa-google-plus"></i></a>
+=======
+						<div class= "card-social">
+							<i class="follow">Share</i>	
+                                <a id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="share('facebook'); $event.stopPropagation()" style="margin-right:3px;"><i class="fa fa-facebook"></i></a>
+                                <a id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="share('twitter'); $event.stopPropagation()" style="margin-right:3px;"><i class="fa fa-twitter"></i></a>
+                                <a id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="share('linkedin'); $event.stopPropagation()" style="margin-right:3px;"><i class="fa fa-linkedin"></i></a>
+                                <a id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="share('google'); $event.stopPropagation()" style="margin-right:3px;"><i class="fa fa-google-plus"></i></a>
+>>>>>>> feedb697b8e7d9b0e8bbb11444d8e2d9009e6405
 						</div> <br>
 						<div>
 							<md-card-actions class= "rightlove" ng-disabled="!$root.isUserLoggedIn">
@@ -101,6 +204,7 @@
 								<i class="material-icons" ng-click="launch.isYayed || !launch.isNayed ? launch.nay() : undefined; $event.stopPropagation()">thumb_down</i>
 							</md-card-actions>
 						</div>
+					</div>
 					</div>
       			</md-card>
       			</div>

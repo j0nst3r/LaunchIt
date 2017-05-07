@@ -47,13 +47,13 @@ angular.module('social-Share', [])
         for (i = 0; i < shareLinks.length; i++) {
           var anchor = '';
             if (i == 1)
-                baseHTML = 'target= "_blank" id="so-tw" class="btn btn-primary social-login-btn social-twitter" ng-click="$event.stopPropagation()"><i class="fa fa-twitter"></i></a>';
+                baseHTML = 'target= "_blank" id="so-tw" class="btn btn-primary social-login-btn social-twitter" style="margin-right: 3px;" ng-click="$event.stopPropagation()"><i class="fa fa-twitter"></i></a>';
             if (i == 0)
-                baseHTML = 'target= "_blank" id="so-fa" class="btn btn-primary social-login-btn social-facebook" ng-click="$event.stopPropagation()"><i class="fa fa-facebook"></i></a>';
+                baseHTML = 'target= "_blank" id="so-fa" class="btn btn-primary social-login-btn social-facebook" style="margin-right: 3px;" ng-click="$event.stopPropagation()"><i class="fa fa-facebook"></i></a>';
             if (i == 2)       
-                baseHTML = 'target= "_blank" id="so-li" class="btn btn-primary social-login-btn social-linkedin" ng-click="$event.stopPropagation()"><i class="fa fa-linkedin"></i></a>';
+                baseHTML = 'target= "_blank" id="so-li" class="btn btn-primary social-login-btn social-linkedin" style="margin-right: 3px;" ng-click="$event.stopPropagation()"><i class="fa fa-linkedin"></i></a>';
             if (i == 3)
-                baseHTML = 'target= "_blank" id="so-go" class="btn btn-primary social-login-btn social-google" ng-click="$event.stopPropagation()"><i class="fa fa-google-plus"></i></a>';
+                baseHTML = 'target= "_blank" id="so-go" class="btn btn-primary social-login-btn social-google" style="margin-right: 3px;" ng-click="$event.stopPropagation()"><i class="fa fa-google-plus"></i></a>';
           anchor += '<a href="'+ shareLinks[i].url + '"';
           anchor += baseHTML;
           elem.append(anchor);

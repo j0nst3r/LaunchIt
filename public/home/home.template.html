@@ -167,22 +167,25 @@
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
 				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
-    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText"
-				  ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" 
-				  uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
-					<md-card-content class="create" layout="row" layout-align="start center" ng-if="$index == 0 && $ctrl.isEditable && $ctrl.isPrivate">
+				<md-card ng-if="$ctrl.isEditable && $ctrl.isPrivate && $index == 0" style="margin-bottom: 0px;"
+				 uib-tooltip="Click to Create" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" >
+					<md-card-content class="create" layout="row" layout-align="start center">
           				<hr>
 						  <h2>Create New Launch</h3>
 						<hr>
-						<i class="material-icons" ng-if="$index == 0 && $ctrl.isPrivate && $ctrl.isEditable">add</i>
+						<i class="material-icons">add</i>
         			</md-card-content>
+				</md-card>
+    	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText"
+				  ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" 
+				  uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
 					<md-card-content layout="row" layout-align="start center" ng-if="$index != 0 || !$ctrl.isEditable">
           				<hr>
 						  <h3>{{launch.name}}</h3>
 						<hr>
         			</md-card-content>
-					<div  ng-if="$index != 0 || !$ctrl.isEditable">
-					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="Washed Out">
+					<div ng-if="$index != 0 || !$ctrl.isEditable">
+					<img ng-src="{{launch.website[0]}}" class="md-card-image" alt="No Image">
 
 					<div class="inside hiddenn" style="background-color: rgba(200, 200, 200, .5);" ng-click="$ctrl.isPrivate ? $ctrl.edit(launch) : undefined">
 					<div class= "card-social-follow">

@@ -68,7 +68,7 @@ angular
 			}
 
 			this.view = function (launch, edit) {
-				if (launch.isCreate) {
+				if (launch == undefined) {
 					this.create()
 					return
 				}

@@ -146,20 +146,25 @@
 
 <div class="jumbotron">
 
-<<<<<<< HEAD
-=======
 	<div class="tab" ng-if="!$ctrl.isHome">
 		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>
 		<button class="tablinks" ng-click="$ctrl.viewFavorites()">Favorites</button>
 	</div>
 	
 
->>>>>>> feedb697b8e7d9b0e8bbb11444d8e2d9009e6405
 	<md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
 		<div layout="row">
 				<div ng-repeat="curColumn in columnSpec track by $index" layout="column" flex-xs flex-gt-xs="{{curColumn.size}}">
     	  		<md-card ng-if="getIfStatement(curColumn, $index)" ng-repeat="launch in $ctrl.launches | filter:searchText" ng-click="$ctrl.isPrivate && $ctrl.isEditable ? $ctrl.view(launch, true) : $ctrl.view(launch)" uib-tooltip="{{$ctrl.isPrivate && $ctrl.isEditable ? $index == 0 ? 'Click to Create' : 'Click to Edit' : 'Click to View'}}">
 					<md-card-content class="create" layout="row" layout-align="start center" ng-if="$index == 0 && $ctrl.isEditable">
+          				<hr>
+						  <h2>Create New Launch</h3>
+						<hr>
+						<i class="material-icons" ng-if="$index == 0 && $ctrl.isPrivate && $ctrl.isEditable">add</i>
+        			</md-card-content>
+					<md-card-content layout="row" layout-align="start center" ng-if="$index != 0 || !$ctrl.isEditable">
+          				<hr>
+
           				<hr>
 						  <h2>Create New Launch</h3>
 						<hr>
@@ -178,6 +183,7 @@
 							<i class="follow">Share</i>	
 
                                 <div share-square="true" target= "_blank" share-links="Facebook, Twitter, LinkedIn, Google-Plus" ng-click="$event.stopPropagation()" launch-Id="{{launch._id}}" share-title="Check out LaunchIt"></div>
+
 
 						</div> <br>
 						<div>

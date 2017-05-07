@@ -254,13 +254,15 @@
 			<div class="content" ng-switch-when="viewFollowing">
 				<h3>Secretly Stalking....</h3>
 				<md-content layout-padding>
-						<div ng-repeat="user in followerInfo" ng-click="goToProfile(user._id)"> 
+						<div ng-repeat="user in followerInfo" ng-click="goToProfile(user._id)">
+						<div class=row> 
 						<div class="col-md-3 img-responsive">
 						<img ng-src="{{user.imgUrl}}"style="height: 150px;width: 150px;">
 						</div>
 						<div class="col-md-9">
 							<div style="font-size: 20px;;font-weight: bold;">{{user.displayName}}</div>
 							<div style="font-size: 20px;">{{user.userBios}}</div>
+						</div>
 						</div>
 				</md-content>
 			</div>

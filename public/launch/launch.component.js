@@ -27,7 +27,7 @@ angular
 
 			this.goToOwner = function () {
 				this.dismiss()
-				$location.path("/launch-board/" + this.launch.owner)
+				$location.path("/account/" + this.launch.owner)
 			}
 
 			this.return = function (del) {

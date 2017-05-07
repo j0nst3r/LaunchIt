@@ -188,7 +188,7 @@
 
 						</div> <br>
 						<div>
-							<md-card-actions class= "rightlove" ng-disabled="!$root.isUserLoggedIn">
+							<md-card-actions class= "rightlove" ng-if="$root.isUserLoggedIn">
 								<i class="material-icons" ng-click="!launch.isYayed || launch.isNayed ? launch.yay() : undefined; $event.stopPropagation()">thumb_up</i>
 								<i class="material-icons" ng-click="$ctrl.toggleFavorite(launch); $event.stopPropagation()">{{launch.getHeart()}}</i>
 								<i class="material-icons" ng-click="launch.isYayed || !launch.isNayed ? launch.nay() : undefined; $event.stopPropagation()">thumb_down</i>

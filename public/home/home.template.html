@@ -144,6 +144,30 @@
 		background-color: #000;
 		color: ghostwhite;
 	}
+
+/* CSS used here will be applied after bootstrap.css */
+
+.input-group {
+    width: 30%;
+}
+
+.input-group > .form-control.search-query {
+    border-radius: 4px;
+    padding-right: 34px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+.input-group > .input-group-btn {
+    position: absolute;
+    top: 2px;
+    right: 34px;
+    z-index: 9;
+}
+.input-group > .input-group-btn > button.btn.search-button {
+    background: none;
+    border: 0;
+    box-shadow: none;
+}
 </style>
 <head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -151,12 +175,17 @@
 
 
 <div class="jumbotron">
-
-	<div class="searchBar">
-		<form>
-			<input type="text" ng-model="searchText" placeholder="Search..."/>
+    <div class="row" style="margin-left: 0px;margin-right: 0px;">
+        <form>
+  			<div class="input-group">
+    			<input type="text" class="form-control search-query searchbar" ng-model="searchText" placeholder="Search for...">
+    				<span class="input-group-btn">
+      			<button class="btn btn-default search-button" type="button">
+        			<span class="glyphicon glyphicon-search"></span>
+      			</button></span>
+  			</div>
 		</form>
-	</div>
+    </div>
 
 	<div class="tab" ng-if="!$ctrl.isHome">
 		<button class="tablinks" ng-click="$ctrl.reload()">My Launches</button>

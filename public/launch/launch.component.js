@@ -10,7 +10,7 @@ angular
 			close: '&',
 			dismiss: '&'
 		},
-		controller: ['dataService', function (dataService) {
+		controller: ['$document', 'dataService', function ($document, dataService) {
 			this.$onInit = function () {
 				this.launch = angular.copy(this.resolve.launch)
 
@@ -18,12 +18,13 @@ angular
 
 				this.title = (this.edit ? "Edit: " : "") + this.launch.name
 
-				initFileListener()
+				$document.ready(() => {
+					this.launch.files = $("input[type=file]")[0].files	// Add files container
+					initFileListener()
+				})
 			}
 
 			this.return = function (del) {
-				this.launch.files = $("input[type=file]")[0].files	// Add files container
-				
 				this.close({
 					$value: {
 						data: this.launch,

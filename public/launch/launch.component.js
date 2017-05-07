@@ -10,17 +10,24 @@ angular
 			close: '&',
 			dismiss: '&'
 		},
-		controller: ['$document', 'dataService', function ($document, dataService) {
+		controller: ['$document', '$location', 'dataService', function ($document, $location, dataService) {
 			this.$onInit = function () {
 				this.launch = angular.copy(this.resolve.launch)
 
 				this.edit = this.resolve.edit
 
 				this.title = (this.edit ? "Edit: " : "") + this.launch.name
+				dataService.getDisplayName(this.launch.owner)
+					.then(name => this.owner = name)
 
 				$document.ready(() => {
 					initFileListener()
 				})
+			}
+
+			this.goToOwner = function () {
+				this.dismiss()
+				$location.path("/launch-board/" + this.launch.owner)
 			}
 
 			this.return = function (del) {

@@ -12,7 +12,8 @@
     "angular-bootstrap": "2.2.0",
     "ng-img-crop": "ngImgCrop#^0.3.2",
     "angular-deckgrid": "^0.5.0",
-    "angular-socialshare": "angularjs-socialshare#^2.3.8"
+    "angular-socialshare": "angularjs-socialshare#^2.3.8",
+    "angular-easy-social-share": "^1.0.1"
   },
   "homepage": "https://github.com/j0nst3r/f17cmpe165.git",
   "description": "",

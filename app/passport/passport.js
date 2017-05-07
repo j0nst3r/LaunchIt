@@ -60,9 +60,10 @@ module.exports = function (app, passport) {
                         } else {
                             console.log("finding user and creating profile");
                             user.findOne({ 'socialId': socialMedia.id }, function (err, result) {
-                                console.log(result._id);
+                                console.log('display name' + socialMedia.displayName);
                                 var newProfile = new profile({
-                                    _id: result._id
+                                    _id: result._id,
+                                    displayName: socialMedia.displayName
                                 });
                                 newProfile.save(function (err) {
                                     if (err) console.log(err);
@@ -119,7 +120,8 @@ module.exports = function (app, passport) {
                             console.log("finding user and creating profile");
                             user.findOne({ 'socialId': socialMedia.id }, function (err, result) {
                                 var newProfile = new profile({
-                                    _id: result._id
+                                    _id: result._id,
+                                    displayName: socialMedia.displayName
                                 });
                                 newProfile.save(function (err) {
                                     if (err) console.log(err);
@@ -175,7 +177,8 @@ module.exports = function (app, passport) {
                             console.log("finding user and creating profile");
                             user.findOne({ 'socialId': socialMedia.id }, function (err, result) {
                                 var newProfile = new profile({
-                                    _id: result._id
+                                    _id: result._id,
+                                    displayName: socialMedia.displayName
                                 });
                                 newProfile.save(function (err) {
                                     if (err) console.log(err);
@@ -234,7 +237,8 @@ module.exports = function (app, passport) {
                             user.findOne({ 'socialId': socialMedia.id }, function (err, result) {
                                 console.log(result._id);
                                 var newProfile = new profile({
-                                    _id: result._id
+                                    _id: result._id,
+                                    displayName: socialMedia.displayName
                                 });
                                 newProfile.save(function (err) {
                                     if (err) console.log(err);

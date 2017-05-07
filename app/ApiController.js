@@ -363,6 +363,11 @@ router.post('/createLaunch', upload.array('file'), function (req, res, next) {
 			//for each file in the file list, store image to correct folder and 
 			console.log("debuggin EC2 POS....#1 : " + launchId);
 			launchObj._id = launchId
+			//  var tags = []
+
+    		if(launchObj.tags !=null) {
+        		launchObj.tags = launchObj.tags.split(/\s*,\s*/)
+    		}
 			for (var a = 0; a < fileList.length; a++) {
 				var tempDir = __dirname.concat('/tempImg/').concat(fileList[a].filename);
 				var permaDir = __dirname.concat('/launchImage/').concat(launchId).concat('/').concat(fileList[a].originalname);

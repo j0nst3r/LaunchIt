@@ -287,17 +287,17 @@ function getLaunches(ownerId){
 
 function createLaunch(launchInfo){
     console.log("IN createLaunch: " + launchInfo);
-    var tags = []
-    if(launchInfo.tags !=null) {
-        tags = launchInfo.tags.split(",")
-    }
-
+    // var tags = []
+    // if(launchInfo.tags !=null) {
+    //     tags = launchInfo.tags.split(",")
+    // }
+    // console.log("PLEASE HELP: " + JSON.stringify(tags))
     var newLaunch = new launch({
         owner: launchInfo.owner,
         name: launchInfo.name,
         website : launchInfo.website,
         description : launchInfo.description,
-        tags : tags
+        tags : launchInfo.tags
     })
 
     newLaunch.save(function (err, result) {

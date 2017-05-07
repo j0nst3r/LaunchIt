@@ -6,6 +6,7 @@ angular.module('MainCtrl', []).controller('MainController', function($rootScope,
 		sessionStorage.setItem('loggedIn', false);
 		$rootScope.isUserLoggedIn = false;
 		$location.path('/');
+		toastr.success('You have been logged out')
 	}
 	
 	this.loadRegistration = function(){

@@ -9,6 +9,7 @@ angular.module('LoginCtrl', [])
 				$rootScope.isUserLoggedIn = true;
 				sessionStorage.setItem('loggedIn', true);
 				sessionStorage.setItem('userId', body.data.userInfo._id);
+				toastr.success('Welcome to LaunchIt')
 				$location.path('/');
 			}else{
 				$rootScope.isUserLoggedIn = false;

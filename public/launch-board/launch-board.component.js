@@ -52,10 +52,14 @@ angular
 							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						
 							this.launches[i].yay = function () {
+								
+                            		toastr.success('Thank You for casting your vote');
 									dataService.castVote('up', sessionStorage.getItem('userId'), launches[i]._id)
 										.then(launch => this.yays = launch.voteYay.length - launch.voteNay.length)
 								}
 							this.launches[i].nay = function () {
+									
+                            		toastr.success('Thank You for casting your vote');
 									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id)
 										.then(launch => this.yays = launch.voteYay.length - launch.voteNay.length)
 								}
@@ -101,9 +105,12 @@ angular
 							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						
 							this.launches[i].yay = function () {
+                            		toastr.success('Thank You for casting your vote');
 									dataService.castVote('up', sessionStorage.getItem('userId'), launches[i]._id)
 								}
 							this.launches[i].nay = function () {
+									
+                            		toastr.success('Thank You for casting your vote');
 									dataService.castVote('down', sessionStorage.getItem('userId'), launches[i]._id) 
 								}
 						}

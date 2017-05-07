@@ -134,7 +134,7 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
         }).then(
             function(res) {
                 console.log(JSON.stringify(res.data));
-                return res.data;
+                return res.data.displayName;
             },
             function(res) {
                 console.log(JSON.stringify(res.data));

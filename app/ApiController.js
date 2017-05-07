@@ -409,7 +409,7 @@ router.post('/updateLaunchInfo', upload.array('file'), function (req, res, next)
 
 	//wipe directory of old picture and clear custom imageList IF NO NEW IMAGES
 	if (fileList.length > 0) {
-		data.website = data.website.slice(0, 1);
+		data.website = $.grep(data.website, function (it) { new RegExp("^(?!.*" + baseUrl + ").*").test(it) });
 		var permaDir = __dirname.concat('/launchImage/').concat(data._id).concat('/');
 		fsExtra.remove(permaDir, () => {
 			//move new picture into folder

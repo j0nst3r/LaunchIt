@@ -4,16 +4,20 @@ angular
     .module('accountpage')
     .component('accountmanager', {
         templateUrl: 'accountmanager/accountmanager.template.html',
-        controller : function($location, $route, $uibModal, $scope, $rootScope, dataService) {
+        controller : function($sce, $location, $route, $uibModal, $scope, $rootScope, dataService) {
             
             $scope.userId = ($route.current.params.id === undefined ? sessionStorage.getItem('userId') : $route.current.params.id)
             console.log($scope.userId);
 
+            $scope.authenticate = function(){
+                window.location.href = '/auth/paypal?Access_token=rgthz9mqx2jfbp23$c77d0a8b075b18bcec70a7c0870ba41c';
+            }
 
             $scope.isPrivate =  $route.current.params.id === undefined
             dataService.getProfile({'userId': $scope.userId}).then(function(data){
                 $scope.userData = data;
                 $scope.user = $scope.userData;
+                $scope.userData.paypal.content = $sce.trustAsHtml($scope.userData.paypal.content);
             });
 
             dataService.getFollowingStatus({"loggedInUser": sessionStorage.getItem('userId'), "publicUser":$scope.userId}).then(
@@ -112,7 +116,17 @@ angular
                         console.log(params);
                         dataService.updateProfile(params).then(function(data){});
                         $scope.showTabIndex = 'default';
-                        break;  
+                        break;
+                    case 'linkPaypal':
+                        var params = {
+                            "userId" : $scope.userId,
+                            "paypal" : data
+                        }
+                        params.paypal.content = params.paypal.content.replace(/\n/ig, '');
+                        console.log(data);
+                        dataService.updateProfile(params);
+                        $scope.showTabIndex = 'default';
+                    break;
                     default:
                         console.log("not supported...");
                         break;

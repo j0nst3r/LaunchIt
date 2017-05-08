@@ -7,6 +7,7 @@ module.exports = mongoose.Schema(
 		firstName: String,
 		lastName: String,
 		favLaunch: [String],
-		following: [String]
+		following: [String],
+		paypal: {}
 	}
 );

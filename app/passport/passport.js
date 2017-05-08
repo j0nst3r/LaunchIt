@@ -3,6 +3,7 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 var PayPalStrategy = require('passport-paypal-oauth').Strategy;
+var PaypalTokenStrategy = require('passport-paypal-token');
 
 var config = require('../../config/property.js')
 
@@ -265,30 +266,6 @@ module.exports = function (app, passport) {
             url = url.concat(userId);
             console.log(url);
             res.redirect(url);
-        });
-
-    passport.use(new PayPalStrategy({
-        clientID: 'AcwWLYSt3VF6vuhyjes6GukyiUfSp2SHTkOM3KY71VxUd94fVzoP8elbd46Q9teYaXNikLVhE5Yi91Mc',
-        clientSecret: 'EKqh-fg9IShFU_TqA7GMJMJMjPOrYu3Ynfl9zRaN4QQ3-isbxgpyC2Bg81i6llh9KHF3B2Wl1c56vyng',
-        returnURL: hostUrl + '/auth/paypal/return',
-        realm: hostUrl
-    },
-        function (identifier, done) {
-
-            User.findByOpenID({ openId: identifier }, function (err, user) {
-                return done(err, user);
-            });
-        }
-    ));
-
-    app.get('/auth/paypal',
-        passport.authenticate('paypal'));
-
-    app.get('/auth/paypal/callback',
-        passport.authenticate('paypal', { failureRedirect: '/' }),
-        function (req, res) {
-            // Successful authentication, redirect home.
-            res.redirect('/');
         });
 
     return passport;

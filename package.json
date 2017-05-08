@@ -35,6 +35,7 @@
     "passport-linkedin-oauth2": "^1.5.0",
     "passport-paypal": "^0.3.0",
     "passport-paypal-oauth": "^0.1.0",
+    "passport-paypal-token": "^2.1.0",
     "passport-twitter": "^1.0.4",
     "path-exists": "^3.0.0",
     "social-share": "^0.1.0",

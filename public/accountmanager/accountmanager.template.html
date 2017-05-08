@@ -15,6 +15,7 @@
 	.jumbotron .nav-pills li a:hover{cursor: pointer;color: #fff;background-color: #3c3c3c}
 	.jumbotron md-content{background-color: #eee;}
 </style>
+
 <div class="jumbotron">
 	<div class="row">
 		<div class="col-md-3 img-responsive ">
@@ -77,6 +78,24 @@
                  document.getElementById('seven').style.background='none';document.getElementById('seven').style.color='#000';
                  document.getElementById('night').style.background='none';document.getElementById('night').style.color='#000';"
 					   ng-if="isPrivate" ng-click="switchTab('viewFollowing')">View Victims</a></li>
+				<!-- if user have paypal data-->
+				<li>
+					<div ng-if=" !isPrivate && userData.paypal !== undefined && userData.paypal.type ==='PaypalEmail'">
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_donations">
+						<input type="hidden" name="business" value="{{userData.paypal.content}}}">
+						<input type="hidden" name="lc" value="MQ">
+						<input type="hidden" name="no_note" value="0">
+						<input type="hidden" name="currency_code" value="USD">
+						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</div>
+					<div ng-if=" !isPrivate && userData.paypal !== undefined && userData.paypal.type==='PaypalButton'" >
+						<div ng-bind-html="userData.paypal.content"></div>
+					</div>
+				</li>
 				<li><a id="six" name="Follow"  class="" ng-if="!isPrivate" ng-hide="isFollowing" ng-click = "toggleFollow()">Start Stalking</a></li>
 				<li><a id="seven" name="UnFollow"  class="" ng-if="!isPrivate" ng-show="isFollowing" ng-click = "toggleFollow()">Stop Stalking</a></li>
 				<li><a id="night" name="viewBoard"  class="" ng-if="!isPrivate" ng-click="goToUserBoard()">View LaunchBoard</a></li>
@@ -86,6 +105,24 @@
 		</div>
 
 		<div class="col-md-9" ng-switch="showTabIndex">
+			<!-- Paypal Content-->
+			<div class="content" ng-switch-when="linkPaypal">
+				<h3>PayPal Donation Button</h3>
+					<form role="form" ng-cloak>
+    					<md-radio-group ng-model="Paypal.type" required>
+      						<md-radio-button value="PaypalEmail" class="md-primary">PayPal Account Email</md-radio-button>
+      						<md-radio-button value="PaypalButton">PayPal Generated Button</md-radio-button>
+    					</md-radio-group>
+						</br>
+						<md-input-container class="md-block" required>
+          					<label>content</label>
+          					<textarea ng-model="Paypal.content" md-maxlength="3000" rows="5" md-select-on-focus></textarea>
+        				</md-input-container>
+						<button type="button" class="btn btn-primary" nd-disabl="" ng-click="update(Paypal)">SAVE CHANGES</button>
+  					</form>
+			</div>
+
+			
 			<!--Update Email-->
 			<div class="content" ng-switch-when="updateEmail">
 				<h3>Update Email</h3>
@@ -266,9 +303,6 @@
 						</div>
 				</md-content>
 			</div>
-
-			<div class="content" ng-switch-when="linkPaypal"></div>
-
 			<div class="content" ng-switch-when="default">
 			</div>
 		</div>

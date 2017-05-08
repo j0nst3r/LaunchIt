@@ -21,23 +21,17 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			template: '<registrationform></registrationform>'
 		})
 		
-		.when('/notification', {
-			templateUrl: 'views/notification.html',
-			controller: 'NotificationController'	
-		})
-		
 		.when('/account/:id?', {
-			template: '<accountmanager></accountmanager>',
-		})
-		
-		.when('/launches', {
-			template: '<home></home>'
+			template: '<accountmanager></accountmanager>'
 		})
 
 		.when('/create-launch', {
 			template: '<create-launch></create-launch>'
 		})
 		
+		.when('/about', {
+			templateUrl: 'views/aboutus.html'
+		})
 		
 		.when('/launch-board/:userId?', {
 			template: '<launch-board user-id="$resolve.userId"></launch-board>',

@@ -308,6 +308,12 @@ angular.module('DataService', []).factory('dataService', ['$http', '$q', functio
             processData: false,
             success: response => console.log(response),
             error: (xhr, status, err) => console.log("ERROR: " + err)
+        }).then(body => {
+            console.log(body)
+            return body
+        }, res => {
+            console.log(res.data)
+            return $q.reject(res)
         })
     }
 

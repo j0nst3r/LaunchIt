@@ -61,14 +61,18 @@ angular
 				console.log("in reload() isEditable = " + this.isEditable)
 				dataService.getLaunches(this.userId, pageIndex)
 					.then(data => {
+						if(pageIndex == 0){
+							this.launches = [];
+						}
 						if (this.isEditable && pageIndex == 0) {
+							
 							this.launches.unshift(this.createLaunchCard)
 						}
 
 						this.launches = this.launches.concat(data.launches);
                     	this.pageIndex++;
                     	this.noMore = data.noMore;
-						console.log(launches);
+						console.log(this.launches);
 						for (let i = 1; i < this.launches.length; i++) {
 							this.launches[i].yays = this.launches[i].voteYay.length - this.launches[i].voteNay.length;
 						
@@ -111,7 +115,7 @@ angular
 					}
 					console.log((result.del ? "Deleting" : "Updating") + ": " + JSON.stringify(launch));
 					(result.del ? dataService.deleteLaunch(launch) : dataService.updateLaunch(launch))
-						.then(() => this.reload())
+						.then(() =>this.reload(0))
 				})
 			}
 
